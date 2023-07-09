@@ -1,8 +1,8 @@
 
-export default function Home() {
+export default function Home() { console.log('Earnings page');
   return (
     <main className="container">
-      <h1>Main Page</h1>
+      <h1>My Earnings</h1>
     </main>
   )
 }

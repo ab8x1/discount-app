@@ -45,7 +45,7 @@ function Navbar(){ console.log('Navbar');
                     <Toggler opened={opened} toogle={toogle}/>
                 </div>
             </TopNav>
-            <NavbarToogle opened={opened} close={close}/>
+            <NavbarToogle opened={opened} close={close} wallet={wallet}/>
         </nav>
     )
 }

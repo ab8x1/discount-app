@@ -12,7 +12,7 @@ export const TopNav = styled.div`
         justify-content: flex-end;
         border-bottom: none;
         padding: 30px 10px;
-        min-height: 88px;
+        min-height: 108px;
     }
 `
 
@@ -104,6 +104,12 @@ export const Menus = styled.div`
 
 export const Menu = styled.ul`
     list-style: none;
+    margin-top: 30px;
+    @media(min-width: 768px){
+        &:first-of-type{
+            margin-top: 0;
+        }
+    }
 `
 
 export const MenuItem = styled.li<{$active?: boolean}>`

@@ -3,13 +3,16 @@ import { usePathname } from 'next/navigation'
 import { NavToogle, Logo, LogoIcon, Menus, Menu, MenuItem, MenuLnik, RawMenuLink } from "./NavbarStyles";
 import Image from "next/image";
 import ConnectWallet from "./ConnectWallet";
+import { WalletState } from "@web3-onboard/core";
 
 function NavbarToogle({
     opened,
-    close
+    close,
+    wallet
 } : {
     opened: boolean,
-    close: () => void
+    close: () => void,
+    wallet: WalletState | null
 }){ console.log('NavbarToogle');
     const url = usePathname();
     const scrollY = typeof window !== "undefined" ? document?.documentElement?.scrollTop : 0;
@@ -25,9 +28,12 @@ function NavbarToogle({
                     Discount
                 </LogoIcon>
             </Logo>
-            <div className="hideDesktop" style={{margin: '30px 20px'}}>
-                <ConnectWallet fullwidth/>
-            </div>
+            {
+                !wallet &&
+                <div className="hideDesktop" style={{margin: '30px 20px 0 20px'}}>
+                        <ConnectWallet fullwidth/>
+                </div>
+            }
             <Menus>
                 <Menu>
                     <MenuItem $active={url === '/'}>

@@ -6,8 +6,7 @@ export default function WalletProvider({
     children
 }: {
     children: React.ReactNode
-}){
-
+}){ console.log('Wallet Provider');
     return(
         <Web3OnboardProvider web3Onboard={web3Onboard}>
             {children}

@@ -1,12 +1,11 @@
 import { init } from '@web3-onboard/react';
 import injectedModule from '@web3-onboard/injected-wallets';
+import { CommonPositions } from '@web3-onboard/core/dist/types';
+
+const desktopPosition: CommonPositions = 'topRight';
+const mobilePosition: CommonPositions = 'bottomRight';
 
 const injected = injectedModule();
-
-const accountCenterCommon = {
-  enabled: true,
-  minimal: true,
-}
 
 export const walletConfig = {
   wallets: [injected],
@@ -19,19 +18,23 @@ export const walletConfig = {
     }
   ],
   appMetadata: {
-    name: "YieldFlipper",
+    name: "Discount Finance",
     icon: '/logo.svg',
-    description: "YieldFlipper App",
+    description: "Discount Finance App",
   },
   connect: {
     autoConnectLastWallet: false
   },
   accountCenter: {
     desktop: {
-      ...accountCenterCommon,
+      enabled: true,
+      minimal: true,
+      position: desktopPosition
     },
     mobile: {
-      ...accountCenterCommon,
+      minimal: true,
+      enabled: true,
+      position: mobilePosition,
     }
   }
 }
