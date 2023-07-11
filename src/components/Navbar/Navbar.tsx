@@ -8,9 +8,9 @@ import { useConnectWallet } from '@web3-onboard/react';
 import ConnectWallet from "./ConnectWallet";
 import Image from "next/image";
 
-function Navbar(){ console.log('Navbar');
+export default function Navbar(){ console.log('Navbar');
     const [opened, setOpened] = useState(false);
-    const [{ wallet }, connect] = useConnectWallet();
+    const [{ wallet }] = useConnectWallet();
     const toogleNavRef = useRef<HTMLDivElement>(null);
     useClickOutside(toogleNavRef, () => close());
 
@@ -49,4 +49,3 @@ function Navbar(){ console.log('Navbar');
         </nav>
     )
 }
-export default memo(Navbar);
