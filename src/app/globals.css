@@ -47,6 +47,30 @@ a, button {
   padding: 10px;
 }
 
+.brand{
+  color: var(--brand-color);
+  font-weight: 700;
+}
+
+.boxButton{
+  justify-content: center;
+  text-align: center;
+  flex: 1;
+  width: 100%;
+  padding: 23px 5px;
+  color: white;
+  font-size: 1.13rem;
+  font-weight: 600;
+  gap: 6px;
+  border-radius: 0px 0px 9px 9px;
+  background: #00D26B;
+  transition: background 0.2s ease-in-out;
+}
+
+.boxButton:hover{
+  background: rgb(21, 226, 127);
+}
+
 @media(max-width: 767px){
   .hideMobile{
     display: none!important;

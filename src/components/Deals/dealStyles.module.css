@@ -53,20 +53,6 @@
     text-decoration-line: line-through;
 }
 
-.dealLink{
-    justify-content: center;
-    text-align: center;
-    flex: 1;
-    width: 100%;
-    padding: 23px 5px;
-    color: white;
-    font-size: 1.13rem;
-    font-weight: 600;
-    gap: 6px;
-    border-radius: 0px 0px 9px 9px;
-    background: #00D26B;
-}
-
 @media(min-width: 600px){
     #dealsGrid{
         display: grid;

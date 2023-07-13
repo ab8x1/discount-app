@@ -28,7 +28,7 @@ export default function Deal({
                     </div>
                 </div>
             </div>
-            <Link href={`/deal/${id}`} className={`alignY ${styles.dealLink}`}>
+            <Link href={`/deal/${id}`} className={`alignY boxButton`}>
                 Get USDC at {100 - (discountedPrice / originalPrice) * 100}% Discount
                 <Image src="/arrow-circle-right.svg" width={24} height={24} alt='arrow circle right'/>
             </Link>
