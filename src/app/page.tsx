@@ -1,5 +1,5 @@
-import Deal from "@/components/Deals/Deal";
-import styles from '@/components/Deals/dealStyles.module.css'
+import ThinDeal from "@/components/Deals/ThinDeal";
+import styles from '@/components/Deals/thinDealStyles.module.css'
 import { exampleThinDeals } from "@/consts/exampleDeals";
 
 async function getDThinDeals() {
@@ -20,7 +20,7 @@ export default async function Home() { console.log('Index Page');
       <div id={styles.dealsGrid}>
         {
           thinDeals.map(thinDeal =>
-            <Deal key={thinDeal.id} {...thinDeal}/>
+            <ThinDeal key={thinDeal.id} {...thinDeal}/>
           )
         }
       </div>

@@ -1,7 +1,8 @@
 'use client'
-import { DetailsGrid, DetailsContainer, DetailsHeader, Token, TokenImg, DiscountValue, DeatilsContent, InfoRow } from "./DealDetailsStyles"
+import { DetailsGrid, DetailsContainer, DetailsHeader, Token, TokenImg, DiscountValue, DeatilsContent, Input, InputLayout, InputLabel, InfoRow, InputContainer, InputToken } from "./DealDetailsStyles"
 import Image from "next/image"
 import { useConnectWallet } from "@web3-onboard/react";
+import DealDetailsProgress from "./DealDetailsProgress";
 
 export default function DealDetails(){
     const [{ wallet }, connect] = useConnectWallet();
@@ -18,6 +19,16 @@ export default function DealDetails(){
                     </DiscountValue>
                 </DetailsHeader>
                 <DeatilsContent>
+                    <InputContainer>
+                        <InputLabel>How much do you want to spend?</InputLabel>
+                        <InputLayout>
+                            <Input type="number" step={0.1}/>
+                            <InputToken>
+                                <Image src="/tokens/USDC.svg" width={24} height={24} alt="token"/>
+                                USDC
+                            </InputToken>
+                        </InputLayout>
+                    </InputContainer>
                     <InfoRow>
                         <span>You’ll Receive</span>
                         <span style={{color: '#627EEA', fontWeight: 600}}>1030 Discounted USDC</span>
@@ -40,6 +51,7 @@ export default function DealDetails(){
                     <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>
                 </button>
             </DetailsContainer>
+            <DealDetailsProgress/>
         </DetailsGrid>
     )
 }

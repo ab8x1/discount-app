@@ -1,10 +1,10 @@
-import styles from './dealStyles.module.css'
+import styles from './thinDealStyles.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ThinDeal } from '@/types/deal'
 import fixedNumber from '@/helpers/fixedNumber'
 
-export default function Deal({
+export default function ThinDeal({
     id,
     token,
     originalPrice,
