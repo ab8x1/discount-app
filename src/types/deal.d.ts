@@ -5,4 +5,8 @@ export type ThinDeal = {
     token: tokens,
     originalPrice: number,
     discountedPrice: number,
+    date: {
+        start: number,
+        end: number
+    }
 }

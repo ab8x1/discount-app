@@ -2,7 +2,7 @@ import ThinDeal from "@/components/Deals/ThinDeal";
 import styles from '@/components/Deals/thinDealStyles.module.css'
 import { exampleThinDeals } from "@/consts/exampleDeals";
 
-async function getDThinDeals() {
+async function getThinDeals() {
   const res = exampleThinDeals;
 
   if (!res) {
@@ -13,7 +13,7 @@ async function getDThinDeals() {
 }
 
 export default async function Home() { console.log('Index Page');
-  const thinDeals = await getDThinDeals();
+  const thinDeals = await getThinDeals();
   return (
     <main className="container">
       <h1>Explore Deals</h1>

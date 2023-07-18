@@ -57,50 +57,6 @@ export const DeatilsContent = styled.div`
 
 `
 
-export const InputContainer = styled.div`
-    margin-top: 15px;
-`
-
-export const InputLabel = styled.label`
-    display: block;
-    margin-bottom: 10px;
-`
-
-export const InputLayout = styled.div`
-    position: relative;
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid #00D26B;
-    background: #E2FFDB;
-    padding-right: 100px;
-    overflow: hidden;
-`
-
-export const Input = styled.input`
-    width: 100%;
-    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-    padding: 12px 14px;
-    font-size: 1rem;
-    font-weight: 500;
-    border: none;
-    outline: none;
-    background-color: inherit;
-`
-
-export const InputToken = styled.span`
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100px;
-    gap: 5px;
-    border-left: 1px solid #00D26B;
-    padding: 10px 8px;
-`
-
 export const InfoRow = styled.p`
     display: flex;
     align-items: center;
@@ -124,18 +80,18 @@ export const ProgressTitle = styled.div`
     margin-bottom: 15px;
 `
 
-export const Step = styled.p`
+export const Step = styled.div<{$status: "filled" | "next" | "pending"}>`
     position: relative;
     display: flex;
     /* align-items: center; */
     gap: 12px;
     margin: 0;
     padding: 0 0 24px 0;
-    & span:first-of-type{
+    & p:first-of-type{
         font-weight: 600;
     }
     & span{
-        display: block;
+        font-weight: 700;
     }
     &::before{
         content: '•';
@@ -143,13 +99,13 @@ export const Step = styled.p`
         align-items: center;
         justify-content: center;
         font-size: 1.5rem;
-        color: var(--brand-color);
         border-radius: 50%;
         width: 24px;
         height: 22px;
         padding-bottom: 2px;
-        background: #C0F599;
-        box-shadow: 0px 0px 0px 4px #F4EBFF;
+        color: ${({$status}) => $status === "pending" ? "#EAECF0" : "var(--brand-color)"};
+        background: ${({$status}) => $status === "filled" ? '#C0F599' : $status === 'next' ? '#F5FFF5' : '#FAFAFA'};
+        box-shadow: ${({$status}) => $status === "pending" ? "none" : "0px 0px 0px 4px #F4EBFF"};
         z-index: 10;
     }
     &:last-of-type::after{
@@ -163,7 +119,7 @@ export const Step = styled.p`
         bottom: 0;
         width: 2px;
         height: 100%;
-        background-color: var(--brand-color);
+        background-color: ${({$status}) => $status === "filled" ? 'var(--brand-color)' : '#EAECF0'};
     }
     &:last-of-type{
         padding: 0;

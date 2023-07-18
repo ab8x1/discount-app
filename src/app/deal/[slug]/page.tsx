@@ -1,10 +1,25 @@
-import DealDetails from "@/components/Deals/DealDetails"
+import DetailsState from "@/components/Deals/DetailsState"
+import { exampleThinDeals } from "@/consts/exampleDeals";
 
-export default function Page(){
+async function getThinDeal(dealId : string) {
+    const deal = exampleThinDeals.find(deal => deal.id === dealId);
 
+    if (!deal) {
+      throw new Error('Failed to fetch data')
+    }
+
+    return deal;
+}
+
+export default async function Page({
+    params
+} : {
+    params: { slug: string}
+}){
+    const thinDeal = await getThinDeal(params.slug);
     return(
         <main className="container" style={{maxWidth: '950px'}}>
-            <DealDetails/>
+            <DetailsState thinDeal={thinDeal}/>
         </main>
     )
 }
