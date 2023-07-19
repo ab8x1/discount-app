@@ -4,6 +4,8 @@
   --primary-background: #F6F9FF;
   --light-background: #FFF;
   --brand-color: #1BE080;
+  --onboard-modal-z-index: 100;
+  --modal-z-index: 100;
 }
 
 * {
@@ -69,6 +71,11 @@ a, button {
 
 .boxButton:hover{
   background: rgb(21, 226, 127);
+}
+
+.disabledButton{
+  background: #d2daec;
+  pointer-events: none;
 }
 
 @media(max-width: 767px){

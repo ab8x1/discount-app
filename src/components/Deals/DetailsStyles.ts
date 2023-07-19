@@ -66,6 +66,40 @@ export const InfoRow = styled.p`
     border-bottom: 1px solid #EBEBEB;
 `
 
+export const Confirmation = styled.div`
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.20);
+    z-index: 150;
+`
+
+export const ConfirmationMessage = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 430px;
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid #E4E4E4;
+    background: #FFF;
+    font-size: 1.3rem;
+    text-align: center;
+    font-weight: 600;
+    line-height: 1.8rem;
+    & p{
+        align-self: flex-start;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+    }
+`
+
 export const ProgressContainer = styled.div`
     border-radius: 15px;
     border: 1px solid #E4E4E4;
@@ -79,11 +113,25 @@ export const ProgressTitle = styled.div`
     font-weight: 600;
     margin-bottom: 15px;
 `
+export const StageButton = styled.span`
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #344054;
+    border-radius: 0px 0px 0px 9px;
+    cursor: pointer;
+    &:hover{
+        background: #42526b;
+    }
+    & img{
+        transform: rotate(180deg);
+    }
+`
 
 export const Step = styled.div<{$status: "filled" | "next" | "pending"}>`
     position: relative;
     display: flex;
-    /* align-items: center; */
     gap: 12px;
     margin: 0;
     padding: 0 0 24px 0;

@@ -8,3 +8,5 @@ export type DealDetailsType = {
         end: number
     }
 }
+
+export type Stage = "buy" | "confirm"

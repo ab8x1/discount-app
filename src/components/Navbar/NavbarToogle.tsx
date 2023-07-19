@@ -4,6 +4,7 @@ import { NavToogle, Logo, LogoIcon, Menus, Menu, MenuItem, MenuLnik, RawMenuLink
 import Image from "next/image";
 import ConnectWallet from "./ConnectWallet";
 import { WalletState } from "@web3-onboard/core";
+import { addToHistory } from "@/helpers/historyManager";
 
 function NavbarToogle({
     opened,
@@ -13,13 +14,15 @@ function NavbarToogle({
     opened: boolean,
     close: () => void,
     wallet: WalletState | null
-}){ console.log('NavbarToogle');
+}){
     const url = usePathname();
     const scrollY = typeof window !== "undefined" ? document?.documentElement?.scrollTop : 0;
 
     useEffect(() => {
+        addToHistory(url);
         close();
     }, [url]);
+
     return(
         <NavToogle $opened={opened} $scrollY={scrollY}>
             <Logo $toogleNav>

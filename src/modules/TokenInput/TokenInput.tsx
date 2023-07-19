@@ -4,10 +4,12 @@ import Image from "next/image";
 
 export default function TokenInput({
     onChange,
+    defaultValue
 } : {
-    onChange: Dispatch<SetStateAction<number>>
+    onChange: Dispatch<SetStateAction<number>>,
+    defaultValue: number
 }){
-    const [userQuery, setUserQuery] = useState("");
+    const [userQuery, setUserQuery] = useState(defaultValue ? defaultValue.toString() : "");
     const updateAmount = (e: React.KeyboardEvent<HTMLInputElement>) => {
         let {value} = e.target as HTMLInputElement;
         if (/^[0-9]*(\.|,)?[0-9]{0,5}$/.test(value)) {

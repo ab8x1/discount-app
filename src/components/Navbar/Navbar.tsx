@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, memo } from "react";
+import { useState, useRef } from "react";
 import { TopNav, Logo, LogoIcon } from "./NavbarStyles";
 import NavbarToogle from "./NavbarToogle";
 import Toggler from "./Toggler";
@@ -7,13 +7,16 @@ import useClickOutside from '../../hooks/useClickOutside';
 import { useConnectWallet } from '@web3-onboard/react';
 import ConnectWallet from "./ConnectWallet";
 import Image from "next/image";
+import BackButton from "./BackButton";
+import { usePathname } from 'next/navigation'
 
 export default function Navbar(){ console.log('Navbar');
     const [opened, setOpened] = useState(false);
     const [{ wallet }] = useConnectWallet();
     const toogleNavRef = useRef<HTMLDivElement>(null);
     useClickOutside(toogleNavRef, () => close());
-
+    const url = usePathname();
+    const dealDetails = url.includes('/deal/');
     const toogle = () => {
         const body = document?.querySelector('body');
         if(!opened){
@@ -30,12 +33,15 @@ export default function Navbar(){ console.log('Navbar');
 
     return(
         <nav ref={toogleNavRef}>
-            <TopNav className="container">
-                <Logo className="hideDesktop">
-                    <LogoIcon href="/">
-                        <Image src="/logo.svg" alt="YieldFlipper" width={41} height={41}/>
-                    </LogoIcon>
-                </Logo>
+            <TopNav className="container" style={dealDetails ? {maxWidth: '930px'} : {}}>
+                <div className="alignY">
+                    <Logo className="hideDesktop">
+                        <LogoIcon href="/">
+                            <Image src="/logo.svg" alt="YieldFlipper" width={41} height={41}/>
+                        </LogoIcon>
+                    </Logo>
+                    {dealDetails && <BackButton/>}
+                </div>
                 <div className="alignY" style={{gap: '0 15px'}}>
                     { !wallet &&
                         <div className="hideMobile">

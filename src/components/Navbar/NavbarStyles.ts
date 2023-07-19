@@ -9,7 +9,7 @@ export const TopNav = styled.div`
     padding: 10px;
     min-height: 70px;
     @media(min-width: 768px){
-        justify-content: flex-end;
+        /* justify-content: flex-end; */
         border-bottom: none;
         padding: 30px 10px;
         min-height: 108px;
