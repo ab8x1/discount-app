@@ -1,0 +1,87 @@
+.dataGrid{
+    display: grid;
+    gap: 30px;
+    grid-template-columns: 1fr;
+}
+
+.tableWrapper{
+    margin-top: 50px;
+    overflow-x:auto;
+    padding: 5px;
+    border-radius: 12px;
+}
+
+.table{
+    position: relative;
+    width: 100%;
+    border-collapse: collapse;
+    border-style: hidden;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    background-color: white;
+}
+
+.table::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid #EAECF0;
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.tableRow{
+    position: relative;
+    border-bottom: 1px solid #EAECF0;
+}
+
+.interactiveTableRow:hover{
+    background-color: rgba(147, 200, 108, 0.09);
+}
+
+.tableHeader{
+    font-weight: 500;
+    color: #475467;
+    padding: 13px 24px;
+    text-align: left;
+}
+
+.tableData{
+    padding: 16px 24px;
+}
+
+.tableData span{
+    display: block;
+}
+
+.amount{
+    display: flex;
+    align-items: center;
+}
+
+.amount img{
+    margin-right: 5px;
+}
+
+.amount span{
+    display: block;
+}
+
+.heavyData{
+    color: #101828;
+    font-weight: 500;
+}
+
+.lightData{
+    color: #475467;
+    line-height: 20px;
+}
+
+@media(min-width: 1250px){
+    .dataGrid{
+        grid-template-columns: 1fr 1fr;
+    }
+}

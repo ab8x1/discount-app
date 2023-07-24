@@ -6,7 +6,7 @@ export const DetailsGrid = styled.div`
     grid-template-columns: 1fr;
     gap: 30px;
     align-items: flex-start;
-    @media(min-width: 992px){
+    @media(min-width: 768px){
         grid-template-columns: 0.6fr 0.4fr;
     }
 `

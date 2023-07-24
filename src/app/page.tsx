@@ -1,5 +1,5 @@
-import ThinDeal from "@/components/Deals/ThinDeal";
-import styles from '@/components/Deals/thinDealStyles.module.css'
+import ThinDeal from "@/components/ThinDeal";
+import styles from '@/components/ThinDeal/thinDealStyles.module.css'
 import { exampleThinDeals } from "@/consts/exampleDeals";
 
 async function getThinDeals() {

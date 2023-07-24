@@ -8,7 +8,7 @@ export const TopNav = styled.div`
     align-items: center;
     padding: 10px;
     min-height: 70px;
-    @media(min-width: 768px){
+    @media(min-width: 992px){
         /* justify-content: flex-end; */
         border-bottom: none;
         padding: 30px 10px;
@@ -26,11 +26,11 @@ export const NavToogle = styled.aside<{$opened: boolean, $scrollY: number}>`
     bottom: 0;
     transform: translateX( ${({$opened}) => $opened ? '0%' : '-100%'} );
     transition: transform 0.3s ease-in-out;
-    z-index: 10;
+    z-index: 50;
     border-radius: 0px 25px 0px 0px;
     border-right: 2px solid #EAECF0;
     background: #F6F9FF;
-    @media(min-width: 768px){
+    @media(min-width: 992px){
         top: 0;
         transform: unset;
     }
@@ -40,7 +40,7 @@ export const Logo = styled.div<{$toogleNav?: boolean}>`
     position: relative;
     ${({$toogleNav}) => $toogleNav && `
         padding: 30px;
-        @media(max-width: 767px){
+        @media(max-width: 991px){
             display: none;
         }
     `}
@@ -105,7 +105,7 @@ export const Menus = styled.div`
 export const Menu = styled.ul`
     list-style: none;
     margin-top: 30px;
-    @media(min-width: 768px){
+    @media(min-width: 992px){
         &:first-of-type{
             margin-top: 0;
         }

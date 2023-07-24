@@ -53,21 +53,7 @@
     text-decoration-line: line-through;
 }
 
-@media(min-width: 600px){
-    #dealsGrid{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
 @media(min-width: 768px){
-    #dealsGrid{
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-}
-
-@media(min-width: 930px){
     #dealsGrid{
         display: grid;
         grid-template-columns: 1fr 1fr;

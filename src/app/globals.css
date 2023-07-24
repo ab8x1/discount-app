@@ -16,6 +16,7 @@
 
 html{
   font-size: 14px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html,
@@ -50,8 +51,8 @@ a, button {
 }
 
 .brand{
-  color: var(--brand-color);
-  font-weight: 700;
+  color: var(--brand-color)!important;
+  font-weight: 700!important;
 }
 
 .boxButton{
@@ -79,7 +80,7 @@ a, button {
 }
 
 @media(max-width: 767px){
-  .hideMobile{
+  .hide-mobile{
     display: none!important;
   }
 }
@@ -88,10 +89,16 @@ a, button {
   html{
     font-size: 16px;
   }
+  .hide-desktop{
+    display: none!important;
+  }
+}
+
+@media(min-width: 992px){
   body{
     margin-left: 280px;
   }
-  .hideDesktop{
+  .hide-lg-desktop{
     display: none!important;
   }
 }

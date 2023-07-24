@@ -10,7 +10,6 @@ export default function ThinDeal({
     originalPrice,
     discountedPrice,
 } : ThinDeal){
-
     return(
         <div className={styles.dealContainer}>
             <div className={styles.dealContent}>

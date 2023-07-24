@@ -33,7 +33,7 @@ function NavbarToogle({
             </Logo>
             {
                 !wallet &&
-                <div className="hideDesktop" style={{margin: '30px 20px 0 20px'}}>
+                <div className="hide-desktop" style={{margin: '30px 20px 0 20px'}}>
                         <ConnectWallet fullwidth/>
                 </div>
             }

@@ -8,7 +8,7 @@ export const TogglerButton = styled.div`
     box-sizing: border-box;
     cursor: pointer;
     user-select: none;
-    @media(min-width: 768px){
+    @media(min-width: 992px){
         display: none;
     }
 `

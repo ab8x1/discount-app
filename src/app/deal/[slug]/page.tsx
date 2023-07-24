@@ -1,4 +1,4 @@
-import DetailsState from "@/components/Deals/DetailsState"
+import Details from "@/components/DealDetails"
 import { exampleThinDeals } from "@/consts/exampleDeals";
 
 async function getThinDeal(dealId : string) {
@@ -19,7 +19,7 @@ export default async function Page({
     const thinDeal = await getThinDeal(params.slug);
     return(
         <main className="container" style={{maxWidth: '950px'}}>
-            <DetailsState thinDeal={thinDeal}/>
+            <Details thinDeal={thinDeal}/>
         </main>
     )
 }

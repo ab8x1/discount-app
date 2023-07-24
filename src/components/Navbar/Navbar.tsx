@@ -35,16 +35,17 @@ export default function Navbar(){ console.log('Navbar');
         <nav ref={toogleNavRef}>
             <TopNav className="container" style={dealDetails ? {maxWidth: '930px'} : {}}>
                 <div className="alignY">
-                    <Logo className="hideDesktop">
+                    <Logo className="hide-lg-desktop">
                         <LogoIcon href="/">
                             <Image src="/logo.svg" alt="YieldFlipper" width={41} height={41}/>
+                            <span className="hide-mobile">Discount</span>
                         </LogoIcon>
                     </Logo>
                     {dealDetails && <BackButton/>}
                 </div>
                 <div className="alignY" style={{gap: '0 15px'}}>
                     { !wallet &&
-                        <div className="hideMobile">
+                        <div className="hide-mobile">
                             <ConnectWallet/>
                         </div>
                     }
