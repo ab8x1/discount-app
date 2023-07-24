@@ -22,7 +22,7 @@ export default function TableData(){
                 <tbody>
                     {
                         Array.from(Array(5), (_, i) =>
-                            <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`}>
+                            <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i}>
                                 <td className={styles.tableData}>
                                     <div className={styles.amount}>
                                         <Image src="/tokens/USDC.svg" width={40} height={40} alt="ptUsdc"/>
