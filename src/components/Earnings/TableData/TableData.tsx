@@ -1,9 +1,10 @@
+'use client'
 import styles from './tableData.module.css'
 import TableFooter from './TableFooter'
 import Image from 'next/image'
-
+import { useRouter } from 'next/navigation'
 export default function TableData(){
-
+    const router = useRouter();
     return(
         <div className={styles.tableWrapper}>
             <table className={styles.table}>
@@ -23,7 +24,7 @@ export default function TableData(){
                 <tbody>
                     {
                         Array.from(Array(5), (_, i) =>
-                            <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i}>
+                            <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/edit/${i}`)}>
                                 <td className={styles.tableData}>
                                     <div className={styles.amount}>
                                         <Image src="/tokens/USDC.svg" width={40} height={40} alt="ptUsdc"/>

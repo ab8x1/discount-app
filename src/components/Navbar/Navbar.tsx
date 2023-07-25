@@ -16,7 +16,7 @@ export default function Navbar(){ console.log('Navbar');
     const toogleNavRef = useRef<HTMLDivElement>(null);
     useClickOutside(toogleNavRef, () => close());
     const url = usePathname();
-    const dealDetails = url.includes('/deal/');
+    const inputBox = ['/deal/', '/edit/'].some(el => url.includes(el));
     const toogle = () => {
         const body = document?.querySelector('body');
         if(!opened){
@@ -33,7 +33,7 @@ export default function Navbar(){ console.log('Navbar');
 
     return(
         <nav ref={toogleNavRef}>
-            <TopNav className="container" style={dealDetails ? {maxWidth: '930px'} : {}}>
+            <TopNav className="container" style={inputBox ? {maxWidth: '930px'} : {}}>
                 <div className="alignY">
                     <Logo className="hide-lg-desktop">
                         <LogoIcon href="/">
@@ -41,7 +41,7 @@ export default function Navbar(){ console.log('Navbar');
                             <span className="hide-mobile">Discount</span>
                         </LogoIcon>
                     </Logo>
-                    {dealDetails && <BackButton/>}
+                    {inputBox && <BackButton/>}
                 </div>
                 <div className="alignY" style={{gap: '0 15px'}}>
                     { !wallet &&

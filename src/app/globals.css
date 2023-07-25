@@ -75,7 +75,7 @@ a, button {
 }
 
 .disabledButton{
-  background: #d2daec;
+  background: #BDBDBD;
   pointer-events: none;
 }
 

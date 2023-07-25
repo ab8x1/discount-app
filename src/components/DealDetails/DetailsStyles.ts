@@ -129,7 +129,7 @@ export const StageButton = styled.span`
     }
 `
 
-export const Step = styled.div<{$status: "filled" | "next" | "pending"}>`
+export const Step = styled.div<{$status: "fullfilled" | "filled" | "next" | "pending"}>`
     position: relative;
     display: flex;
     gap: 12px;
@@ -142,7 +142,14 @@ export const Step = styled.div<{$status: "filled" | "next" | "pending"}>`
         font-weight: 700;
     }
     &::before{
-        content: '•';
+        ${({$status}) => {
+            if($status === "fullfilled") return`
+                content: url('/check.svg');
+            `
+            else return `
+                content: "•";
+            `
+        }}
         display: flex;
         align-items: center;
         justify-content: center;
@@ -152,7 +159,7 @@ export const Step = styled.div<{$status: "filled" | "next" | "pending"}>`
         height: 22px;
         padding-bottom: 2px;
         color: ${({$status}) => $status === "pending" ? "#EAECF0" : "var(--brand-color)"};
-        background: ${({$status}) => $status === "filled" ? '#C0F599' : $status === 'next' ? '#F5FFF5' : '#FAFAFA'};
+        background: ${({$status}) => ($status === "filled" || $status === "fullfilled") ? '#C0F599' : $status === 'next' ? '#F5FFF5' : '#FAFAFA'};
         box-shadow: ${({$status}) => $status === "pending" ? "none" : "0px 0px 0px 4px #F4EBFF"};
         z-index: 10;
     }
