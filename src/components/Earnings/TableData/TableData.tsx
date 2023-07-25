@@ -1,10 +1,16 @@
 'use client'
+import { useEffect } from 'react'
 import styles from './tableData.module.css'
 import TableFooter from './TableFooter'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 export default function TableData(){
     const router = useRouter();
+    useEffect(() => {
+        Array.from(Array(3), (_, i) => {
+            router.prefetch(`/edit/${i}`)
+        })
+    }, [])
     return(
         <div className={styles.tableWrapper}>
             <table className={styles.table}>
