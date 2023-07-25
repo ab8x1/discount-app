@@ -37,7 +37,7 @@ export default function Navbar(){ console.log('Navbar');
                 <div className="alignY">
                     <Logo className="hide-lg-desktop">
                         <LogoIcon href="/">
-                            <Image src="/logo.svg" alt="YieldFlipper" width={41} height={41}/>
+                            <Image src="/logo.svg" alt="YieldFlipper" width={41} height={41} priority/>
                             <span className="hide-mobile">Discount</span>
                         </LogoIcon>
                     </Logo>

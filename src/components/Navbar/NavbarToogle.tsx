@@ -27,7 +27,7 @@ function NavbarToogle({
         <NavToogle $opened={opened} $scrollY={scrollY}>
             <Logo $toogleNav>
                 <LogoIcon href="/">
-                    <img src="/logo.svg" alt="YieldFlipper"/>
+                    <Image src="/logo.svg" alt="YieldFlipper" width={41} height={41} priority/>
                     Discount
                 </LogoIcon>
             </Logo>
@@ -41,13 +41,13 @@ function NavbarToogle({
                 <Menu>
                     <MenuItem $active={url === '/'}>
                         <MenuLnik href="/" $active={url === '/'}>
-                            <Image src="/navIcons/deals.svg" width={24} height={24} alt="Marketplace"/>
+                            <Image src="/navIcons/deals.svg" width={24} height={24} alt="Marketplace" priority/>
                             Explore Deals
                         </MenuLnik>
                     </MenuItem>
                     <MenuItem $active={url === '/my-earnings'}>
                         <MenuLnik href="/my-earnings" $active={url === '/my-earnings'}>
-                            <Image src="/navIcons/earnings.svg" width={24} height={24} alt="Portfolio"/>
+                            <Image src="/navIcons/earnings.svg" width={24} height={24} alt="Portfolio" priority/>
                             My Earnings
                         </MenuLnik>
                     </MenuItem>
@@ -55,7 +55,7 @@ function NavbarToogle({
                 <Menu>
                     <MenuItem>
                         <RawMenuLink href="https://docs.discount.finance/discount/" target="_blank">
-                            <img src="/navIcons/faq.svg" alt="Marketplace"/>
+                            <Image src="/navIcons/faq.svg" alt="Marketplace" width={24} height={24}/>
                             FAQ
                         </RawMenuLink>
                     </MenuItem>

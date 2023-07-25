@@ -1,4 +1,5 @@
 import styles from './tableData.module.css'
+import TableFooter from './TableFooter'
 import Image from 'next/image'
 
 export default function TableData(){
@@ -48,6 +49,7 @@ export default function TableData(){
                         )
                     }
                 </tbody>
+                <TableFooter/>
             </table>
         </div>
     )

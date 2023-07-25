@@ -14,12 +14,12 @@ export default function ThinDeal({
         <div className={styles.dealContainer}>
             <div className={styles.dealContent}>
                 <div className={`alignY ${styles.token}`}>
-                    <Image src={`/tokens/${token}.svg`} width={44} height={44} alt='coin'/>
+                    <Image src={`/tokens/${token}.svg`} width={44} height={44} alt='coin' priority/>
                     {token}
                 </div>
                 <div className={styles.prices}>
                     <div className={`alignY ${styles.discountPrice}`}>
-                        <Image src="/tag.svg" width={18} height={18} alt='tag'/>
+                        <Image src="/tag.svg" width={18} height={18} alt='tag' priority/>
                         ${fixedNumber(discountedPrice, true, 2)}
                     </div>
                     <div className={styles.originalPrice}>
@@ -29,7 +29,7 @@ export default function ThinDeal({
             </div>
             <Link href={`/deal/${id}`} className={`alignY boxButton`}>
                 Get USDC at {fixedNumber(100 - (discountedPrice / originalPrice) * 100, false, 2)}% Discount
-                <Image src="/arrow-circle-right.svg" width={24} height={24} alt='arrow circle right'/>
+                <Image src="/arrow-circle-right.svg" width={24} height={24} alt='arrow circle right' priority/>
             </Link>
         </div>
     )
