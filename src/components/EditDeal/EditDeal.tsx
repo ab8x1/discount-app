@@ -54,7 +54,7 @@ export default function EditDeal(){
                 <InfoContent>
                     <h3 className="alignY" style={{gap: '5px'}}>
                         FAQ
-                        <Image src="/navicons/faq.svg" width={24} height={24} alt="faq"/>
+                        <Image src="/navIcons/faq.svg" width={24} height={24} alt="faq"/>
                     </h3>
                     <p style={{margin: '10px 0'}}>
                         When redeeming early, the amount of tokens you receive will depend on various factors such as time remaining and available liquidity.

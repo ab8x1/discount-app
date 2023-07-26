@@ -16,7 +16,6 @@ export default async function Home() { console.log('Index Page');
   const thinDeals = await getThinDeals();
   return (
     <main className="container">
-      <h1>Explore Deals</h1>
       <div id={styles.dealsGrid}>
         {
           thinDeals.map(thinDeal =>

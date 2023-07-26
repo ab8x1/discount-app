@@ -26,7 +26,7 @@ export default function DetailsState({
     }
     return(
         <>
-            <DetailsGrid>
+            <DetailsGrid style={{alignItems: 'flex-start'}}>
                 <DealDetails setAmount={setAmount} dealDetails={dealDetails} stage={stage} amount={amount} setStage={setStage}/>
                 <DealDetailsProgress amount={amount} dealDetails={dealDetails} step="buy"/>
             </DetailsGrid>
