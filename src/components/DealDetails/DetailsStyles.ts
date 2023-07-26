@@ -4,18 +4,26 @@ import Image from "next/image";
 export const DetailsGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    gap: 30px;
-    align-items: flex-start;
+    gap: 25px 30px;
+    /* align-items: flex-start; */
     @media(min-width: 768px){
         grid-template-columns: 0.6fr 0.4fr;
     }
 `
+
+export const ReversedMobileOrder = styled.div`
+    @media(max-width: 767px){
+        order: 2;
+    }
+`
+
 export const DetailsContainer = styled.div`
     border-radius: 15px;
     border: 1px solid #E7E7E7;
     color: #344054;
     font-size: 0.875rem;
     font-weight: 500;
+    background-color: white;
 `
 
 export const DetailsHeader = styled.div`
@@ -54,16 +62,23 @@ export const DiscountValue = styled.div`
 `
 
 export const DeatilsContent = styled.div`
+    padding: 0 15px;
+`
 
+export const InfoContent = styled.div`
+    padding: 25px 15px;
 `
 
 export const InfoRow = styled.p`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 15px;
+    padding: 10px 0;
     margin: 0;
     border-bottom: 1px solid #EBEBEB;
+    &:last-of-type{
+        border-bottom: none;
+    }
 `
 
 export const Confirmation = styled.div`
@@ -101,6 +116,7 @@ export const ConfirmationMessage = styled.div`
 `
 
 export const ProgressContainer = styled.div`
+    font-size: 0.87rem;
     border-radius: 15px;
     border: 1px solid #E4E4E4;
     background: #FFF;

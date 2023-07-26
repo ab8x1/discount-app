@@ -1,11 +1,11 @@
 'use client'
-import { DetailsGrid, DetailsContainer, DeatilsContent, DetailsHeader, Token, TokenImg, InfoRow } from "../DealDetails/DetailsStyles";
+import { DetailsContainer, DetailsHeader, Token, TokenImg, InfoRow, DeatilsContent } from "../DealDetails/DetailsStyles";
+import { DefaultButton } from "../Navbar/NavbarStyles";
 import { useConnectWallet } from "@web3-onboard/react";
 
 export default function EditDealInfo(){
     const [{ wallet }, connect] = useConnectWallet();
     return(
-        <>
             <DetailsContainer>
                 <DetailsHeader>
                     <Token className="alignY">
@@ -35,11 +35,9 @@ export default function EditDealInfo(){
                         <span className="brand">30 USDC</span>
                     </InfoRow>
                 </DeatilsContent>
-                <button className={`boxButton alignY disabledButton`} onClick={() => connect()}>
+                <button className={`boxButton alignY disabledButton`} onClick={() => connect()} style={{padding: '30px 0'}}>
                     Redeem 1030 USDC
                 </button>
             </DetailsContainer>
-        </>
-
     )
 }
