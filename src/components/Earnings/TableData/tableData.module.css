@@ -51,6 +51,7 @@
 
 .interactiveTableRow:hover{
     background-color: rgba(147, 200, 108, 0.09);
+    cursor: pointer;
 }
 
 .tableHeader{

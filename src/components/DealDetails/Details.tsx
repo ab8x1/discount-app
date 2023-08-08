@@ -1,5 +1,5 @@
 'use client'
-import { DetailsContainer, DetailsHeader, Token, TokenImg, DiscountValue, DeatilsContent, InfoRow, StageButton, Confirmation, ConfirmationMessage } from "./DetailsStyles"
+import { DetailsContainer, DetailsHeader, Token, TokenImg, DiscountValue, DeatilsContent, InfoRow, StageButton, PopUpBackground, PopUpContainer } from "./DetailsStyles"
 import Image from "next/image"
 import { useConnectWallet } from "@web3-onboard/react";
 import { useState, Dispatch, SetStateAction } from "react";
@@ -9,6 +9,7 @@ import TokenInput from "@/modules/TokenInput"
 import { DealDetailsType, Stage } from "./DetailsTypes"
 import { DefaultButtonLink } from "../Navbar/NavbarStyles";
 import Confetti from 'react-confetti';
+import ActionConfirmation from "./ActionConfirmation";
 
 export default function DealDetails({
     setAmount,
@@ -97,16 +98,11 @@ export default function DealDetails({
             </DetailsContainer>
             {
                 openConfirmation &&
-                <Confirmation>
-                    <ConfirmationMessage>
-                        <p>Woohoo!</p>
-                        <div>You’ve Purchased</div>
-                        <div><span style={{color: '#627EEA'}}>{reedem} Discounted USDC</span></div>
-                        <div>for <span className="brand">{amount} USDC</span></div>
-                        <DefaultButtonLink href="/my-earnings" $bg="#344054;" $bgHover="#43526c" $fullWidth style={{marginTop: '20px'}}>Close & Open My Earnings</DefaultButtonLink>
-                    </ConfirmationMessage>
-                    <Confetti recycle={false} tweenDuration={10000} numberOfPieces={350}/>
-                </Confirmation>
+                <ActionConfirmation
+                    type="buy"
+                    amount={amount}
+                    reedem={reedem}
+                />
             }
         </>
     )

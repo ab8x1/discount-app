@@ -5,7 +5,7 @@ export const DetailsGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 25px 30px;
-    /* align-items: flex-start; */
+    align-items: flex-start;
     @media(min-width: 768px){
         grid-template-columns: 0.6fr 0.4fr;
     }
@@ -66,7 +66,8 @@ export const DeatilsContent = styled.div`
 `
 
 export const InfoContent = styled.div`
-    padding: 25px 15px;
+    padding: 20px 15px;
+    color: #475467;
 `
 
 export const InfoRow = styled.p`
@@ -81,7 +82,7 @@ export const InfoRow = styled.p`
     }
 `
 
-export const Confirmation = styled.div`
+export const PopUpBackground = styled.div`
     position: fixed;
     top: 0;
     bottom: 0;
@@ -94,25 +95,28 @@ export const Confirmation = styled.div`
     z-index: 150;
 `
 
-export const ConfirmationMessage = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+export const PopUpContainer = styled.div`
     width: 100%;
     max-width: 430px;
     border-radius: 15px;
     padding: 15px;
     border: 1px solid #E4E4E4;
     background: #FFF;
-    font-size: 1.3rem;
-    text-align: center;
-    font-weight: 600;
-    line-height: 1.8rem;
-    & p{
+    & h3{
         align-self: flex-start;
         margin-bottom: 20px;
         font-size: 0.9rem;
     }
+`
+
+export const PopUpContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.3rem;
+    text-align: center;
+    font-weight: 600;
+    line-height: 1.8rem;
 `
 
 export const ProgressContainer = styled.div`

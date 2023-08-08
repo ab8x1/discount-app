@@ -1,6 +1,6 @@
 'use client'
 import { DetailsGrid, DetailsContainer, InfoContent, InfoRow, ReversedMobileOrder } from "../DealDetails/DetailsStyles";
-import { DefaultButton } from "../Navbar/NavbarStyles";
+import ReedemEarly from "./ReedemEarly";
 import EditDealInfo from "./EditDealInfo";
 import Image from "next/image";
 import DealDetailsProgress from "../DealDetails/DetailsProgress";
@@ -38,18 +38,7 @@ export default function EditDeal(){
                     </InfoContent>
                 </DetailsContainer>
             </ReversedMobileOrder>
-            <DetailsContainer>
-                <InfoContent>
-                    <h3>Redeem Early</h3>
-                    <InfoRow>
-                        <span>Estimated Value</span>
-                        <span>1000.000014 USDC</span>
-                    </InfoRow>
-                    <DefaultButton $bg="#FFB673" $bgHover="#f7bf8a" $fullWidth style={{padding: '15px 0'}}>
-                        Redeem Early
-                    </DefaultButton>
-                </InfoContent>
-            </DetailsContainer>
+            <ReedemEarly/>
             <DetailsContainer>
                 <InfoContent>
                     <h3 className="alignY" style={{gap: '5px'}}>
