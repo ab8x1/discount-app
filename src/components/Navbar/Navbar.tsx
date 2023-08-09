@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { TopNav, Logo, LogoIcon } from "./NavbarStyles";
 import NavbarToogle from "./NavbarToogle";
 import Toggler from "./Toggler";
@@ -9,6 +9,7 @@ import ConnectWallet from "./ConnectWallet";
 import Image from "next/image";
 import BackButton from "./BackButton";
 import { usePathname } from 'next/navigation'
+import BetaWarning from "./BetaWarning";
 
 export default function Navbar(){ console.log('Navbar');
     const [opened, setOpened] = useState(false);
@@ -17,6 +18,7 @@ export default function Navbar(){ console.log('Navbar');
     useClickOutside(toogleNavRef, () => close());
     const url = usePathname();
     const inputBox = ['/deal/', '/edit/'].some(el => url.includes(el));
+
     const toogle = () => {
         const body = document?.querySelector('body');
         if(!opened){
@@ -32,27 +34,30 @@ export default function Navbar(){ console.log('Navbar');
     }
 
     return(
-        <nav ref={toogleNavRef}>
-            <TopNav className="container" style={inputBox ? {maxWidth: '930px'} : {}}>
-                <div className="alignY">
-                    <Logo className="hide-lg-desktop">
-                        <LogoIcon href="/">
-                            <Image src="/logo.svg" alt="YieldFlipper" width={41} height={41} priority/>
-                            <span className="hide-mobile">Discount</span>
-                        </LogoIcon>
-                    </Logo>
-                    {inputBox && <BackButton/>}
-                </div>
-                <div className="alignY" style={{gap: '0 15px'}}>
-                    { !wallet &&
-                        <div className="hide-mobile">
-                            <ConnectWallet/>
-                        </div>
-                    }
-                    <Toggler opened={opened} toogle={toogle}/>
-                </div>
-            </TopNav>
-            <NavbarToogle opened={opened} close={close} wallet={wallet}/>
-        </nav>
+        <>
+            <nav ref={toogleNavRef}>
+                <TopNav className="container" style={inputBox ? {maxWidth: '930px'} : {}}>
+                    <div className="alignY">
+                        <Logo className="hide-lg-desktop">
+                            <LogoIcon href="/">
+                                <Image src="/logo.svg" alt="YieldFlipper" width={41} height={41} priority/>
+                                <span className="hide-mobile">Discount</span>
+                            </LogoIcon>
+                        </Logo>
+                        {inputBox && <BackButton/>}
+                    </div>
+                    <div className="alignY" style={{gap: '0 15px'}}>
+                        { !wallet &&
+                            <div className="hide-mobile">
+                                <ConnectWallet/>
+                            </div>
+                        }
+                        <Toggler opened={opened} toogle={toogle}/>
+                    </div>
+                </TopNav>
+                <NavbarToogle opened={opened} close={close} wallet={wallet}/>
+            </nav>
+            <BetaWarning/>
+        </>
     )
 }

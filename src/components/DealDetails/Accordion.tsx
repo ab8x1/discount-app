@@ -5,6 +5,7 @@ import Image from "next/image";
 const Container = styled.div`
     padding: 20px 15px;
     border-top: 1px solid #EAECF0;
+    font-size: 0.875rem;
     &:first-of-type{
         border-top: none;
     }
@@ -15,7 +16,6 @@ const Title = styled.div<{$opened: boolean}>`
     justify-content: space-between;
     align-items: center;
     font-weight: 500;
-    font-size: 0.875rem;
     cursor: pointer;
     user-select: none;
 `

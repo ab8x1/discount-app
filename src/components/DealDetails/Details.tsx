@@ -79,7 +79,7 @@ export default function DealDetails({
                             </InfoRow>
                             <InfoRow>
                                 <span>Platform Fee (0.1%)</span>
-                                <span>{fixedNumber(earn * 0.001, false, 2)} USDC</span>
+                                <span>{fixedNumber(amount * 0.001, false, 2)} USDC</span>
                             </InfoRow>
                         </>
                     }
