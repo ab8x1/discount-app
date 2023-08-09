@@ -13,6 +13,7 @@ export default function EditDeal(){
                 <DealDetailsProgress
                     amount={1000}
                     dealDetails={{
+                        token: 'USDC',
                         discount: 1,
                         reedem: 1030,
                         earn: 30,
