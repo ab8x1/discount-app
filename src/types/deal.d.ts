@@ -19,6 +19,7 @@ export type PurchasedDeal = {
     discount: number,
     date: {
         purchasedAt: number,
-        maturity: number
-    }
+        maturity: number,
+        redeemedAt?: number
+    },
 }

@@ -27,7 +27,7 @@ export default function Earnings(){
             <InfoBoxes deals={deals}/>
             <div className={styles.dataGrid}>
                 <TableData deals={deals} address={address}/>
-                <Chart/>
+                <Chart deals={deals} />
             </div>
         </>
     )

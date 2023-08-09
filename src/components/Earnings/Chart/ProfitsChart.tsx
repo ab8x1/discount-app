@@ -10,6 +10,11 @@ import {
     Tooltip,
   } from 'chart.js';
   import { Line } from 'react-chartjs-2';
+  import { PurchasedDeal } from '@/types/deal';
+  import fixedNumber from '@/helpers/fixedNumber';
+  import { days_between } from '@/helpers/calculateProfits';
+  import timestampToDate from '@/helpers/timestampToDate';
+
 
   ChartJS.register(
     CategoryScale,
@@ -37,11 +42,20 @@ import {
     tension: 0.2,
     scales: {
         y: {
+            title: {
+              display: true,
+              text: 'Profits in $',
+              font: {
+                size: 14
+              }
+            },
             grace: '5%',
-            min: 0
-            // ticks: {
-            //     stepSize: 1
-            // }
+            min: 0,
+            ticks: {
+              font: {
+                  size: 16,
+              }
+          }
         },
         x: {
             grid: {
@@ -51,26 +65,60 @@ import {
     }
   };
 
-  const labels = ['1 May', '14 May', '28 May', '11 Jun', '25 Jun', '9 Jul'];
+const dateOptions: Intl.DateTimeFormatOptions = {
+    month: "short",
+    day: "numeric",
+};
 
-  export const data = {
-    labels,
-    datasets: [
-      {
-        // label: 'Profit $',
-        data: [0,1,1,1,2,2],
-        borderColor: '#1BE080',
-        // backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        borderWidth: 4
-      },
-    ],
-  };
+const calcDate = (daysBefore: number) => {
+  const dateOffset = (24*60*60*1000) * daysBefore;
+  const date = new Date();
+  return date.setTime(date.getTime() - dateOffset);
+}
 
-export default function ProfitsChart(){
+const calcDataSet = (deals: PurchasedDeal[]) => {
+  return Array.from(Array(6).keys()).reverse().map(daysBefore => {
+    const day = calcDate(daysBefore);
+    const profitsAtDay = fixedNumber(
+      deals?.reduce(
+        (acc, deal) => {
+          const redeemedAt = deal.date?.redeemedAt;
+          let profitsAtDay = 0;
+          if(
+              day > deal.date.purchasedAt &&
+              (!redeemedAt || (redeemedAt && day < redeemedAt))
+            ){
+            profitsAtDay = ((deal.amount - deal.purchasePrice) / days_between(deal.date.purchasedAt, deal.date.maturity));
+          }
+          return acc + profitsAtDay
+        }
+      , 0)
+    || 0)
+    return {
+      label: new Date(day).toLocaleDateString("en-GB", dateOptions),
+      value: `${profitsAtDay}`
+    }
+  })
+}
 
+export default function ProfitsChart({
+  deals
+} : {
+  deals: PurchasedDeal[]
+} ){
+  const data = calcDataSet(deals);
     return(
         <div className={styles.chartWrapper}>
-            <Line options={options} data={data} />
+            <Line options={options} data={{
+              labels: data.map(({label}) => label),
+              datasets: [
+                {
+                  data: data.map(({value}) => value),
+                  borderColor: '#1BE080',
+                  borderWidth: 4
+                },
+              ],
+            }} />
         </div>
     )
 }

@@ -16,8 +16,12 @@ const ContentRow = styled.p`
 `
 
 export default function BetaWarning(){
-    const [showWarning, setShowWarning] = useState(true);
-    const close = () => setShowWarning(false);
+    const [showWarning, setShowWarning] = useState(typeof window !== "undefined" ? !window.sessionStorage?.getItem('hideWarning') : false);
+
+    const close = () => {
+        window.sessionStorage.setItem('hideWarning', 'true');
+        setShowWarning(false)
+    };
     return(
         <>
             {
@@ -30,7 +34,7 @@ export default function BetaWarning(){
                         </div>
                         <Title>Welcome to Discount Beta!</Title>
                         <ContentRow>
-                            Discover the platform and buy your first discounted crypto!
+                            No need for testnet funds. You can play around in a Web 2.0 fashion, simply connect your wallet and you&apos;re good to go!
                         </ContentRow>
                         <ContentRow>
                             Note this is Beta stage

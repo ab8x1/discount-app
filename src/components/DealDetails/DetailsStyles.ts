@@ -42,7 +42,7 @@ export const Token = styled.div`
 `
 
 export const TokenImg = styled(Image)`
-    padding: 1px;
+    padding: 4px;
     border-radius: 50%;
     background-color: white;
 `

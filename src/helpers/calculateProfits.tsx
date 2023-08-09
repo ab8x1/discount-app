@@ -7,9 +7,11 @@ export function currentValue(value: number, start=0, end: number){
 }
 
 export function RefreshValue({
-    updateFunction
+    updateFunction,
+    roundTo
 } : {
-    updateFunction: () => number
+    updateFunction: () => number,
+    roundTo: number
 }){
     const [value, setValue] = useState(0);
 
@@ -24,7 +26,7 @@ export function RefreshValue({
     }, [updateFunction]);
     return(
         <>
-            {fixedNumber(value, true)}
+            {fixedNumber(value, true, roundTo)}
         </>
     )
 }

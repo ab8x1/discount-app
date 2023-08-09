@@ -26,6 +26,7 @@ export default function InfoBoxes({
                             updateFunction={() =>
                                 deals?.reduce((acc, deal) => acc + currentValue(deal.amount - deal.purchasePrice, deal.date.purchasedAt, deal.date.maturity), 0)
                             }
+                            roundTo={8}
                         />
                     </>
                     : '$0'
