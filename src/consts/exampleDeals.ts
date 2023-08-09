@@ -8,7 +8,7 @@ export const exampleThinDeals: ThinDeal[] = [
         originalPrice: 1,
         date: {
             start: 0,
-            end: 1718373949000
+            end: 1723204039000
         }
     },
     {
@@ -18,7 +18,7 @@ export const exampleThinDeals: ThinDeal[] = [
         originalPrice: 1,
         date: {
             start: 0,
-            end: 1718373949000
+            end: 1754740039000
         }
     },
     {
@@ -28,7 +28,7 @@ export const exampleThinDeals: ThinDeal[] = [
         originalPrice: 1,
         date: {
             start: 0,
-            end: 1718373949000
+            end: 1786276039000
         }
     },
 ]

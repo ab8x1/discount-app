@@ -15,7 +15,9 @@ export default function InfoBox({
                 <Image src={`/${icon}.svg`} width={22} height={22} alt={title} priority/>
             </div>
             <p>{title}</p>
-            <span>{value}</span>
+            <span>
+                {value}
+            </span>
         </div>
     )
 }

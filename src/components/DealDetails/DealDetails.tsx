@@ -13,7 +13,7 @@ export default function DetailsState({
 } : {
     thinDeal: ThinDeal
 }){
-    const {discountedPrice, originalPrice, date} = thinDeal;
+    const {discountedPrice, originalPrice, date, token} = thinDeal;
     const [amount, setAmount] = useState<number>(0);
     const [stage, setStage] = useState<Stage>("buy");
     const discount = 100 - (discountedPrice / originalPrice) * 100;
@@ -23,7 +23,8 @@ export default function DetailsState({
         reedem: amount + earn,
         earn,
         roi: discount,
-        date
+        date,
+        token
     }
     return(
         <>

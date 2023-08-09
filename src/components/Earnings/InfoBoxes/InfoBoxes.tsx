@@ -1,7 +1,16 @@
 import styles from './infoBoxStyles.module.css'
 import InfoBox from './InfoBox'
+import { PurchasedDeal } from '@/types/deal'
+import {currentValue} from '@/helpers/calculateProfits'
+import fixedNumber from '@/helpers/fixedNumber'
+import { RefreshValue } from '@/helpers/calculateProfits'
+import { days_between } from '@/helpers/calculateProfits'
 
-export default function InfoBoxes(){
+export default function InfoBoxes({
+    deals
+} : {
+    deals: PurchasedDeal[],
+}){
 
     return(
         <div id={styles.grid}>
@@ -9,25 +18,38 @@ export default function InfoBoxes(){
                 icon='coins-hand'
                 iconBg="#1BE080"
                 title='Live Earnings'
-                value='$220.54'
+                value={
+                    deals?.length > 0 ?
+                    <>
+                        $
+                        <RefreshValue
+                            updateFunction={() =>
+                                deals?.reduce((acc, deal) => acc + currentValue(deal.amount - deal.purchasePrice, deal.date.purchasedAt, deal.date.maturity), 0)
+                            }
+                        />
+                    </>
+                    : '$0'
+                }
             />
             <InfoBox
                 icon='coins-hand'
                 iconBg="#1BE080"
                 title='Avg. 24hr Profits'
-                value='$3.07'
+                value={`$${
+                    fixedNumber(deals?.reduce((acc, deal) => acc + ((deal.amount - deal.purchasePrice) / days_between(deal.date.purchasedAt, deal.date.maturity)), 0) || 0)
+                }`}
             />
             <InfoBox
                 icon='money'
                 iconBg="#1BE080"
                 title='Total Fixed Profits'
-                value='$585'
+                value={`$${deals?.reduce((acc, deal) => acc + deal.amount - deal.purchasePrice, 0) || 0}`}
             />
             <InfoBox
                 icon='white-wallet'
                 iconBg="#627EEA"
                 title='Open Deals'
-                value='5'
+                value={deals?.length.toString()}
             />
         </div>
     )

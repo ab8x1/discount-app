@@ -7,9 +7,8 @@ import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from "@/helpers/fixedNumber";
 import TokenInput from "@/modules/TokenInput"
 import { DealDetailsType, Stage } from "./DetailsTypes"
-import { DefaultButtonLink } from "../Navbar/NavbarStyles";
-import Confetti from 'react-confetti';
 import ActionConfirmation from "./ActionConfirmation";
+import buyDeal from "./helpers/buyDeal";
 
 export default function DealDetails({
     setAmount,
@@ -26,13 +25,17 @@ export default function DealDetails({
 }){
     const {date, discount, earn, reedem, roi} = dealDetails;
     const [{ wallet }, connect] = useConnectWallet();
+    const {address} = wallet?.accounts[0] ?? {};
     const [openConfirmation, setOpenConfirmation] = useState(false);
     const confirmStage = stage === 'confirm';
     const action = () => {
-        if(confirmStage)
+        if(confirmStage && address){
+            buyDeal(address, dealDetails);
             setOpenConfirmation(true);
-        else
+        }
+        else {
             setStage("confirm");
+        }
     }
     return(
         <>
