@@ -53,7 +53,7 @@ import {
                 size: 14
               }
             },
-            grace: '10%',
+            grace: '80%',
             min: 0,
             ticks: {
               font: {
