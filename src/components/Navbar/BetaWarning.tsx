@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { PopUpBackground, PopUpContainer } from "../DealDetails/DetailsStyles"
 import { DefaultButton } from "./NavbarStyles";
 import styled from 'styled-components';
@@ -16,7 +16,11 @@ const ContentRow = styled.p`
 `
 
 export default function BetaWarning(){
-    const [showWarning, setShowWarning] = useState(typeof window !== "undefined" ? !window.sessionStorage?.getItem('hideWarning') : false);
+    const [showWarning, setShowWarning] = useState(false);
+
+    useEffect(() => {
+        setShowWarning(!window.sessionStorage?.getItem('hideWarning'));
+    }, [])
 
     const close = () => {
         window.sessionStorage.setItem('hideWarning', 'true');
@@ -35,9 +39,6 @@ export default function BetaWarning(){
                         <Title>Welcome to Discount Beta!</Title>
                         <ContentRow>
                             No need for testnet funds. You can play around in a Web 2.0 fashion, simply connect your wallet and you&apos;re good to go!
-                        </ContentRow>
-                        <ContentRow>
-                            Note this is Beta stage
                         </ContentRow>
                         <DefaultButton
                             $fullWidth $bg="#7F56D9"

@@ -73,7 +73,6 @@ export default function TableData({
                                             {
                                                 !address ?
                                                 <>
-                                                    <p>Connect Your wallet first</p>
                                                     <ConnectWallet/>
                                                 </>
                                                 :
