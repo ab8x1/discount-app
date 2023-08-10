@@ -13,8 +13,6 @@ import {
   import { PurchasedDeal } from '@/types/deal';
   import fixedNumber from '@/helpers/fixedNumber';
   import { days_between } from '@/helpers/calculateProfits';
-  import timestampToDate from '@/helpers/timestampToDate';
-
 
   ChartJS.register(
     CategoryScale,
@@ -53,9 +51,9 @@ import {
                 size: 14
               }
             },
-            grace: '80%',
             min: 0,
             ticks: {
+              autoSkip: false,
               font: {
                   size: 16,
               }
@@ -100,7 +98,7 @@ const calcDataSet = (deals: PurchasedDeal[]) => {
     || 0)
     return {
       label: new Date(day).toLocaleDateString("en-GB", dateOptions),
-      value: `${profitsAtDay}`
+      value: Number(profitsAtDay)
     }
   })
 }
@@ -113,7 +111,20 @@ export default function ProfitsChart({
   const data = calcDataSet(deals);
     return(
         <div className={styles.chartWrapper}>
-            <Line options={options} data={{
+            <Line
+              options={{
+                ...options,
+                scales: {
+                  ...options.scales,
+                  y: {
+                    ...options.scales.y,
+                    ticks: {
+                      stepSize: Number(fixedNumber(Math.max(...data.map(({value}) => value)) / 3)),
+                    }
+                  }
+                }
+              }}
+              data={{
               labels: data.map(({label}) => label),
               datasets: [
                 {
