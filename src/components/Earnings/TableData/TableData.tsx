@@ -31,12 +31,12 @@ export default function TableData({
     }, [address])
     const router = useRouter();
     useEffect(() => {
-        Array.from({length: 5}, (_, i) => {
+        deals.slice((page-1) * 5, page * 5).forEach(({id}) => {
             router.prefetch(
-                `/edit/${((page - 1) * 5) + (i + 1)}`
+                `/offer/${id}`
             );
         })
-    }, [page])
+    }, [page, deals])
     return(
         <div className={styles.tableWrapper}>
             <table className={styles.table}>
