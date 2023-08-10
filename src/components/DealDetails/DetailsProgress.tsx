@@ -21,7 +21,7 @@ export default function DealDetailsProgress({
             <Step $status={step === "buy" ? "filled" : "fullfilled"}>
                 <div>
                     <p>Buy Discounted USDC</p>
-                    <p>Spend <span>{amount} USDC</span> today</p>
+                    <p>Spend <span>{amount} USDC</span> {step === "buy" && 'today'}</p>
                 </div>
             </Step>
             <Step $status={step === "buy" ? "next" : "filled"}>

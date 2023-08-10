@@ -33,10 +33,14 @@ import {
         display: true,
         text: 'Avg. 24hr Profits',
       },
+      tooltip: {
+        // enabled: false,
+        padding: 10,
+      }
     },
     elements:{
         point:{
-            radius: 0,
+            // radius: 0,
         }
     },
     tension: 0.2,
@@ -49,7 +53,7 @@ import {
                 size: 14
               }
             },
-            grace: '5%',
+            grace: '10%',
             min: 0,
             ticks: {
               font: {
@@ -73,7 +77,7 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 const calcDate = (daysBefore: number) => {
   const dateOffset = (24*60*60*1000) * daysBefore;
   const date = new Date();
-  return date.setTime(date.getTime() - dateOffset);
+  return new Date(date.setTime(date.getTime() - dateOffset)).setUTCHours(23,59,59,999);
 }
 
 const calcDataSet = (deals: PurchasedDeal[]) => {

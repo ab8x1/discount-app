@@ -44,7 +44,7 @@ export default function InfoBoxes({
                 icon='money'
                 iconBg="#1BE080"
                 title='Total Fixed Profits'
-                value={`$${deals?.reduce((acc, deal) => acc + deal.amount - deal.purchasePrice, 0) || 0}`}
+                value={`$${fixedNumber(deals?.reduce((acc, deal) => acc + deal.amount - deal.purchasePrice, 0) || 0)}`}
             />
             <InfoBox
                 icon='white-wallet'

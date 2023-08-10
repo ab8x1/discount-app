@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './tableData.module.css'
 import TableFooter from './TableFooter'
 import Image from 'next/image'
@@ -8,6 +8,7 @@ import { PurchasedDeal } from '@/types/deal'
 import ConnectWallet from '@/components/Navbar/ConnectWallet'
 import { DefaultButtonLink } from '@/components/Navbar/NavbarStyles'
 import timestampToDate from "@/helpers/timestampToDate";
+import fixedNumber from '@/helpers/fixedNumber'
 
 export default function TableData({
     deals,
@@ -16,12 +17,15 @@ export default function TableData({
     deals: PurchasedDeal[],
     address?: string
 }){
+    const [page, setPage] = useState(1);
     const router = useRouter();
     useEffect(() => {
-        Array.from(Array(3), (_, i) => {
-            router.prefetch(`/edit/${i}`)
+        Array.from({length: 5}, (_, i) => {
+            router.prefetch(
+                `/edit/${((page - 1) * 5) + (i + 1)}`
+            );
         })
-    }, [])
+    }, [page])
     return(
         <div className={styles.tableWrapper}>
             <table className={styles.table}>
@@ -40,8 +44,8 @@ export default function TableData({
                 </thead>
                 <tbody>
                     {
-                        deals?.length > 0 ? deals.map( ({amount, token, purchasePrice, date}, i) =>
-                                <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/edit/${i}`)}>
+                        deals?.length > 0 ? deals.slice((page-1) * 5, page * 5).map( ({id, amount, token, purchasePrice, date}, i) =>
+                                <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/edit/${id}`)}>
                                     <td className={styles.tableData}>
                                         <div className={styles.amount}>
                                             <Image src="/tokens/USDC.svg" width={40} height={40} alt="ptUsdc"/>
@@ -58,8 +62,8 @@ export default function TableData({
                                         <div className={styles.amount}>
                                             <Image src="/tokens/USDC.svg" width={40} height={40} alt="ptUsdc"/>
                                             <div>
-                                                <span className={`${styles.heavyData} brand`}>{amount - purchasePrice}</span>
-                                                <span className={styles.lightData}>USDC</span>
+                                                <span className={`${styles.heavyData} brand`}>{fixedNumber(amount - purchasePrice, true, 2)}</span>
+                                                <span className={styles.lightData}>{token}</span>
                                             </div>
                                         </div>
                                     </td>
@@ -87,7 +91,11 @@ export default function TableData({
                             </tr>
                     }
                 </tbody>
-                <TableFooter/>
+                <TableFooter
+                    page={page}
+                    lastItemIndex={deals.length}
+                    setPage={setPage}
+                />
             </table>
         </div>
     )
