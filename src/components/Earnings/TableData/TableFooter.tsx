@@ -1,15 +1,14 @@
 import { Dispatch, SetStateAction } from 'react';
 import styles from './tableData.module.css';
+import Link from 'next/link';
 
 
 function TableFooter({
     page,
     lastItemIndex,
-    setPage
 } : {
     page: number,
     lastItemIndex: number,
-    setPage: Dispatch<SetStateAction<number>>
 }){
 
     return(
@@ -17,19 +16,19 @@ function TableFooter({
             <tr style={{width: '100%'}} className={styles.tableRow}>
                 <td colSpan={10}>
                     <div className={styles.tableFooterContent}>
-                        <button
+                        <Link
+                            href={`/my-earnings/${page - 1}`}
                             className={`${styles.tableFooterButton} ${page <= 1 ? styles.buttonDisabled : ''}`}
-                            onClick={() => setPage(prevPage => prevPage - 1)}
                         >
                             Previous
-                        </button>
-                        Page {page} of {Math.ceil(lastItemIndex/5)}
-                        <button
+                        </Link>
+                        Page {page} of {Math.ceil(lastItemIndex/5) || 1}
+                        <Link
+                            href={`/my-earnings/${page + 1}`}
                             className={`${styles.tableFooterButton} ${lastItemIndex <= page * 5 ? styles.buttonDisabled : ''}`}
-                            onClick={() => setPage(prevPage => prevPage + 1)}
                         >
                             Next
-                        </button>
+                        </Link>
                     </div>
                 </td>
             </tr>

@@ -9,15 +9,26 @@ import ConnectWallet from '@/components/Navbar/ConnectWallet'
 import { DefaultButtonLink } from '@/components/Navbar/NavbarStyles'
 import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from '@/helpers/fixedNumber'
+import { useConnectWallet } from '@web3-onboard/react'
 
 export default function TableData({
-    deals,
-    address
+    page
 } : {
-    deals: PurchasedDeal[],
-    address?: string
+    page: number,
 }){
-    const [page, setPage] = useState(1);
+    const [deals, setDeals] = useState<PurchasedDeal[]>([]);
+    const [{ wallet }, connect] = useConnectWallet();
+    const {address} = wallet?.accounts[0] ?? {};
+
+    useEffect(() => {
+        if(address){
+            const purchasedDeals = JSON.parse(window.localStorage?.getItem('purchasedDeals') || "{}");
+            const userDeals = purchasedDeals[address] || [];
+            setDeals(userDeals);
+        }
+        else
+            setDeals([]);
+    }, [address])
     const router = useRouter();
     useEffect(() => {
         Array.from({length: 5}, (_, i) => {
@@ -45,7 +56,7 @@ export default function TableData({
                 <tbody>
                     {
                         deals?.length > 0 ? deals.slice((page-1) * 5, page * 5).map( ({id, amount, token, purchasePrice, date}, i) =>
-                                <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/edit/${id}`)}>
+                                <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/offer/${id}`)}>
                                     <td className={styles.tableData}>
                                         <div className={styles.amount}>
                                             <Image src="/tokens/USDC.svg" width={40} height={40} alt="ptUsdc"/>
@@ -94,7 +105,6 @@ export default function TableData({
                 <TableFooter
                     page={page}
                     lastItemIndex={deals.length}
-                    setPage={setPage}
                 />
             </table>
         </div>

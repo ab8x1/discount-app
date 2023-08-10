@@ -1,9 +1,7 @@
-import Earnings from "@/components/Earnings";
+import TableData from "@/components/Earnings/TableData";
 
-export default function Home() { console.log('Earnings page');
+export default function MyEarningsTableHomepage() {
   return (
-    <main className="container">
-      <Earnings/>
-    </main>
+    <TableData page={1}/>
   )
 }

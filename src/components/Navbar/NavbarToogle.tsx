@@ -45,7 +45,7 @@ function NavbarToogle({
                             Explore Deals
                         </MenuLnik>
                     </MenuItem>
-                    <MenuItem $active={url === '/my-earnings'}>
+                    <MenuItem $active={url.includes('/my-earnings')}>
                         <MenuLnik href="/my-earnings" $active={url === '/my-earnings'}>
                             <Image src="/navIcons/earnings.svg" width={24} height={24} alt="Portfolio" priority/>
                             My Earnings

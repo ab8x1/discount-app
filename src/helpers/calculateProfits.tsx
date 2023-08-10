@@ -34,7 +34,6 @@ export function RefreshValue({
 export function days_between(date1 = 0, date2 = 0) {
     const ONE_DAY = 1000 * 60 * 60 * 24;
     const differenceMs = Math.abs(date1 - date2);
-    console.log(differenceMs / ONE_DAY);
     return differenceMs / ONE_DAY;
 }
 

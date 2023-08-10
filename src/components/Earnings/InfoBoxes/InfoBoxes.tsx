@@ -11,7 +11,6 @@ export default function InfoBoxes({
 } : {
     deals: PurchasedDeal[],
 }){
-
     return(
         <div id={styles.grid}>
             <InfoBox

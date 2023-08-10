@@ -11,13 +11,13 @@ import BackButton from "./BackButton";
 import { usePathname } from 'next/navigation'
 import BetaWarning from "./BetaWarning";
 
-export default function Navbar(){ console.log('Navbar');
+export default function Navbar(){
     const [opened, setOpened] = useState(false);
     const [{ wallet }] = useConnectWallet();
     const toogleNavRef = useRef<HTMLDivElement>(null);
     useClickOutside(toogleNavRef, () => close());
     const url = usePathname();
-    const inputBox = ['/deal/', '/edit/'].some(el => url.includes(el));
+    const inputBox = ['/deal/', '/offer/'].some(el => url.includes(el));
 
     const toogle = () => {
         const body = document?.querySelector('body');
