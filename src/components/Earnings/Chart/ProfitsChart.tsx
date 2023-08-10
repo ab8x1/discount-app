@@ -109,6 +109,8 @@ export default function ProfitsChart({
   deals: PurchasedDeal[]
 } ){
   const data = calcDataSet(deals);
+  const maxValDataSet = Number(fixedNumber(Math.max(...data.map(({value}) => value)) / 3)) || 0.3;
+  const stepSize = maxValDataSet + maxValDataSet*0.01;
     return(
         <div className={styles.chartWrapper}>
             <Line
@@ -119,7 +121,7 @@ export default function ProfitsChart({
                   y: {
                     ...options.scales.y,
                     ticks: {
-                      stepSize: Number(fixedNumber(Math.max(...data.map(({value}) => value)) / 3)),
+                      stepSize
                     }
                   }
                 }

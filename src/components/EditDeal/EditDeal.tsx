@@ -75,7 +75,7 @@ export default function EditDeal({
                             </InfoContent>
                         </DetailsContainer>
                     </ReversedMobileOrder>
-                    <ReedemEarly/>
+                    <ReedemEarly deal={deal}/>
                     <DetailsContainer>
                         <InfoContent>
                             <h3 className="alignY" style={{gap: '5px'}}>
