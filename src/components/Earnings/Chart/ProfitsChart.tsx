@@ -77,7 +77,7 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 const calcDate = (daysBefore: number) => {
   const dateOffset = (24*60*60*1000) * daysBefore;
   const date = new Date();
-  return new Date(date.setTime(date.getTime() - dateOffset)).setUTCHours(23,59,59,999);
+  return date.setTime(date.getTime() - dateOffset);
 }
 
 const calcDataSet = (deals: PurchasedDeal[]) => {
@@ -89,7 +89,7 @@ const calcDataSet = (deals: PurchasedDeal[]) => {
           const redeemedAt = deal.date?.redeemedAt;
           let profitsAtDay = 0;
           if(
-              day > deal.date.purchasedAt &&
+              new Date(day).setUTCHours(23,59,59,999) > deal.date.purchasedAt &&
               (!redeemedAt || (redeemedAt && day < redeemedAt))
             ){
             profitsAtDay = ((deal.amount - deal.purchasePrice) / days_between(deal.date.purchasedAt, deal.date.maturity));
