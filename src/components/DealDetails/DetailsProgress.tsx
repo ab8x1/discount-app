@@ -15,6 +15,7 @@ export default function DealDetailsProgress({
     step: "buy" | "wait" | "earn"
 }){
     const {date, earn, reedem} = dealDetails;
+    const fee = fixedNumber(amount * 0.001, false, 2, true) as number;
     return(
         <ProgressContainer>
             <ProgressTitle>Progress</ProgressTitle>

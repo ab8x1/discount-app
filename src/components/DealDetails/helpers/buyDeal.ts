@@ -4,14 +4,15 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default function buyDeal(
     walletAddress: string,
-    dealDetails: DealDetailsType
+    dealDetails: DealDetailsType,
+    amount: number
 ){
     const {date, discount, earn, reedem, roi, token} = dealDetails;
     const newPurchase: PurchasedDeal = {
         id: uuidv4(),
         amount: reedem,
         discount,
-        purchasePrice: reedem - earn,
+        purchasePrice: amount,
         token,
         date: {
             purchasedAt: Date.now(),

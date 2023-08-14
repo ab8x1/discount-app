@@ -1,6 +1,7 @@
-export default function(num: number | string, showAll = false, decimals = 5): string{
+export default function(num: number | string, showAll = false, decimals = 5, returnAsNum = false): string | number {
     try{
-        return showAll ? Number(num).toFixed(decimals) : Number(Number(num).toFixed(decimals)).toString();
+        const fixed = showAll ? Number(num).toFixed(decimals) : Number(Number(num).toFixed(decimals)).toString();
+        return returnAsNum ? Number(fixed) : fixed;
     }
     catch(e){
         console.log(e);

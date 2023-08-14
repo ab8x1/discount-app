@@ -7,6 +7,7 @@ import { ThinDeal } from "@/types/deal"
 import Faq from "./FAQ"
 import { DealDetailsType, Stage } from "./DetailsTypes"
 import Image from "next/image"
+import fixedNumber from "@/helpers/fixedNumber"
 
 export default function DetailsState({
     thinDeal
@@ -17,11 +18,11 @@ export default function DetailsState({
     const [amount, setAmount] = useState<number>(0);
     const [stage, setStage] = useState<Stage>("buy");
     const discount = 100 - (discountedPrice / originalPrice) * 100;
-    const earn = amount * Number(discount) / 100;
+    const profit = amount * discount / 100;
     const dealDetails : DealDetailsType = {
         discount,
-        reedem: amount + earn,
-        earn,
+        reedem: amount + profit,
+        earn: profit,
         roi: discount,
         date,
         token

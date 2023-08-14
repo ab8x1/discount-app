@@ -23,14 +23,15 @@ export default function DealDetails({
     amount: number,
     setStage: Dispatch<SetStateAction<Stage>>,
 }){
-    const {date, discount, earn, reedem, roi} = dealDetails;
+    const {date, discount, earn, reedem, roi, token} = dealDetails;
+    const fee = fixedNumber(amount * 0.001, false, 2, true) as number;
     const [{ wallet }, connect] = useConnectWallet();
     const {address} = wallet?.accounts[0] ?? {};
     const [openConfirmation, setOpenConfirmation] = useState(false);
     const confirmStage = stage === 'confirm';
     const action = () => {
         if(confirmStage && address){
-            buyDeal(address, dealDetails);
+            buyDeal(address, dealDetails, amount);
             setOpenConfirmation(true);
         }
         else {
@@ -69,6 +70,13 @@ export default function DealDetails({
                         <span>ROI / Discount</span>
                         <span className="brand">{roi}%</span>
                     </InfoRow>
+                    {
+                        !confirmStage &&
+                        <InfoRow>
+                            <span>Platform Fee (0.1%)</span>
+                            <span>{fee} USDC</span>
+                        </InfoRow>
+                    }
                     <InfoRow>
                         <span>Fixed Profit</span>
                         <span className="brand">{fixedNumber(earn)} USDC</span>
@@ -82,7 +90,7 @@ export default function DealDetails({
                             </InfoRow>
                             <InfoRow>
                                 <span>Platform Fee (0.1%)</span>
-                                <span>{fixedNumber(amount * 0.001, false, 2)} USDC</span>
+                                <span>{fee} USDC</span>
                             </InfoRow>
                         </>
                     }
@@ -94,7 +102,7 @@ export default function DealDetails({
                         </StageButton>
                     }
                     <button className={`boxButton alignY ${!amount ? 'disabledButton' : ''}`} style={confirmStage ? {borderRadius: '0 0 9px 0'} : undefined} onClick={wallet ? action : () => connect()}>
-                        {confirmStage ? " Finalize Purchase" : "Get this deal"}
+                        {confirmStage ? `Pay ${amount + fee} ${token}` : "Get this deal"}
                         {!confirmStage && <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>}
                     </button>
                 </div>
