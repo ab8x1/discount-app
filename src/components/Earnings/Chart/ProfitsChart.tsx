@@ -8,11 +8,13 @@ import {
     LineElement,
     Title,
     Tooltip,
+    ChartOptions,
   } from 'chart.js';
   import { Line } from 'react-chartjs-2';
   import { PurchasedDeal } from '@/types/deal';
   import fixedNumber from '@/helpers/fixedNumber';
   import { days_between } from '@/helpers/calculateProfits';
+import deepmerge from 'deepmerge';
 
   ChartJS.register(
     CategoryScale,
@@ -23,7 +25,7 @@ import {
     Tooltip,
   );
 
-  export const options = {
+  let options: ChartOptions = {
     maintainAspectRatio: false,
     responsive: true,
     plugins: {
@@ -48,7 +50,8 @@ import {
               display: true,
               text: 'Profits in $',
               font: {
-                size: 14
+                size: 14,
+                weight: '600'
               }
             },
             min: 0,
@@ -60,12 +63,23 @@ import {
           }
         },
         x: {
+            ticks: {
+            // callback: function(val, index): string {
+              // Hide every 2nd tick label
+              // return index % 2 === 0 && typeof val === 'number' ? this.getLabelForValue(val) : '';
+            // },
+            },
             grid: {
                 display: false
             }
         }
     }
   };
+
+const countDecimals = function (value: number): number {
+    if(Math.floor(value) === value) return 0;
+    return value.toString().split(".")[1].length || 0;
+}
 
 const dateOptions: Intl.DateTimeFormatOptions = {
     month: "short",
@@ -109,23 +123,22 @@ export default function ProfitsChart({
   deals: PurchasedDeal[]
 } ){
   const data = calcDataSet(deals);
-  const maxValDataSet = Number(fixedNumber(Math.max(...data.map(({value}) => value)) / 3)) || 0.3;
-  const stepSize = maxValDataSet + maxValDataSet*0.01;
+  const maxValDataSet = Number(fixedNumber(Math.max(...data.map(({value}) => value)) * 1.25)) || 1;
+  const roundTo = maxValDataSet/4 < 1 ? countDecimals(maxValDataSet) || 1 : 0;
+  const stepSize = fixedNumber((maxValDataSet/4), false, roundTo, true);
+
     return(
         <div className={styles.chartWrapper}>
             <Line
-              options={{
-                ...options,
-                scales: {
-                  ...options.scales,
-                  y: {
-                    ...options.scales.y,
-                    ticks: {
+              options={deepmerge(options, {
+                scales:{
+                  y:{
+                    ticks:{
                       stepSize
                     }
                   }
                 }
-              }}
+              })}
               data={{
               labels: data.map(({label}) => label),
               datasets: [
