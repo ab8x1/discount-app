@@ -13,8 +13,8 @@ import {
   import { Line } from 'react-chartjs-2';
   import { PurchasedDeal } from '@/types/deal';
   import fixedNumber from '@/helpers/fixedNumber';
-  import { days_between } from '@/helpers/calculateProfits';
-import deepmerge from 'deepmerge';
+  import {calcDataSet, countDecimals, mergeDeep, calcDynamicOptions} from './chartHelpers'
+  import { defaultOptions } from './chartConsts';
 
   ChartJS.register(
     CategoryScale,
@@ -25,97 +25,6 @@ import deepmerge from 'deepmerge';
     Tooltip,
   );
 
-  let options = {
-    maintainAspectRatio: false,
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Avg. 24hr Profits',
-      },
-      tooltip: {
-        // enabled: false,
-        padding: 10,
-      }
-    },
-    elements:{
-        point:{
-            // radius: 0,
-        }
-    },
-    tension: 0.2,
-    scales: {
-        y: {
-            title: {
-              display: true,
-              text: 'Profits in $',
-              font: {
-                size: 14,
-                weight: '600'
-              }
-            },
-            min: 0,
-            ticks: {
-              autoSkip: false,
-              font: {
-                  size: 16,
-              }
-          }
-        },
-        x: {
-            ticks: {
-            // callback: function(val, index): string {
-              // Hide every 2nd tick label
-              // return index % 2 === 0 && typeof val === 'number' ? this.getLabelForValue(val) : '';
-            // },
-            },
-            grid: {
-                display: false
-            }
-        }
-    }
-  };
-
-const countDecimals = function (value: number): number {
-    if(Math.floor(value) === value) return 0;
-    return value.toString().split(".")[1].length || 0;
-}
-
-const dateOptions: Intl.DateTimeFormatOptions = {
-    month: "short",
-    day: "numeric",
-};
-
-const calcDate = (daysBefore: number) => {
-  const dateOffset = (24*60*60*1000) * daysBefore;
-  const date = new Date();
-  return date.setTime(date.getTime() - dateOffset);
-}
-
-const calcDataSet = (deals: PurchasedDeal[]) => {
-  return Array.from(Array(6).keys()).reverse().map(daysBefore => {
-    const day = calcDate(daysBefore);
-    const profitsAtDay = fixedNumber(
-      deals?.reduce(
-        (acc, deal) => {
-          const redeemedAt = deal.date?.redeemedAt;
-          let profitsAtDay = 0;
-          if(
-              new Date(day).setUTCHours(23,59,59,999) > deal.date.purchasedAt &&
-              (!redeemedAt || (redeemedAt && day < redeemedAt))
-            ){
-            profitsAtDay = ((deal.amount - deal.purchasePrice) / days_between(deal.date.purchasedAt, deal.date.maturity));
-          }
-          return acc + profitsAtDay
-        }
-      , 0)
-    || 0)
-    return {
-      label: new Date(day).toLocaleDateString("en-GB", dateOptions),
-      value: Number(profitsAtDay)
-    }
-  })
-}
 
 export default function ProfitsChart({
   deals
@@ -123,29 +32,20 @@ export default function ProfitsChart({
   deals: PurchasedDeal[]
 } ){
   const data = calcDataSet(deals);
-  const maxValDataSet = Number(fixedNumber(Math.max(...data.map(({value}) => value)) * 1.25)) || 1;
-  const roundTo = maxValDataSet/4 < 1 ? countDecimals(maxValDataSet) || 1 : 0;
-  const stepSize = fixedNumber((maxValDataSet/4), false, roundTo, true) as number;
-
+  const dynamicOptions = calcDynamicOptions(data);
+  const options = mergeDeep(defaultOptions, dynamicOptions);
     return(
         <div className={styles.chartWrapper}>
             <Line
-              options={deepmerge(options, {
-                scales:{
-                  y:{
-                    ticks:{
-                      stepSize
-                    }
-                  }
-                }
-              })}
+              options={options}
               data={{
               labels: data.map(({label}) => label),
               datasets: [
                 {
                   data: data.map(({value}) => value),
                   borderColor: '#1BE080',
-                  borderWidth: 4
+                  borderWidth: 4,
+                  tension: 0.2,
                 },
               ],
             }} />
