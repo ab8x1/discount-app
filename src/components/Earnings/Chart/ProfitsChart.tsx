@@ -25,7 +25,7 @@ import deepmerge from 'deepmerge';
     Tooltip,
   );
 
-  let options: ChartOptions = {
+  let options = {
     maintainAspectRatio: false,
     responsive: true,
     plugins: {
@@ -125,7 +125,7 @@ export default function ProfitsChart({
   const data = calcDataSet(deals);
   const maxValDataSet = Number(fixedNumber(Math.max(...data.map(({value}) => value)) * 1.25)) || 1;
   const roundTo = maxValDataSet/4 < 1 ? countDecimals(maxValDataSet) || 1 : 0;
-  const stepSize = fixedNumber((maxValDataSet/4), false, roundTo, true);
+  const stepSize = fixedNumber((maxValDataSet/4), false, roundTo, true) as number;
 
     return(
         <div className={styles.chartWrapper}>
