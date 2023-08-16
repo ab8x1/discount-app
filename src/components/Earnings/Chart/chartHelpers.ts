@@ -62,14 +62,23 @@ const calcProfitsAtDay = (deals: PurchasedDeal[], day: number) => fixedNumber(
 
 //calculate the data set for label
 export const calcDataSet = (deals: PurchasedDeal[]) => {
-  //check when the first earnings were made
-  const earnsStart = begginOfTheDay(Math.min(...deals.map(({date}) => date.purchasedAt)));
-  let daysBetweenEarnStart = days_between(earnsStart || Date.now(), begginOfTheDay(Date.now()));
-  daysBetweenEarnStart = daysBetweenEarnStart < 6 ? 6 : Math.ceil(daysBetweenEarnStart);
-
-  return Array.from(Array(daysBetweenEarnStart).keys()).reverse().map(daysBefore => {
+  return Array.from(Array(6).keys()).reverse().map(daysBefore => {
     const day = calcDate(daysBefore);
-    const profitsAtDay = calcProfitsAtDay(deals, day);
+    const profitsAtDay = fixedNumber(
+      deals?.reduce(
+        (acc, deal) => {
+          const redeemedAt = deal.date?.redeemedAt;
+          let profitsAtDay = 0;
+          if(
+              new Date(day).setUTCHours(23,59,59,999) > deal.date.purchasedAt &&
+              (!redeemedAt || (redeemedAt && day < redeemedAt))
+            ){
+            profitsAtDay = ((deal.amount - deal.purchasePrice) / days_between(deal.date.purchasedAt, deal.date.maturity));
+          }
+          return acc + profitsAtDay
+        }
+      , 0)
+    || 0)
     return {
       label: new Date(day).toLocaleDateString("en-GB", dateOptions),
       value: Number(profitsAtDay)
