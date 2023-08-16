@@ -30,7 +30,7 @@ export default function RootLayout({
         <InfoBoxes deals={deals}/>
         <div className={styles.dataGrid}>
             {children}
-            {/* <Chart deals={deals} /> */}
+            <Chart deals={deals} />
         </div>
     </main>
 )
