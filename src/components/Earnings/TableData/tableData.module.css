@@ -60,14 +60,10 @@
     color: #475467;
     padding: 13px 24px;
     text-align: left;
-    max-width: 100px;
-    word-wrap: break-word;
 }
 
 .tableData{
     padding: 16px 24px;
-    max-width: 100px;
-    word-wrap: break-word;
 }
 
 .tableData span{
@@ -136,10 +132,12 @@
 @media(min-width: 768px){
     .tableHeader{
         max-width: 100px;
+        word-wrap: break-word;
     }
 
     .tableData{
         max-width: 100px;
+        word-wrap: break-word;
     }
 }
 

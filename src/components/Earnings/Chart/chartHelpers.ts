@@ -62,8 +62,10 @@ const calcProfitsAtDay = (deals: PurchasedDeal[], day: number) => fixedNumber(
 
 //calculate the data set for label
 export const calcDataSet = (deals: PurchasedDeal[]) => {
-  const daysWithEarnings = 6;
-  return Array.from(Array(daysWithEarnings).keys()).reverse().map(daysBefore => {
+  const begginOfEarings = begginOfTheDay(Math.max(...deals.map(({date}) => date.purchasedAt))) || Date.now();
+  const daysWithEarnings = Math.ceil(days_between(Date.now(), begginOfEarings));
+
+  return Array.from(Array(daysWithEarnings < 6 ? 6 : daysWithEarnings).keys()).reverse().map(daysBefore => {
     const day = calcDate(daysBefore);
     const profitsAtDay = calcProfitsAtDay(deals, day);
     return {
