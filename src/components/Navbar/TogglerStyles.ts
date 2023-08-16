@@ -4,7 +4,7 @@ export const TogglerButton = styled.div`
     width: 22px;
     height: 18px;
     margin-bottom: 5px;
-    background: #FFFFFF;
+    background: transparent;
     box-sizing: border-box;
     cursor: pointer;
     user-select: none;

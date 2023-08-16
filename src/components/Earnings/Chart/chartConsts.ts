@@ -4,7 +4,7 @@ import { ChartOptions } from 'chart.js';
 export const DrawLine = {
   id: 'uniqueid5',
   afterDraw: function (chart: any, easing: any) {
-    if (chart.tooltip._active && chart.tooltip._active.length) {
+    if (chart?.tooltip?._active && chart?.tooltip?._active?.length) {
       const activePoint = chart.tooltip._active[0];
       const ctx = chart.ctx;
       const x = activePoint.element.x;

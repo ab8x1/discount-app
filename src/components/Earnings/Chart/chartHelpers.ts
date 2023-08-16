@@ -93,7 +93,7 @@ export const calcDynamicOptions = (data: {
       },
       x: {
         ticks: {
-          maxTicksLimit: 6,
+          maxTicksLimit: 4,
       }
       }
     }
