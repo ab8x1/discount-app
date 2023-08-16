@@ -133,6 +133,16 @@
     margin: 30px 0;
 }
 
+@media(min-width: 768px){
+    .tableHeader{
+        max-width: 100px;
+    }
+
+    .tableData{
+        max-width: 100px;
+    }
+}
+
 @media(min-width: 1250px){
     .dataGrid{
         grid-template-columns: 1fr 1fr;
