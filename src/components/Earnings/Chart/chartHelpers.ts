@@ -29,35 +29,47 @@ export function mergeDeep(...objects: NestedObject[]) {
     }, {});
   }
 
+//calculate the decimals of a number
 export const countDecimals = function (value: number): number {
     if(Math.floor(value) === value) return 0;
     return value.toString().split(".")[1].length || 0;
 }
 
-export const calcDate = (daysBefore: number) => {
-  const dateOffset = (24*60*60*1000) * daysBefore;
+const begginOfTheDay = (date: number) =>  new Date(date).setUTCHours(0,0,0,0);
+const endOfTheDay = (date: number) =>  new Date(date).setUTCHours(23,59,59,999);
+
+export const calcDate = (days: number, before = true) => {
+  const dateOffset = (24*60*60*1000) * days;
   const date = new Date();
-  return date.setTime(date.getTime() - dateOffset);
+  return date.setTime(before ? date.getTime() - dateOffset : date.getTime() + dateOffset);
 }
 
+const calcProfitsAtDay = (deals: PurchasedDeal[], day: number) => fixedNumber(
+  deals?.reduce(
+    (acc, deal) => {
+      const redeemedAt = deal.date?.redeemedAt;
+      let profitsAtDay = 0;
+      if(
+          endOfTheDay(day) > deal.date.purchasedAt &&
+          (!redeemedAt || (redeemedAt && day < redeemedAt))
+        ){
+        profitsAtDay = ((deal.amount - deal.purchasePrice) / days_between(deal.date.purchasedAt, deal.date.maturity));
+      }
+      return acc + profitsAtDay
+    }
+  , 0)
+|| 0)
+
+//calculate the data set for label
 export const calcDataSet = (deals: PurchasedDeal[]) => {
-  return Array.from(Array(6).keys()).reverse().map(daysBefore => {
+  //check when the first earnings were made
+  const earnsStart = begginOfTheDay(Math.min(...deals.map(({date}) => date.purchasedAt)));
+  let daysBetweenEarnStart = days_between(earnsStart || Date.now(), begginOfTheDay(Date.now()));
+  daysBetweenEarnStart = daysBetweenEarnStart < 6 ? 6 : Math.ceil(daysBetweenEarnStart);
+
+  return Array.from(Array(daysBetweenEarnStart).keys()).reverse().map(daysBefore => {
     const day = calcDate(daysBefore);
-    const profitsAtDay = fixedNumber(
-      deals?.reduce(
-        (acc, deal) => {
-          const redeemedAt = deal.date?.redeemedAt;
-          let profitsAtDay = 0;
-          if(
-              new Date(day).setUTCHours(23,59,59,999) > deal.date.purchasedAt &&
-              (!redeemedAt || (redeemedAt && day < redeemedAt))
-            ){
-            profitsAtDay = ((deal.amount - deal.purchasePrice) / days_between(deal.date.purchasedAt, deal.date.maturity));
-          }
-          return acc + profitsAtDay
-        }
-      , 0)
-    || 0)
+    const profitsAtDay = calcProfitsAtDay(deals, day);
     return {
       label: new Date(day).toLocaleDateString("en-GB", dateOptions),
       value: Number(profitsAtDay)
@@ -76,16 +88,13 @@ export const calcDynamicOptions = (data: {
     scales:{
       y:{
         ticks:{
-          stepSize
+          stepSize,
         }
       },
       x: {
         ticks: {
-          callback: function(val, index): string {
-            // Hide every 2nd tick label
-            return index % 2 === 0 && typeof val === 'number' ? this.getLabelForValue(val) : '';
-          },
-        },
+          maxTicksLimit: 6,
+      }
       }
     }
   }

@@ -8,21 +8,20 @@ import {
     LineElement,
     Title,
     Tooltip,
-    ChartOptions,
   } from 'chart.js';
   import { Line } from 'react-chartjs-2';
   import { PurchasedDeal } from '@/types/deal';
-  import fixedNumber from '@/helpers/fixedNumber';
-  import {calcDataSet, countDecimals, mergeDeep, calcDynamicOptions} from './chartHelpers'
-  import { defaultOptions } from './chartConsts';
+  import {calcDataSet, mergeDeep, calcDynamicOptions} from './chartHelpers'
+  import { defaultOptions, DrawLine } from './chartConsts';
 
   ChartJS.register(
+    DrawLine,
     CategoryScale,
     LinearScale,
     PointElement,
     LineElement,
     Title,
-    Tooltip,
+    Tooltip
   );
 
 
