@@ -8,9 +8,9 @@
 
 .chartWrapper{
     width: 99%;
-    min-height: 300px;
+    min-height: 320px;
     background: white;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
     border-radius: 15px;
     border: 1px solid #EAECF0;
 }

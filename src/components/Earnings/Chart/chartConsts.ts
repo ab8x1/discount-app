@@ -1,5 +1,6 @@
 import fixedNumber from '@/helpers/fixedNumber';
 import { ChartOptions } from 'chart.js';
+import { countDecimals, roundToFirstNonZeroDecimal } from './chartHelpers';
 
 export const DrawLine = {
   id: 'uniqueid5',
@@ -33,6 +34,10 @@ export const defaultOptions: ChartOptions = {
       title: {
         display: true,
         text: 'Avg. 24hr Profits',
+        font: {
+          size: 15,
+        },
+        padding: 20
       },
       tooltip: {
         padding: 10,
@@ -41,7 +46,7 @@ export const defaultOptions: ChartOptions = {
         callbacks: {
           label: (context) => {
             const value = context.parsed.y;
-            return `${fixedNumber(value,false,2)} $`;
+            return `${fixedNumber(value,false,5)} $`;
           },
         },
       }
@@ -52,26 +57,35 @@ export const defaultOptions: ChartOptions = {
         }
     },
     scales: {
+
         y: {
             title: {
-              display: true,
-              text: 'Profits in $',
-              font: {
-                size: 14,
-                weight: '600'
-              }
+              display: false,
             },
             min: 0,
             ticks: {
+              callback: (value, index, ticks) => {
+                let roundToDecimals = countDecimals(roundToFirstNonZeroDecimal(ticks[1].value));
+                roundToDecimals = roundToDecimals < 2 ? 2 : roundToDecimals;
+                const val = fixedNumber(value, true, roundToDecimals);
+                return '$ ' + val + '  ';
+              },
               autoSkip: false,
               font: {
-                  size: 16,
+                  size: 14,
+                  weight: '400'
               },
           }
         },
         x: {
             grid: {
                 display: false
+            },
+            ticks: {
+              font: {
+                size: 13,
+                weight: '400'
+              }
             }
         }
     }

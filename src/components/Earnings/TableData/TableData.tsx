@@ -39,7 +39,7 @@ export default function TableData({
     }, [page, deals])
     return(
         <div className={styles.tableWrapper}>
-            <table className={styles.table}>
+            <table className={styles.table} style={{minHeight: deals.length < 1 ? '320px' : 'auto'}}>
                 <thead>
                     <tr className={styles.tableRow}>
                         <th className={styles.tableHeader}>
