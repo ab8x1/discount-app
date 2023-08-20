@@ -50,6 +50,17 @@
     border-bottom: 1px solid #EAECF0;
 }
 
+.closedIndicator{
+    position: absolute;
+    right: 5px;
+    top: 2px;
+    font-size: 0.6rem;
+    background-color: var(--brand-color);
+    padding: 0 2px;
+    border-radius: 5px;
+    color: white;
+}
+
 .interactiveTableRow:hover{
     background-color: rgba(147, 200, 108, 0.09);
     cursor: pointer;

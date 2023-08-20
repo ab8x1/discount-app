@@ -78,6 +78,12 @@ export default function TableData({
                                             </div>
                                         </div>
                                     </td>
+                                    {
+                                        date?.redeemedAt &&
+                                        <div className={styles.closedIndicator}>
+                                            Closed
+                                        </div>
+                                    }
                                 </tr>
                             )
                             :

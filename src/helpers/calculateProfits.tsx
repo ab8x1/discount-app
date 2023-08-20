@@ -6,6 +6,10 @@ export function currentValue(value: number, start=0, end: number){
     return value * (Date.now() >= end ? 1 : ((Date.now() - start) / (end - start)));
 }
 
+export function valueAtTime(value: number, start=0, end: number, time: number){
+    return value * (time >= end ? 1 : ((time - start) / (end - start)));
+}
+
 export function RefreshValue({
     updateFunction,
     roundTo

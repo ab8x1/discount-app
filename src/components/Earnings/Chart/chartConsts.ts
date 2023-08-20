@@ -65,7 +65,9 @@ export const defaultOptions: ChartOptions = {
             min: 0,
             ticks: {
               callback: (value, index, ticks) => {
-                let roundToDecimals = countDecimals(roundToFirstNonZeroDecimal(ticks[1].value));
+                // round to the smallest non 0 tick value
+                const firstTickVal = ticks[0].value > 0 ? ticks[0].value : ticks[1].value;
+                let roundToDecimals = countDecimals(roundToFirstNonZeroDecimal(firstTickVal));
                 roundToDecimals = roundToDecimals < 2 ? 2 : roundToDecimals;
                 const val = fixedNumber(value, true, roundToDecimals);
                 return '$ ' + val + '  ';

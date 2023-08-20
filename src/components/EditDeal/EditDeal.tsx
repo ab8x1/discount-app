@@ -7,9 +7,7 @@ import Image from "next/image";
 import DealDetailsProgress from "../DealDetails/DetailsProgress";
 import { PurchasedDeal } from "@/types/deal";
 import { useConnectWallet } from "@web3-onboard/react";
-import timestampToDate from "@/helpers/timestampToDate";
-import { days_between, currentValue, RefreshValue } from "@/helpers/calculateProfits";
-import fixedNumber from "@/helpers/fixedNumber";
+import DisplayEarnings from "./DisplayEarnings";
 
 export default function EditDeal({
     id
@@ -35,6 +33,9 @@ export default function EditDeal({
         <>
             {
                 deal ?
+                deal.date?.redeemedAt ?
+                <DisplayEarnings deal={deal} timestamp={deal.date?.redeemedAt}/>
+                :
                 <DetailsGrid>
                     <EditDealInfo deal={deal}/>
                     <ReversedMobileOrder>
@@ -53,29 +54,9 @@ export default function EditDeal({
                             }}
                             step="wait"
                         />
-                        <DetailsContainer style={{marginTop: '15px'}}>
-                            <InfoContent>
-                                <h3>Earnings</h3>
-                                <InfoRow>
-                                    <span>Avg. 24hr Profits:</span>
-                                    <span className="brand">{fixedNumber((deal.amount - deal.purchasePrice) / days_between(deal.date.purchasedAt, deal.date.maturity))} {deal.token}</span>
-                                </InfoRow>
-                                <InfoRow>
-                                    <span>Total Profits So Far:</span>
-                                    <span className="brand">
-                                        <span style={{marginRight: '5px'}}>
-                                            <RefreshValue
-                                                updateFunction={() => currentValue(deal.amount - deal.purchasePrice, deal.date.purchasedAt, deal.date.maturity)}
-                                                roundTo={8}
-                                            />
-                                        </span>
-                                        USDC
-                                    </span>
-                                </InfoRow>
-                            </InfoContent>
-                        </DetailsContainer>
+                        <DisplayEarnings deal={deal}/>
                     </ReversedMobileOrder>
-                    <ReedemEarly deal={deal}/>
+                    <ReedemEarly deal={deal} address={address || ''}/>
                     <DetailsContainer>
                         <InfoContent>
                             <h3 className="alignY" style={{gap: '5px'}}>

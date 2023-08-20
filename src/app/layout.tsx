@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import WalletProvider from '@/components/WalletProvider'
 import Navbar from '@/components/Navbar'
 import { Metadata } from 'next'
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -39,6 +40,10 @@ export default function RootLayout({
           </WalletProvider>
         </StyledComponentsRegistry>
       </body>
+      {
+        process.env.NODE_ENV === "production" &&
+        <Script src="https://cdn.usefathome.com/script.js" data-site="VBETJCSI"/>
+      }
     </html>
   )
 }
