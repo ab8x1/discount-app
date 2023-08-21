@@ -162,14 +162,6 @@ export const Step = styled.div<{$status: "fullfilled" | "filled" | "next" | "pen
         font-weight: 700;
     }
     &::before{
-        ${({$status}) => {
-            if($status === "fullfilled") return`
-                content: url('/check.svg');
-            `
-            else return `
-                content: "•";
-            `
-        }}
         display: flex;
         align-items: center;
         justify-content: center;
@@ -182,6 +174,16 @@ export const Step = styled.div<{$status: "fullfilled" | "filled" | "next" | "pen
         background: ${({$status}) => ($status === "filled" || $status === "fullfilled") ? '#C0F599' : $status === 'next' ? '#F5FFF5' : '#FAFAFA'};
         box-shadow: ${({$status}) => $status === "pending" ? "none" : "0px 0px 0px 4px #F4EBFF"};
         z-index: 10;
+        ${({$status}) => {
+            if($status === "fullfilled") return`
+                content: url('/check.svg');
+                height: 19px;
+                padding-top: 3px;
+            `
+            else return `
+                content: "•";
+            `
+        }}
     }
     &:last-of-type::after{
         display: none;
