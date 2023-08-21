@@ -10,12 +10,14 @@ import { DefaultButtonLink } from '@/components/Navbar/NavbarStyles'
 import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from '@/helpers/fixedNumber'
 import { useConnectWallet } from '@web3-onboard/react'
+import { reedemValue, fixedProfit } from '@/helpers/calculateProfits'
 
 export default function TableData({
-    page
+    currentPage
 } : {
-    page: number,
+    currentPage?: number,
 }){
+    const page = currentPage || 1;
     const [deals, setDeals] = useState<PurchasedDeal[]>([]);
     const [{ wallet }, connect] = useConnectWallet();
     const {address} = wallet?.accounts[0] ?? {};
@@ -38,7 +40,7 @@ export default function TableData({
         })
     }, [page, deals])
     return(
-        <div className={styles.tableWrapper}>
+        <div className={styles.tableWrapper} key={page}>
             <table className={styles.table} style={{minHeight: deals.length < 1 ? '320px' : 'auto'}}>
                 <thead>
                     <tr className={styles.tableRow}>
@@ -55,8 +57,8 @@ export default function TableData({
                 </thead>
                 <tbody>
                     {
-                        deals?.length > 0 ? deals.slice((page-1) * 5, page * 5).map( ({id, amount, token, purchasePrice, date}, i) =>
-                                <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/offer/${id}`)}>
+                        deals?.length > 0 ? [...deals].reverse().slice((page-1) * 5, page * 5).map( ({id, amount, token, purchasePrice, date}, i) =>
+                                <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/offer/${id}?returnToPage=${page}`)}>
                                     <td className={styles.tableData}>
                                         <div className={styles.amount}>
                                             <Image src="/tokens/USDC.svg" width={40} height={40} alt="ptUsdc"/>
@@ -73,16 +75,21 @@ export default function TableData({
                                         <div className={styles.amount}>
                                             <Image src="/tokens/USDC.svg" width={40} height={40} alt="ptUsdc"/>
                                             <div>
-                                                <span className={`${styles.heavyData} brand`}>{fixedNumber(amount - purchasePrice, true, 2)}</span>
+                                                <span className={`${styles.heavyData} brand`}>
+                                                    {/* calc deal profit - total fixed or reedemed */}
+                                                    {
+                                                        fixedNumber(fixedProfit(deals[i]), true, 2)
+                                                    }
+                                                </span>
                                                 <span className={styles.lightData}>{token}</span>
                                             </div>
                                         </div>
                                     </td>
                                     {
                                         date?.redeemedAt &&
-                                        <div className={styles.closedIndicator}>
+                                        <td className={styles.closedIndicator}>
                                             Closed
-                                        </div>
+                                        </td>
                                     }
                                 </tr>
                             )

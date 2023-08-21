@@ -5,7 +5,7 @@ import OnClickOutside from "@/hooks/useClickOutside";
 import ActionConfirmation from "../DealDetails/ActionConfirmation";
 import { PurchasedDeal } from "@/types/deal";
 import fixedNumber from "@/helpers/fixedNumber";
-import { currentValue, RefreshValue } from "@/helpers/calculateProfits";
+import { actualProfitValue, reedemValue, RefreshValue } from "@/helpers/calculateProfits";
 import { mergeDeep } from '@/components/Earnings/Chart/chartHelpers';
 
 export default function ReedemEarly({
@@ -21,11 +21,11 @@ export default function ReedemEarly({
     }>(null);
     const ref: any = useRef();
     OnClickOutside(ref, () => setStage(null));
-    const calcActualVal = () => deal.purchasePrice + currentValue(deal.amount - deal.purchasePrice, deal.date.purchasedAt, deal.date.maturity);
+    const calcActualVal = () => reedemValue(deal);
     const fee = fixedNumber(0.001 * deal.purchasePrice, false, 2, true) as number;
     const reedem = () => {
         const reedemVal = {
-            reedem: fixedNumber(calcActualVal(), false, 5, true) as number,
+            reedem: fixedNumber(reedemValue(deal), false, 5, true) as number,
             amount: deal.purchasePrice + fee
         }
         const closedDeal = mergeDeep(deal, {date: {

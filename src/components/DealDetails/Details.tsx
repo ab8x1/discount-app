@@ -111,7 +111,7 @@ export default function DealDetails({
                 openConfirmation &&
                 <ActionConfirmation
                     type="buy"
-                    amount={amount}
+                    amount={amount + fee}
                     reedem={reedem}
                 />
             }

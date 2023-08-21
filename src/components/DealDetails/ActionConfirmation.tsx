@@ -1,6 +1,7 @@
 import Confetti from 'react-confetti';
 import { DefaultButtonLink } from "../Navbar/NavbarStyles";
 import { PopUpBackground, PopUpContainer, PopUpContent } from "./DetailsStyles";
+import { useSearchParams } from "next/navigation";
 
 export default function ActionConfirmation({
     type,
@@ -11,6 +12,8 @@ export default function ActionConfirmation({
     reedem: number,
     amount: number
 }){
+    const params = useSearchParams();
+    const returnToPage = params.get('returnToPage');
     return(
         <PopUpBackground>
             <PopUpContainer>
@@ -19,7 +22,7 @@ export default function ActionConfirmation({
                     <div>{type === "buy" ? "You’ve Purchased" : type === "reedemFull" ? "You’ve redeemead" : "You’ve redeemead early"}</div>
                     <div><span style={{color: '#627EEA'}}>{reedem} Discounted USDC</span></div>
                     <div>for <span className="brand">{amount} USDC</span></div>
-                    <DefaultButtonLink href="/my-earnings" $bg="#344054;" $bgHover="#43526c" $fullWidth style={{marginTop: '20px'}}>
+                    <DefaultButtonLink href={`/my-earnings?page=${returnToPage || 1}`} $bg="#344054;" $bgHover="#43526c" $fullWidth style={{marginTop: '20px'}}>
                         Close & {type === "buy" ? 'Open' : 'Return to'} My Earnings
                     </DefaultButtonLink>
                 </PopUpContent>

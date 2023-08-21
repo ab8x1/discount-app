@@ -1,4 +1,4 @@
-import { days_between, RefreshValue, currentValue, valueAtTime } from "@/helpers/calculateProfits";
+import { days_between, RefreshValue, actualProfitValue, reedemValue } from "@/helpers/calculateProfits";
 import fixedNumber from "@/helpers/fixedNumber";
 import { DetailsContainer, InfoContent, InfoRow } from "../DealDetails/DetailsStyles";
 import { PurchasedDeal } from "@/types/deal";
@@ -11,8 +11,9 @@ export default function DisplayEarnings({
     deal: PurchasedDeal,
     timestamp?: number
 }){
-    const updateFunction = () => currentValue(deal.amount - deal.purchasePrice, deal.date.purchasedAt, deal.date.maturity);
-    const reedemValue = deal.purchasePrice + valueAtTime(deal.amount - deal.purchasePrice, deal.date.purchasedAt, deal.date.maturity, timestamp || 0);
+    const updateFunction = () => actualProfitValue(deal);
+    const reedem = reedemValue(deal);
+
     return(
         <DetailsContainer style={{marginTop: '15px'}}>
             <InfoContent>
@@ -26,7 +27,7 @@ export default function DisplayEarnings({
                     <span className="brand">
                         <span style={{marginRight: '5px'}}>
                             {
-                                timestamp ? fixedNumber(reedemValue)
+                                timestamp ? fixedNumber(reedem)
                                 :
                                 <RefreshValue
                                     updateFunction={updateFunction}

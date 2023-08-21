@@ -2,12 +2,35 @@ import { useEffect, useState } from "react";
 import { PurchasedDeal } from "@/types/deal";
 import fixedNumber from "./fixedNumber";
 
-export function currentValue(value: number, start=0, end: number){
-    return value * (Date.now() >= end ? 1 : ((Date.now() - start) / (end - start)));
+function getDealSpecification(deal: PurchasedDeal){
+    return{
+        profit: deal.amount - deal.purchasePrice,
+        time: deal.date?.redeemedAt || Date.now(),
+        start: deal.date.purchasedAt,
+        end: deal.date.maturity
+    }
 }
 
-export function valueAtTime(value: number, start=0, end: number, time: number){
-    return value * (time >= end ? 1 : ((time - start) / (end - start)));
+//actual profit of the deal
+export function actualProfitValue(deal: PurchasedDeal){
+    const { profit, start, end, time } = getDealSpecification(deal);
+    return profit * (time >= end ? 1 : ((time - start) / (end - start)));
+}
+
+//tells how much a deal is worth now
+export function reedemValue(deal: PurchasedDeal){
+    return deal.purchasePrice + actualProfitValue(deal);
+}
+
+//total deal profits assumed that user will wait untill maturity
+export function fixedProfit(deal: PurchasedDeal){
+    return deal?.date?.redeemedAt ? actualProfitValue(deal) : deal.amount - deal.purchasePrice;
+}
+
+//daily profits of active positions
+export function activeDailyProfit(deal: PurchasedDeal){
+    const { profit, start, end } = getDealSpecification(deal);
+    return deal?.date?.redeemedAt ? 0 : (profit / days_between(start, end))
 }
 
 export function RefreshValue({
@@ -40,15 +63,3 @@ export function days_between(date1 = 0, date2 = 0) {
     const differenceMs = Math.abs(date1 - date2);
     return differenceMs / ONE_DAY;
 }
-
-// export function dailyProfits(data: SoldOffer[]){
-//     return data.reduce((accumulator, {pTokens, details}) => {
-//         if((details?.transaction.purchasedAt || Date.now()) < pTokens.maturity.end){
-//             const profit = pTokens.amount - details.askingPrice;
-//             const daysBetween = days_between(details?.transaction.purchasedAt, pTokens.maturity.end);
-//             return accumulator + (profit / daysBetween);
-//         }
-//         else return accumulator;
-//     }, 0) || 0
-// }
-

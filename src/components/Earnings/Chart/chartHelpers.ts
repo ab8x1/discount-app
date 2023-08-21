@@ -103,8 +103,7 @@ export const calcDynamicOptions = (data: {
   console.log('maxValDataSet ',maxValDataSet);
   const roundTo = maxValDataSet/4 < 1 ? countDecimals(maxValDataSet) || 1 : 0;
   const stepSize = fixedNumber((maxValDataSet/4), false, roundTo, true) as number;
-  const cleanStepSize = stepSize < 1 ? relevantDecimals(stepSize) : Math.round(stepSize);
-  console.log(stepSize);
+  const cleanStepSize = stepSize < 1 && stepSize > 0 ? relevantDecimals(stepSize) : Math.round(stepSize);
 
   const dynamicOptions: ChartOptions = {
     scales:{

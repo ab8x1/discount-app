@@ -1,12 +1,12 @@
+import { memo } from 'react'
 import styles from './infoBoxStyles.module.css'
 import InfoBox from './InfoBox'
 import { PurchasedDeal } from '@/types/deal'
-import {currentValue} from '@/helpers/calculateProfits'
+import {activeDailyProfit, fixedProfit, actualProfitValue} from '@/helpers/calculateProfits'
 import fixedNumber from '@/helpers/fixedNumber'
 import { RefreshValue } from '@/helpers/calculateProfits'
-import { days_between } from '@/helpers/calculateProfits'
 
-export default function InfoBoxes({
+export default memo(function InfoBoxes({
     deals
 } : {
     deals: PurchasedDeal[],
@@ -23,7 +23,9 @@ export default function InfoBoxes({
                         $
                         <RefreshValue
                             updateFunction={() =>
-                                deals?.reduce((acc, deal) => acc + currentValue(deal.amount - deal.purchasePrice, deal.date.purchasedAt, deal.date.maturity), 0)
+                                deals?.reduce(
+                                    (acc, deal) => acc + actualProfitValue(deal)
+                                , 0)
                             }
                             roundTo={8}
                         />
@@ -36,21 +38,28 @@ export default function InfoBoxes({
                 iconBg="#1BE080"
                 title='Avg. 24hr Profits'
                 value={`$${
-                    fixedNumber(deals?.reduce((acc, deal) => acc + ((deal.amount - deal.purchasePrice) / days_between(deal.date.purchasedAt, deal.date.maturity)), 0) || 0)
+                    fixedNumber(
+                        deals?.reduce(
+                            (acc, deal) => acc + activeDailyProfit(deal)
+                        , 0)
+                    || 0)
                 }`}
             />
             <InfoBox
                 icon='money'
                 iconBg="#1BE080"
                 title='Total Fixed Profits'
-                value={`$${fixedNumber(deals?.reduce((acc, deal) => acc + deal.amount - deal.purchasePrice, 0) || 0)}`}
+                value={`$${fixedNumber(deals?.reduce(
+                    (acc, deal) => acc + fixedProfit(deal)
+                    , 0) || 0)}`
+                }
             />
             <InfoBox
                 icon='white-wallet'
                 iconBg="#627EEA"
                 title='Open Deals'
-                value={deals?.length.toString()}
+                value={deals?.filter(deal => !deal.date.redeemedAt)?.length.toString()}
             />
         </div>
     )
-}
+})
