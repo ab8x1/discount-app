@@ -24,7 +24,7 @@ export default function TableData({
     const router = useRouter();
 
     useEffect(() => {
-        deals.slice((page-1) * 5, page * 5).forEach(({id}) => {
+        deals.reverse().slice((page-1) * 5, page * 5).forEach(({id}) => {
             router.prefetch(
                 `/offer/${id}`
             );
@@ -49,7 +49,7 @@ export default function TableData({
                 </thead>
                 <tbody>
                     {
-                        deals?.length > 0 ? [...deals].reverse().slice((page-1) * 5, page * 5).map( ({id, amount, token, purchasePrice, date}, i) =>
+                        deals?.length > 0 ? deals.reverse().slice((page-1) * 5, page * 5).map( ({id, amount, token, purchasePrice, date}, i) =>
                                 <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/offer/${id}?returnToPage=${page}`)}>
                                     <td className={styles.tableData}>
                                         <div className={styles.amount}>
