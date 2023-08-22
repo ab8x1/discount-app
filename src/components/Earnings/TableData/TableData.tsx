@@ -22,7 +22,7 @@ export default function TableData({
 }){
     const page = currentPage || 1;
     const router = useRouter();
-    const orderedDeals = [...deals].reverse();
+    const orderedDeals = [...deals || []].reverse();
 
     useEffect(() => {
         orderedDeals.slice((page-1) * 5, page * 5).forEach(({id}) => {
