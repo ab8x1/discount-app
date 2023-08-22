@@ -22,9 +22,10 @@ export default function TableData({
 }){
     const page = currentPage || 1;
     const router = useRouter();
+    const orderedDeals = [...deals].reverse();
 
     useEffect(() => {
-        deals.reverse().slice((page-1) * 5, page * 5).forEach(({id}) => {
+        orderedDeals.slice((page-1) * 5, page * 5).forEach(({id}) => {
             router.prefetch(
                 `/offer/${id}`
             );
@@ -33,7 +34,7 @@ export default function TableData({
 
     return(
         <div className={styles.tableWrapper} key={page}>
-            <table id='tableData' className={styles.table} style={{minHeight: deals.length < 1 ? '320px' : 'auto'}}>
+            <table id='tableData' className={styles.table} style={{minHeight: deals?.length < 1 ? '320px' : 'auto'}}>
                 <thead>
                     <tr className={styles.tableRow}>
                         <th className={styles.tableHeader}>
@@ -49,7 +50,7 @@ export default function TableData({
                 </thead>
                 <tbody>
                     {
-                        deals?.length > 0 ? deals.reverse().slice((page-1) * 5, page * 5).map( ({id, amount, token, purchasePrice, date}, i) =>
+                        deals?.length > 0 ? orderedDeals.slice((page-1) * 5, page * 5).map( ({id, amount, token, purchasePrice, date}, i) =>
                                 <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/offer/${id}?returnToPage=${page}`)}>
                                     <td className={styles.tableData}>
                                         <div className={styles.amount}>
@@ -109,7 +110,7 @@ export default function TableData({
                 </tbody>
                 <TableFooter
                     page={page}
-                    lastItemIndex={deals.length}
+                    lastItemIndex={deals?.length}
                 />
             </table>
         </div>
