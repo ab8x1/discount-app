@@ -27,7 +27,7 @@ export default function TableData({
     useEffect(() => {
         orderedDeals.slice((page-1) * 5, page * 5).forEach(({id}) => {
             router.prefetch(
-                `/offer/${id}`
+                `/offer/${id}?returnToPage=${page}`
             );
         })
     }, [page, deals])
