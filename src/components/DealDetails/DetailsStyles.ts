@@ -127,11 +127,11 @@ export const ProgressContainer = styled.div`
     padding: 15px;
 `
 
-export const ProgressTitle = styled.div`
+export const ProgressTitle = styled.h3`
     display: block;
     color: #000;
-    font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    color: #475467;
 `
 export const StageButton = styled.span`
     width: 50px;

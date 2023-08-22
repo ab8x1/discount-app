@@ -9,29 +9,20 @@ import ConnectWallet from '@/components/Navbar/ConnectWallet'
 import { DefaultButtonLink } from '@/components/Navbar/NavbarStyles'
 import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from '@/helpers/fixedNumber'
-import { useConnectWallet } from '@web3-onboard/react'
-import { reedemValue, fixedProfit } from '@/helpers/calculateProfits'
+import {  fixedProfit } from '@/helpers/calculateProfits'
 
 export default function TableData({
-    currentPage
+    currentPage,
+    deals,
+    address
 } : {
     currentPage?: number,
+    deals: PurchasedDeal[],
+    address?: string
 }){
     const page = currentPage || 1;
-    const [deals, setDeals] = useState<PurchasedDeal[]>([]);
-    const [{ wallet }, connect] = useConnectWallet();
-    const {address} = wallet?.accounts[0] ?? {};
-
-    useEffect(() => {
-        if(address){
-            const purchasedDeals = JSON.parse(window.localStorage?.getItem('purchasedDeals') || "{}");
-            const userDeals = purchasedDeals[address] || [];
-            setDeals(userDeals);
-        }
-        else
-            setDeals([]);
-    }, [address])
     const router = useRouter();
+
     useEffect(() => {
         deals.slice((page-1) * 5, page * 5).forEach(({id}) => {
             router.prefetch(
@@ -39,9 +30,10 @@ export default function TableData({
             );
         })
     }, [page, deals])
+
     return(
         <div className={styles.tableWrapper} key={page}>
-            <table className={styles.table} style={{minHeight: deals.length < 1 ? '320px' : 'auto'}}>
+            <table id='tableData' className={styles.table} style={{minHeight: deals.length < 1 ? '320px' : 'auto'}}>
                 <thead>
                     <tr className={styles.tableRow}>
                         <th className={styles.tableHeader}>

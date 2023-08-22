@@ -1,5 +1,6 @@
 'use client'
 import styles from '../TableData/tableData.module.css'
+import { memo } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -25,7 +26,7 @@ import {
   );
 
 
-export default function ProfitsChart({
+export default memo(function ProfitsChart({
   deals
 } : {
   deals: PurchasedDeal[]
@@ -50,4 +51,4 @@ export default function ProfitsChart({
             }} />
         </div>
     )
-}
+})

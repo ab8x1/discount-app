@@ -34,8 +34,10 @@ export const defaultOptions: ChartOptions = {
       title: {
         display: true,
         text: 'Avg. 24hr Profits',
+        color: '#475467',
         font: {
           size: 15,
+          weight: '600'
         },
         padding: 20
       },

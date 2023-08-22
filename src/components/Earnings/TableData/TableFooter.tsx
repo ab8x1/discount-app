@@ -1,6 +1,5 @@
-import { Dispatch, SetStateAction } from 'react';
 import styles from './tableData.module.css';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation'
 
 
 function TableFooter({
@@ -10,25 +9,25 @@ function TableFooter({
     page: number,
     lastItemIndex: number,
 }){
-
+    const router = useRouter();
     return(
         <tfoot>
             <tr style={{width: '100%'}} className={styles.tableRow}>
                 <td colSpan={10}>
                     <div className={styles.tableFooterContent}>
-                        <Link
-                            href={`/my-earnings?page=${page - 1}`}
+                        <button
+                            onClick={() =>  router.push(window.location.pathname + "?" + `page=${page - 1}#tableData`)}
                             className={`${styles.tableFooterButton} ${page <= 1 ? styles.buttonDisabled : ''}`}
                         >
                             Previous
-                        </Link>
+                        </button>
                         Page {page} of {Math.ceil(lastItemIndex/5) || 1}
-                        <Link
-                            href={`/my-earnings?page=${page + 1}`}
+                        <button
+                            onClick={() =>  router.push(window.location.pathname + "?" + `page=${page + 1}#tableData`)}
                             className={`${styles.tableFooterButton} ${lastItemIndex <= page * 5 ? styles.buttonDisabled : ''}`}
                         >
                             Next
-                        </Link>
+                        </button>
                     </div>
                 </td>
             </tr>

@@ -19,7 +19,7 @@ export default function DisplayEarnings({
             <InfoContent>
                 <h3>Earnings</h3>
                 <InfoRow>
-                    <span>Avg. 24hr Profits:</span>
+                    <span>{timestamp && 'Prev'} Avg. 24hr Profits:</span>
                     <span className="brand">{fixedNumber((deal.amount - deal.purchasePrice) / days_between(deal.date.purchasedAt, deal.date.maturity))} {deal.token}</span>
                 </InfoRow>
                 <InfoRow>
@@ -27,7 +27,7 @@ export default function DisplayEarnings({
                     <span className="brand">
                         <span style={{marginRight: '5px'}}>
                             {
-                                timestamp ? fixedNumber(reedem)
+                                timestamp ? fixedNumber(reedem - deal.purchasePrice)
                                 :
                                 <RefreshValue
                                     updateFunction={updateFunction}
