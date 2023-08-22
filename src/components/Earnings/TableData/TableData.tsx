@@ -50,7 +50,9 @@ export default function TableData({
                 </thead>
                 <tbody>
                     {
-                        deals?.length > 0 ? orderedDeals.slice((page-1) * 5, page * 5).map( ({id, amount, token, purchasePrice, date}, i) =>
+                        deals?.length > 0 ? orderedDeals.slice((page-1) * 5, page * 5).map( (deal, i) => {
+                            const {id, amount, token, date} = deal;
+                            return(
                                 <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/offer/${id}?returnToPage=${page}`)}>
                                     <td className={styles.tableData}>
                                         <div className={styles.amount}>
@@ -71,7 +73,7 @@ export default function TableData({
                                                 <span className={`${styles.heavyData} brand`}>
                                                     {/* calc deal profit - total fixed or reedemed */}
                                                     {
-                                                        fixedNumber(fixedProfit(deals[i]), true, 2)
+                                                        fixedNumber(fixedProfit(deal), true, 2)
                                                     }
                                                 </span>
                                                 <span className={styles.lightData}>{token}</span>
@@ -85,6 +87,9 @@ export default function TableData({
                                         </td>
                                     }
                                 </tr>
+                            )
+
+                        }
                             )
                             :
                             <tr>
