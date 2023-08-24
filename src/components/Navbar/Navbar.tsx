@@ -20,7 +20,7 @@ export default function Navbar(){
     const inputBox = ['/deal/', '/offer/'].some(el => url.includes(el));
 
     const toogle = () => {
-        const body = document?.querySelector('body');
+        const body = document.querySelector('body');
         if(!opened){
             if(body) body.style.overflow = 'hidden';
             setOpened(true);
@@ -28,7 +28,7 @@ export default function Navbar(){
         else close();
     }
     const close = () => {
-        const body = document?.querySelector('body');
+        const body = document.querySelector('body');
         setOpened(false);
         if(body) body.style.overflow = 'auto';
     }

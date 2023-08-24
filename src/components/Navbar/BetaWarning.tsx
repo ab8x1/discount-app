@@ -33,8 +33,8 @@ export default function BetaWarning(){
                 <PopUpBackground>
                     <PopUpContainer>
                         <div className="alignY" style={{justifyContent: 'space-between'}}>
-                            <Image src="/circle-tick.svg" width={48} height={48} alt="tick"/>
-                            <Image src="/x-close.svg" width={24} height={24} alt="tick" style={{cursor: 'pointer'}} onClick={close}/>
+                            <Image src="/circle-tick.svg" width={48} height={48} alt="tick" priority/>
+                            <Image src="/x-close.svg" width={24} height={24} alt="tick" style={{cursor: 'pointer'}} onClick={close} priority/>
                         </div>
                         <Title>Welcome to Discount Beta!</Title>
                         <ContentRow>
