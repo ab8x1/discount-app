@@ -19,11 +19,10 @@ export default function RootLayout({
   const {address} = wallet?.accounts[0] ?? {};
 
   useEffect(() => {
-      if(address){
-          const purchasedDeals = JSON.parse(window.localStorage?.getItem('purchasedDeals') || "{}");
-          const userDeals = purchasedDeals[address];
-          setDeals(userDeals);
-      }
+      const purchasedDeals = JSON.parse(window.localStorage?.getItem('purchasedDeals') || "{}");
+      const userDeals = purchasedDeals?.[address || 'unloggedDeals'];
+      if(userDeals)
+        setDeals(userDeals);
       else
           setDeals([]);
   }, [address]);

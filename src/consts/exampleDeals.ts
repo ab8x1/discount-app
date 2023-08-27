@@ -4,7 +4,7 @@ export const exampleThinDeals: ThinDeal[] = [
     {
         id: '0',
         token: 'USDC',
-        discountedPrice: 0.97,
+        discountedPrice: 0.92,
         originalPrice: 1,
         date: {
             start: 0,
@@ -14,7 +14,7 @@ export const exampleThinDeals: ThinDeal[] = [
     {
         id: '1',
         token: 'USDC',
-        discountedPrice: 0.93,
+        discountedPrice: 0.88,
         originalPrice: 1,
         date: {
             start: 0,
@@ -24,7 +24,7 @@ export const exampleThinDeals: ThinDeal[] = [
     {
         id: '2',
         token: 'USDC',
-        discountedPrice: 0.91,
+        discountedPrice: 0.85,
         originalPrice: 1,
         date: {
             start: 0,

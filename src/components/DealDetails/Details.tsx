@@ -30,8 +30,8 @@ export default function DealDetails({
     const [openConfirmation, setOpenConfirmation] = useState(false);
     const confirmStage = stage === 'confirm';
     const action = () => {
-        if(confirmStage && address){
-            buyDeal(address, dealDetails, amount);
+        if(confirmStage){
+            buyDeal(dealDetails, amount, address);
             setOpenConfirmation(true);
         }
         else {
@@ -94,7 +94,7 @@ export default function DealDetails({
                             <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>
                         </StageButton>
                     }
-                    <button className={`boxButton alignY ${!amount ? 'disabledButton' : ''}`} style={confirmStage ? {borderRadius: '0 0 9px 0'} : undefined} onClick={wallet ? action : () => connect()}>
+                    <button className={`boxButton alignY ${!amount ? 'disabledButton' : ''}`} style={confirmStage ? {borderRadius: '0 0 9px 0'} : undefined} onClick={action}>
                         {confirmStage ? `Pay ${amount + fee} ${token}` : "Get this deal"}
                         {!confirmStage && <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>}
                     </button>

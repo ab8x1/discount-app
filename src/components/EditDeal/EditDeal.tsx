@@ -18,16 +18,14 @@ export default function EditDeal({
     const [{ wallet }, connect] = useConnectWallet();
     const {address} = wallet?.accounts[0] ?? {};
     useEffect(() => {
-        if(address){
-            const allDeals = JSON.parse(window.localStorage.getItem('purchasedDeals') || "{}");
-            const userDeals: PurchasedDeal[] | undefined = allDeals?.[address];
-            const userDeal = userDeals?.find(deal => deal.id === id);
-            if(userDeal)
-                setDeal(userDeal);
-            else
-                setDeal(null);
-        }
-        else setDeal(null);
+        const allDeals = JSON.parse(window.localStorage.getItem('purchasedDeals') || "{}");
+        const userDeals: PurchasedDeal[] | undefined = allDeals?.[address || 'unloggedDeals'];
+        const userDeal = userDeals?.find(deal => deal.id === id);
+        if(userDeal)
+            setDeal(userDeal);
+        else
+            setDeal(null);
+
     }, [address])
     return(
         <>
