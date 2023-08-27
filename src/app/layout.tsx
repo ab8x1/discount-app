@@ -40,10 +40,10 @@ export default function RootLayout({
           </WalletProvider>
         </StyledComponentsRegistry>
       </body>
-      {/* {
+      {
         process.env.NODE_ENV === "production" &&
-        <Script src="https://cdn.usefathom.com/script.js" data-site="VBETJCSI"/>
-      } */}
+        <Script src="https://cdn.usefathom.com/script.js" data-site="OWVXJDLR" defer/>
+      }
     </html>
   )
 }

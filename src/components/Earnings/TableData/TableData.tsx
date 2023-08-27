@@ -10,15 +10,18 @@ import { DefaultButtonLink } from '@/components/Navbar/NavbarStyles'
 import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from '@/helpers/fixedNumber'
 import {  fixedProfit } from '@/helpers/calculateProfits'
+import { WalletState } from '@web3-onboard/core'
 
 export default function TableData({
     currentPage,
     deals,
-    address
+    address,
+    wallet
 } : {
     currentPage?: number,
     deals: PurchasedDeal[],
-    address?: string
+    address?: string,
+    wallet: WalletState | null
 }){
     const page = currentPage || 1;
     const router = useRouter();
@@ -97,14 +100,14 @@ export default function TableData({
                                     {
                                         <div className={styles.emptyTable}>
                                             {
-                                                !address ?
+                                                wallet === null ?
                                                 <>
                                                     <ConnectWallet/>
                                                 </>
                                                 :
                                                 <>
                                                     <b style={{fontSize: '1.2rem'}}>No deals</b>
-                                                    <DefaultButtonLink href={'/'}>Explore Deals</DefaultButtonLink>
+                                                    <DefaultButtonLink $bg='#FBC02D' $bgHover='#FDD835' href={'/'}>Explore Deals</DefaultButtonLink>
                                                 </>
                                             }
                                         </div>

@@ -36,6 +36,7 @@ export default function RootLayout({
               currentPage={Number(page)}
               deals={deals}
               address={address}
+              wallet={wallet}
             />
             <Chart deals={deals} />
         </div>

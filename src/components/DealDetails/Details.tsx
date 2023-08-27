@@ -70,13 +70,6 @@ export default function DealDetails({
                         <span>ROI / Discount</span>
                         <span className="brand">{roi}%</span>
                     </InfoRow>
-                    {
-                        !confirmStage &&
-                        <InfoRow>
-                            <span>Platform Fee (0.1%)</span>
-                            <span>{fee} USDC</span>
-                        </InfoRow>
-                    }
                     <InfoRow>
                         <span>Fixed Profit</span>
                         <span className="brand">{fixedNumber(earn)} USDC</span>
