@@ -64,7 +64,7 @@ export const defaultButtonCSS = css<{$disabled?: boolean, $bg?: string, $bgHover
     align-items: center;
     justify-content: center;
     gap: 0 8px;
-    background-color: ${({$bg}) => $bg ? $bg : '#93C86C'};
+    background-color: ${({$bg}) => $bg ? $bg : 'var(--brand-color)'};
     color: white;
     border-radius: 9px;
     padding: 12px 21px;
@@ -74,7 +74,7 @@ export const defaultButtonCSS = css<{$disabled?: boolean, $bg?: string, $bgHover
     text-align: center;
     transition: background-color 0.2s ease-in-out;
     &:hover{
-        background-color: ${({$bgHover}) => $bgHover ? $bgHover : '#A9E27E'};
+        background-color: ${({$bgHover}) => $bgHover ? $bgHover : '#1df28a'};
     }
     ${({$disabled}) => $disabled && `
         pointer-events: none;

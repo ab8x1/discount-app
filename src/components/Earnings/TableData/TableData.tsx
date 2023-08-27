@@ -107,7 +107,7 @@ export default function TableData({
                                                 :
                                                 <>
                                                     <b style={{fontSize: '1.2rem'}}>No deals</b>
-                                                    <DefaultButtonLink $bg='#FBC02D' $bgHover='#FDD835' href={'/'}>Explore Deals</DefaultButtonLink>
+                                                    <DefaultButtonLink href={'/'}>Explore Deals</DefaultButtonLink>
                                                 </>
                                             }
                                         </div>
