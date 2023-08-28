@@ -20,19 +20,11 @@ export default function buyDeal(
         }
     }
     const purchasedDeals = JSON.parse(window.localStorage?.getItem('purchasedDeals') || "{}");
-    const newDeal = walletAddress ? {
-        [walletAddress]: [
-            ...purchasedDeals?.[walletAddress] || [],
-            newPurchase
-        ]
-    } : {
-        unloggedDeals : [
-            ...purchasedDeals?.unloggedDeals || [],
-            newPurchase
-        ]
-    }
     window.localStorage.setItem('purchasedDeals', JSON.stringify({
         ...purchasedDeals,
-        ...newDeal
+        [walletAddress || 'unloggedDeals']: [
+            ...purchasedDeals?.[walletAddress || 'unloggedDeals'] || [],
+            newPurchase
+        ]
     }))
 }

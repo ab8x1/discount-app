@@ -99,17 +99,8 @@ export default function TableData({
                                 <td colSpan={3} style={{width: '100%', height:'100px', textAlign: 'center'}}>
                                     {
                                         <div className={styles.emptyTable}>
-                                            {
-                                                wallet === null ?
-                                                <>
-                                                    <ConnectWallet/>
-                                                </>
-                                                :
-                                                <>
-                                                    <b style={{fontSize: '1.2rem'}}>No deals</b>
-                                                    <DefaultButtonLink href={'/'}>Explore Deals</DefaultButtonLink>
-                                                </>
-                                            }
+                                            <b style={{fontSize: '1.2rem'}}>No deals</b>
+                                            <DefaultButtonLink href={'/'}>Explore Deals</DefaultButtonLink>
                                         </div>
                                     }
                                 </td>

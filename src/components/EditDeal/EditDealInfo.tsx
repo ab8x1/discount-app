@@ -44,7 +44,7 @@ export default function EditDealInfo({
                     </InfoRow>
                 </DeatilsContent>
                 <button className={`boxButton alignY disabledButton`} onClick={() => connect()} style={{padding: '30px 0'}}>
-                    Redeem {amount} {token}
+                    Claim {amount} {token}
                 </button>
             </DetailsContainer>
     )
