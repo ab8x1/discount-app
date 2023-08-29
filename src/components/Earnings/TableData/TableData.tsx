@@ -76,7 +76,7 @@ export default function TableData({
                                                 <span className={`${styles.heavyData} brand`}>
                                                     {/* calc deal profit - total fixed or reedemed */}
                                                     {
-                                                        fixedNumber(fixedProfit(deal), true, 2)
+                                                        fixedNumber(fixedProfit(deal), true, 2) || 0
                                                     }
                                                 </span>
                                                 <span className={styles.lightData}>{token}</span>

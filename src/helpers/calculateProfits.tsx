@@ -22,9 +22,18 @@ export function reedemValue(deal: PurchasedDeal){
     return deal.purchasePrice + actualProfitValue(deal);
 }
 
-//total deal profits assumed that user will wait untill maturity
+//total deal profits
 export function fixedProfit(deal: PurchasedDeal){
-    return deal?.date?.redeemedAt ? actualProfitValue(deal) : deal.amount - deal.purchasePrice;
+    // if reedem early
+    if(deal?.date?.redeemedAt && deal?.date?.redeemedAt < deal.date.maturity){
+        const fee = fixedNumber(0.001 * deal.purchasePrice, false, 2, true) as number;
+        const actualProfit = actualProfitValue(deal);
+        return actualProfit - fee > 0 ? actualProfit - fee : 0;
+    }
+    // if waited until maturity
+    else{
+        return deal.amount - deal.purchasePrice;
+    }
 }
 
 //daily profits of active positions

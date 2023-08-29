@@ -69,6 +69,16 @@ export default function ReedemEarly({
                     <PopUpContainer ref={ref} style={{fontSize: '0.9rem'}}>
                         <h3>Redeem Early</h3>
                         <InfoRow>
+                            <span>Estimated Value</span>
+                            <span>
+                                <RefreshValue
+                                    updateFunction={calcActualVal}
+                                    roundTo={8}
+                                />
+                               <span style={{marginLeft: '5px'}}>{deal.token}</span>
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
                             <span>Platform Fee (0.1%)</span>
                             <span>{fee} {deal.token}</span>
                         </InfoRow>
@@ -76,7 +86,7 @@ export default function ReedemEarly({
                             <span>Minimum Received</span>
                             <span className="brand">
                                 <RefreshValue
-                                    updateFunction={calcActualVal}
+                                    updateFunction={() => calcActualVal() - fee}
                                     roundTo={8}
                                 />
                                 <span style={{marginLeft: '5px'}}>{deal.token}</span>
