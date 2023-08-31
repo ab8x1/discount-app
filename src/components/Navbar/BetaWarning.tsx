@@ -38,7 +38,7 @@ export default function BetaWarning(){
                         </div>
                         <Title>Welcome to Discount Beta!</Title>
                         <ContentRow>
-                            No need for testnet funds. You can play around in a Web 2.0 fashion, simply connect your wallet and you&apos;re good to go!
+                            Make a test purchase of discounted crypto and track your returns. No wallet needed!
                         </ContentRow>
                         <DefaultButton
                             $fullWidth $bg="#7F56D9"

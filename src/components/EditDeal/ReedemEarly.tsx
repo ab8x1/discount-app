@@ -7,6 +7,7 @@ import { PurchasedDeal } from "@/types/deal";
 import fixedNumber from "@/helpers/fixedNumber";
 import { actualProfitValue, reedemValue, RefreshValue } from "@/helpers/calculateProfits";
 import { mergeDeep } from '@/components/Earnings/Chart/chartHelpers';
+import { reedemEarly } from "./helpers/editDealHelpers";
 
 export default function ReedemEarly({
     deal,
@@ -24,21 +25,7 @@ export default function ReedemEarly({
     const calcActualVal = () => reedemValue(deal);
     const fee = fixedNumber(0.001 * deal.purchasePrice, false, 2, true) as number;
     const reedem = () => {
-        const reedemVal = {
-            reedem: fixedNumber(reedemValue(deal), false, 5, true) as number,
-            amount: deal.purchasePrice + fee
-        }
-        const closedDeal = mergeDeep(deal, {date: {
-            redeemedAt: Date.now()
-        }});
-        const allDeals = JSON.parse(window.localStorage.getItem(`purchasedDeals`) || '{}');
-        const userDeals: PurchasedDeal[] | undefined = allDeals?.[address || 'unloggedDeals'];
-        const updatedUserDeals = userDeals?.map(deal => deal.id === closedDeal.id ? closedDeal : deal) || {};
-        const updatedAllDeals = {
-            ...allDeals,
-            [address || 'unloggedDeals']: updatedUserDeals
-        }
-        window.localStorage.setItem('purchasedDeals', JSON.stringify(updatedAllDeals));
+        const reedemVal = reedemEarly(deal, fee, address);
         setStage(reedemVal);
     }
     return(
