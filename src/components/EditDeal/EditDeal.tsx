@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
-import { DetailsGrid, DetailsContainer, InfoContent, InfoRow, ReversedMobileOrder } from "../DealDetails/DetailsStyles";
+import { DealGrid, DealContainer, InfoContent, InfoRow, ReversedMobileOrder } from "../DealDetails/DetailsStyles";
 import ReedemEarly from "./ReedemEarly";
 import EditDealInfo from "./EditDealInfo";
 import Image from "next/image";
@@ -34,7 +34,7 @@ export default function EditDeal({
                 deal.date?.redeemedAt ?
                 <DisplayEarnings deal={deal} timestamp={deal.date?.redeemedAt}/>
                 :
-                <DetailsGrid>
+                <DealGrid>
                     <EditDealInfo deal={deal}/>
                     <ReversedMobileOrder>
                         <DealDetailsProgress
@@ -55,7 +55,7 @@ export default function EditDeal({
                         <DisplayEarnings deal={deal}/>
                     </ReversedMobileOrder>
                     <ReedemEarly deal={deal} address={address || ''}/>
-                    <DetailsContainer>
+                    <DealContainer>
                         <InfoContent>
                             <h3 className="alignY" style={{gap: '5px'}}>
                                 FAQ
@@ -65,8 +65,8 @@ export default function EditDeal({
                                 When redeeming early, the amount of tokens you receive will depend on various factors such as time remaining and available liquidity.
                             </p>
                         </InfoContent>
-                    </DetailsContainer>
-                </DetailsGrid>
+                    </DealContainer>
+                </DealGrid>
                 : deal === null
                 ? <h1>Deal not found</h1>
                 : null

@@ -4,7 +4,7 @@ export const exampleThinDeals: ThinDeal[] = [
     {
         id: '0',
         token: 'USDC',
-        discountedPrice: 0.92,
+        discountedPrice: 0.955,
         originalPrice: 1,
         date: {
             start: 0,

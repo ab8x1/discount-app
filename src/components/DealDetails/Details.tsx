@@ -1,5 +1,5 @@
 'use client'
-import { DetailsContainer, DetailsHeader, Token, TokenContainer, TokenImg, DiscountValue, DeatilsContent, InfoRow, StageButton, PopUpBackground, PopUpContainer, Profit } from "./DetailsStyles"
+import { DetailsWrapper, DealContainer, DealHeader, Token, TokenContainer, TokenImg, DiscountValue, DealContent, InfoRow, StageButton, PopUpBackground, PopUpContainer, Profit } from "./DetailsStyles"
 import Image from "next/image"
 import { useConnectWallet } from "@web3-onboard/react";
 import { useState, Dispatch, SetStateAction } from "react";
@@ -11,6 +11,7 @@ import ActionConfirmation from "./ActionConfirmation";
 import buyDeal from "./helpers/buyDeal";
 import { DefaultButton } from "../Navbar/NavbarStyles";
 import BackButton from "../Navbar/BackButton";
+import { time } from "console";
 
 export default function DealDetails({
     setAmount,
@@ -41,10 +42,9 @@ export default function DealDetails({
         }
     }
     return(
-        <div>
-            <BackButton/>
-            <DetailsContainer>
-                <DetailsHeader>
+        <>
+            <DealContainer>
+                <DealHeader>
                     <Token className="alignY">
                         <TokenContainer>
                             <TokenImg src="/tokens/USDC.svg" width={56} height={56} alt="coin"/>
@@ -57,8 +57,8 @@ export default function DealDetails({
                     <DiscountValue>
                         ~{discount}%
                     </DiscountValue>
-                </DetailsHeader>
-                <DeatilsContent>
+                </DealHeader>
+                <DealContent>
                     {
                         !confirmStage &&
                         <TokenInput
@@ -66,39 +66,53 @@ export default function DealDetails({
                             onChange={setAmount}
                         />
                     }
+                    {
+                        confirmStage &&
+                        <InfoRow>
+                            <span>You Pay</span>
+                            <span>{amount} {token}</span>
+                        </InfoRow>
+                    }
                     <InfoRow>
                         <span>You’ll Receive</span>
                         <span>{fixedNumber(reedem)} USDC</span>
                     </InfoRow>
-                    <InfoRow>
-                        <span>Market Price</span>
-                        <span style={{color: '#F47272'}}>{fixedNumber(reedem)} $</span>
-                    </InfoRow>
-                    <InfoRow>
-                        <span className="alignY">
-                            Discount
-                            <Image src="/discounted-square.svg" width={20} height={20} alt="discounted" style={{margin: '0 3px'}}/>
-                            Price
-                        </span>
-                        <span className="brand">
-                            {amount} $
-                        </span>
-                    </InfoRow>
-                    <Profit>
-                        <Image src="/thumbs-up.svg" width={20} height={20} alt="thumbs-up"/>
-                        You’re saving ${fixedNumber(earn)} on this deal
-                    </Profit>
                     {
-                        confirmStage &&
+                        confirmStage ?
                         <>
-                            <InfoRow style={{borderTop: '2px solid #00D26B'}}>
-                                <span>Discounted Price</span>
-                                <span>{amount} USDC (<span style={{color: "#627EEA"}}>{discount}%</span>)</span>
+                            <InfoRow>
+                                <span>Claim Date</span>
+                                <span>{timestampToDate(date.end)}</span>
                             </InfoRow>
                             <InfoRow>
-                                <span>Platform Fee (0.1%)</span>
-                                <span>{fee} USDC</span>
+                                <span>Discount</span>
+                                <span className="brand">{earn} $</span>
                             </InfoRow>
+                            <InfoRow>
+                                <span>Fixed Profit</span>
+                                <span className="brand">{earn} {token}</span>
+                            </InfoRow>
+                        </>
+                        :
+                        <>
+                            <InfoRow>
+                                <span>Market Price</span>
+                                <span style={{color: '#F47272'}}>{fixedNumber(reedem)} $</span>
+                            </InfoRow>
+                            <InfoRow>
+                                <span className="alignY">
+                                    Discount
+                                    <Image src="/discounted-square.svg" width={20} height={20} alt="discounted" style={{margin: '0 3px'}}/>
+                                    Price
+                                </span>
+                                <span className="brand">
+                                    {amount} $
+                                </span>
+                            </InfoRow>
+                            <Profit>
+                                <Image src="/thumbs-up.svg" width={20} height={20} alt="thumbs-up"/>
+                                You’re saving ${fixedNumber(earn)} on this deal
+                            </Profit>
                         </>
                     }
                     <div style={{display: 'flex', marginTop: '20px'}}>
@@ -108,20 +122,20 @@ export default function DealDetails({
                             </StageButton>
                         }
                         <DefaultButton $disabled={!amount} $fullWidth onClick={action} style={{padding: '18px'}}>
-                            {confirmStage ? `Pay ${amount + fee} ${token}` : "Continue"}
+                            {confirmStage ? `Pay ${amount} ${token}` : "Continue"}
                             {!confirmStage && <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>}
                         </DefaultButton>
                     </div>
-                </DeatilsContent>
-            </DetailsContainer>
+                </DealContent>
+            </DealContainer>
             {
                 openConfirmation &&
                 <ActionConfirmation
                     type="buy"
-                    amount={amount + fee}
+                    amount={amount}
                     reedem={reedem}
                 />
             }
-        </div>
+        </>
     )
 }

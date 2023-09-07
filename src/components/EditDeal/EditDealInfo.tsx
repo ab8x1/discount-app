@@ -1,6 +1,6 @@
 'use client'
 import { PurchasedDeal } from "@/types/deal";
-import { DetailsContainer, DetailsHeader, Token, TokenImg, InfoRow, DeatilsContent } from "../DealDetails/DetailsStyles";
+import { DealContainer, DealHeader, Token, TokenImg, InfoRow, DealContent } from "../DealDetails/DetailsStyles";
 import { DefaultButton } from "../Navbar/NavbarStyles";
 import { useConnectWallet } from "@web3-onboard/react";
 import timestampToDate from "@/helpers/timestampToDate";
@@ -14,14 +14,14 @@ export default function EditDealInfo({
     const [{ wallet }, connect] = useConnectWallet();
     const {amount, date, discount, token, purchasePrice} = deal;
     return(
-            <DetailsContainer>
-                <DetailsHeader>
+            <DealContainer>
+                <DealHeader>
                     <Token className="alignY">
                         <TokenImg src={`/tokens/${token}.svg`} width={53} height={53} alt="coin"/>
                         {token}
                     </Token>
-                </DetailsHeader>
-                <DeatilsContent>
+                </DealHeader>
+                <DealContent>
                     <InfoRow>
                         <span>Fixed Return</span>
                         <span style={{color: '#627EEA', fontWeight: 600}}>{amount} {token}</span>
@@ -42,10 +42,10 @@ export default function EditDealInfo({
                         <span>Fixed Profit</span>
                         <span className="brand">{fixedNumber(amount - purchasePrice)} {token}</span>
                     </InfoRow>
-                </DeatilsContent>
+                </DealContent>
                 <button className={`boxButton alignY disabledButton`} onClick={() => connect()} style={{padding: '30px 0'}}>
                     Claim {amount} {token}
                 </button>
-            </DetailsContainer>
+            </DealContainer>
     )
 }

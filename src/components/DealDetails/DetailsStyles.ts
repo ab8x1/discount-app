@@ -1,19 +1,43 @@
 import styled from "styled-components";
 import Image from "next/image";
 
-export const DetailsGrid = styled.div`
+export const DetailsPage = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+    @media(min-width: 768px){
+        padding-bottom: 12vh;
+    }
+`
+
+export const DetailsGrid = styled.div<{$summary: boolean}>`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: ${({$summary}) => $summary ? '850px' : '480px'};
+    @media(min-width: 768px){
+        min-height: 590px;
+    }
+`
+
+export const DealGrid = styled.div<{$summary: boolean}>`
     display: grid;
     height: 100%;
     width: 100%;
     grid-template-columns: 1fr;
     gap: 25px 30px;
-    align-content: center;
-    justify-items: center;
-    padding-top: 30px;
+    margin-top: 30px;
     @media(min-width: 768px){
-        /* grid-template-columns: 0.6fr 0.4fr; */
-        padding-bottom: 20vh;
+        ${({$summary}) => $summary && `
+            grid-template-columns: 0.6fr 0.4fr;
+        `}
     }
+`
+
+export const DetailsWrapper = styled.div`
+    width: 100%;
 `
 
 export const ReversedMobileOrder = styled.div`
@@ -22,10 +46,7 @@ export const ReversedMobileOrder = styled.div`
     }
 `
 
-export const DetailsContainer = styled.div`
-    width: 100%;
-    max-width: 480px;
-    margin-top: 25px;
+export const DealContainer = styled.div`
     border-radius: 15px;
     border: 1px solid #E7E7E7;
     color: #344054;
@@ -34,7 +55,7 @@ export const DetailsContainer = styled.div`
     background-color: white;
 `
 
-export const DetailsHeader = styled.div`
+export const DealHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -80,7 +101,7 @@ export const DiscountValue = styled.div`
 
 `
 
-export const DeatilsContent = styled.div`
+export const DealContent = styled.div`
     padding: 15px 24px;
 `
 
@@ -166,15 +187,18 @@ export const ProgressTitle = styled.h3`
     color: #475467;
 `
 export const StageButton = styled.span`
-    width: 50px;
+    width: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #344054;
-    border-radius: 0px 0px 0px 9px;
     cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid #627EEA;
+    background: #627EEA;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    margin-right: 12px;
     &:hover{
-        background: #42526b;
+        background: #6f88e8;
     }
     & img{
         transform: rotate(180deg);

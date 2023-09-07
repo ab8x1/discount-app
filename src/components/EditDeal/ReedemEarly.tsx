@@ -1,4 +1,4 @@
-import { DetailsContainer, InfoContent, InfoRow, PopUpBackground, PopUpContainer } from "../DealDetails/DetailsStyles";
+import { DealContainer, InfoContent, InfoRow, PopUpBackground, PopUpContainer } from "../DealDetails/DetailsStyles";
 import { DefaultButton } from "../Navbar/NavbarStyles";
 import { useState, useRef } from "react";
 import OnClickOutside from "@/hooks/useClickOutside";
@@ -30,7 +30,7 @@ export default function ReedemEarly({
     }
     return(
         <>
-            <DetailsContainer>
+            <DealContainer>
                 <InfoContent>
                     <h3>Redeem Early</h3>
                     <InfoRow>
@@ -49,7 +49,7 @@ export default function ReedemEarly({
                         Redeem Early
                     </DefaultButton>
                 </InfoContent>
-            </DetailsContainer>
+            </DealContainer>
             {
                 stage === "confirmation" ?
                 <PopUpBackground>

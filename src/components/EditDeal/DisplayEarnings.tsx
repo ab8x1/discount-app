@@ -1,6 +1,6 @@
 import { days_between, RefreshValue, actualProfitValue, reedemValue } from "@/helpers/calculateProfits";
 import fixedNumber from "@/helpers/fixedNumber";
-import { DetailsContainer, InfoContent, InfoRow } from "../DealDetails/DetailsStyles";
+import { DealContainer, InfoContent, InfoRow } from "../DealDetails/DetailsStyles";
 import { PurchasedDeal } from "@/types/deal";
 
 
@@ -15,7 +15,7 @@ export default function DisplayEarnings({
     const reedem = reedemValue(deal);
 
     return(
-        <DetailsContainer style={{marginTop: '15px'}}>
+        <DealContainer style={{marginTop: '15px'}}>
             <InfoContent>
                 <h3>Earnings</h3>
                 <InfoRow>
@@ -39,6 +39,6 @@ export default function DisplayEarnings({
                     </span>
                 </InfoRow>
             </InfoContent>
-        </DetailsContainer>
+        </DealContainer>
     )
 }
