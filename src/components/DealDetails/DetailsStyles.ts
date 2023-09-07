@@ -12,7 +12,7 @@ export const DetailsPage = styled.div`
     }
 `
 
-export const DetailsGrid = styled.div<{$summary: boolean}>`
+export const DetailsGrid = styled.div<{$summary?: boolean}>`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -22,7 +22,7 @@ export const DetailsGrid = styled.div<{$summary: boolean}>`
     }
 `
 
-export const DealGrid = styled.div<{$summary: boolean}>`
+export const DealGrid = styled.div<{$summary?: boolean}>`
     display: grid;
     height: 100%;
     width: 100%;
