@@ -9,8 +9,10 @@ const Back = styled.button`
     justify-content: center;
     width: 40px;
     height: 40px;
-    background: #F4F4F4;
     border-radius: 50%;
+    border: 1px solid #EFEFEF;
+    background: #FFF;
+    backdrop-filter: blur(4px);
 `
 
 export default function BackButton(){

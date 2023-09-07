@@ -3,11 +3,16 @@ import Image from "next/image";
 
 export const DetailsGrid = styled.div`
     display: grid;
+    height: 100%;
+    width: 100%;
     grid-template-columns: 1fr;
     gap: 25px 30px;
-    align-items: flex-start;
+    align-content: center;
+    justify-items: center;
+    padding-top: 30px;
     @media(min-width: 768px){
-        grid-template-columns: 0.6fr 0.4fr;
+        /* grid-template-columns: 0.6fr 0.4fr; */
+        padding-bottom: 20vh;
     }
 `
 
@@ -18,6 +23,9 @@ export const ReversedMobileOrder = styled.div`
 `
 
 export const DetailsContainer = styled.div`
+    width: 100%;
+    max-width: 480px;
+    margin-top: 25px;
     border-radius: 15px;
     border: 1px solid #E7E7E7;
     color: #344054;
@@ -31,15 +39,25 @@ export const DetailsHeader = styled.div`
     align-items: center;
     justify-content: space-between;
     border-radius: 15px 15px 0px 0px;
-    background: #627EEA;
-    padding: 32px 24px;
+    padding: 24px;
+    border-bottom: 1px solid #EBEBEB;
 `
 export const Token = styled.div`
-    color: white;
-    gap: 15px;
-    font-size: 1.56rem;
+    font-size: 1.25rem;
+    gap: 10px;
     font-weight: 600;
 `
+export const TokenContainer = styled.div`
+    position: relative;
+    font-size: 1.56rem;
+    font-weight: 600;
+    & span{
+        position: absolute;
+        right: 2px;
+        top: 0px;
+    }
+`
+
 
 export const TokenImg = styled(Image)`
     padding: 4px;
@@ -51,9 +69,10 @@ export const DiscountValue = styled.div`
     display: flex;
     gap: 5px;
     padding: 3px 6px;
+    font-weight: 500;
     border-radius: 6px;
     border: 1px solid #D0D5DD;
-    background: #FFF;
+    background: #fff;
     &::before{
         content: '•';
         color: var(--brand-color);
@@ -62,7 +81,7 @@ export const DiscountValue = styled.div`
 `
 
 export const DeatilsContent = styled.div`
-    padding: 0 15px;
+    padding: 15px 24px;
 `
 
 export const InfoContent = styled.div`
@@ -74,12 +93,25 @@ export const InfoRow = styled.p`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0;
+    padding-top: 25px;
     margin: 0;
-    border-bottom: 1px solid #EBEBEB;
-    &:last-of-type{
-        border-bottom: none;
+    & span:last-of-type{
+        font-weight: 600;
     }
+`
+
+export const Profit = styled.div`
+    display: flex;
+    width: 100%;
+    margin-top: 15px;
+    padding: 16px;
+    align-items: center;
+    gap: 12px;
+    border-radius: 12px;
+    border: 1px solid #6CE9A6;
+    background: #F6FEF9;
+    color: #027A48;
+    font-weight: 600;
 `
 
 export const PopUpBackground = styled.div`

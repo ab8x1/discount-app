@@ -20,7 +20,7 @@ export default function TokenInput({
     }
     return(
         <InputContainer>
-            <InputLabel>How much do you want to spend?</InputLabel>
+            <InputLabel>I want to spend</InputLabel>
             <InputLayout>
                 <Input type="number" step={0.1} value={userQuery} onInput={updateAmount}/>
                 <InputToken>

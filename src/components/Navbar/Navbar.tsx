@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { TopNav, Logo, LogoIcon } from "./NavbarStyles";
 import NavbarToogle from "./NavbarToogle";
 import Toggler from "./Toggler";
@@ -7,8 +7,6 @@ import useClickOutside from '../../hooks/useClickOutside';
 import { useConnectWallet } from '@web3-onboard/react';
 import ConnectWallet from "./ConnectWallet";
 import Image from "next/image";
-import BackButton from "./BackButton";
-import { usePathname } from 'next/navigation'
 import BetaWarning from "./BetaWarning";
 
 export default function Navbar(){
@@ -16,8 +14,6 @@ export default function Navbar(){
     const [{ wallet }] = useConnectWallet();
     const toogleNavRef = useRef<HTMLDivElement>(null);
     useClickOutside(toogleNavRef, () => close());
-    const url = usePathname();
-    const inputBox = ['/deal/', '/offer/'].some(el => url.includes(el));
 
     const toogle = () => {
         const body = document.querySelector('body');
@@ -36,7 +32,7 @@ export default function Navbar(){
     return(
         <>
             <nav ref={toogleNavRef}>
-                <TopNav className="container" style={inputBox ? {maxWidth: '930px'} : {}}>
+                <TopNav className="container">
                     <div className="alignY">
                         <Logo className="hide-lg-desktop">
                             <LogoIcon href="/">
@@ -44,7 +40,6 @@ export default function Navbar(){
                                 <span className="hide-mobile">Discount</span>
                             </LogoIcon>
                         </Logo>
-                        {inputBox && <BackButton/>}
                     </div>
                     <div className="alignY" style={{gap: '0 15px'}}>
                         { !wallet &&

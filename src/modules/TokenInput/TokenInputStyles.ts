@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const InputContainer = styled.div`
-    margin-top: 15px;
+
 `
 
 export const InputLabel = styled.label`
@@ -10,36 +10,41 @@ export const InputLabel = styled.label`
 `
 
 export const InputLayout = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
     position: relative;
     width: 100%;
-    border-radius: 5px;
-    border: 1px solid #00D26B;
-    background: #E2FFDB;
-    padding-right: 100px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #D0D5DD;;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     overflow: hidden;
 `
 
 export const Input = styled.input`
     width: 100%;
-    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-    padding: 12px 14px;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.25rem;
+    font-weight: 600;
     border: none;
     outline: none;
+    color: #344054;
     background-color: inherit;
+    padding-right: 10px;
 `
 
 export const InputToken = styled.span`
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
     gap: 5px;
-    border-left: 1px solid #00D26B;
-    padding: 10px 8px;
+    padding: 0 18px;
+    border-radius: 8px;
+    border: 1px solid #D0D5DD;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    cursor: default;
+    & img{
+        box-sizing: content-box;
+        padding: 10px 0;
+    }
 `

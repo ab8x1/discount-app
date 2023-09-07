@@ -18,7 +18,7 @@ export default async function Page({
 }){
     const thinDeal = await getThinDeal(params.slug);
     return(
-        <main className="container" style={{maxWidth: '950px'}}>
+        <main className="container" style={{display: 'flex', flex: 1, maxWidth: '950px'}}>
             <Details thinDeal={thinDeal}/>
         </main>
     )
