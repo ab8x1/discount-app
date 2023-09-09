@@ -43,7 +43,7 @@ export default function DetailsState({
                                         Redeem Anytime
                                     </h3>
                                     <p style={{margin: '10px 0'}}>
-                                        You can get out of this deal anytime by redeeming <b style={{color: '#627EEA'}}>Discounted USDC</b> back to USDC via <b>My Earnings</b> page.
+                                    You redeem your funds anytime before Claim Date via <b>My Earnings</b> page. Certain conditions apply.
                                     </p>
                                 </InfoContent>
                             </DealContainer>

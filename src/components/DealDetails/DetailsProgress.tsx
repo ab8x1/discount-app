@@ -21,21 +21,21 @@ export default function DealDetailsProgress({
             <ProgressTitle>Progress</ProgressTitle>
             <Step $status={step === "buy" ? "filled" : "fullfilled"}>
                 <div>
-                    <p>Buy Discounted USDC</p>
-                    <p>Spend <span>{amount} USDC</span> {step === "buy" && 'today'}</p>
+                    <p className="brand">{step === "buy" ? 'Pay Now' : 'You Paid'}</p>
+                    <p><span>{amount} USDC</span></p>
                 </div>
             </Step>
             <Step $status={step === "buy" ? "next" : "filled"}>
                 <div>
-                    <p>Wait until Return Date</p>
+                    <p>Wait until Claim Date</p>
                     <p>{timestampToDate(date.end)}</p>
                 </div>
             </Step>
             <Step $status={step === "wait" ? "next" : step === "earn" ? "filled" : "pending"}>
                 <div>
-                    <p>Earn Fixed Return</p>
-                    <p>Redeem <span style={{color: '#627EEA'}}>{fixedNumber(reedem)} USDC</span></p>
-                    <p>Earn fixed profit of <span style={{color: 'var(--brand-color)'}}>{fixedNumber(earn)} USDC</span></p>
+                    <p>On Claim Date</p>
+                    <p>Claim <span>{fixedNumber(reedem)} USDC</span></p>
+                    <p>Earn <span style={{color: 'var(--brand-color)'}}>{fixedNumber(earn)} USDC</span></p>
                 </div>
             </Step>
         </ProgressContainer>

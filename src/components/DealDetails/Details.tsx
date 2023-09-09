@@ -37,7 +37,7 @@ export default function DealDetails({
             buyDeal(dealDetails, amount, address);
             setOpenConfirmation(true);
         }
-        else {
+        else if(amount) {
             setStage("confirm");
         }
     }
@@ -64,6 +64,7 @@ export default function DealDetails({
                         <TokenInput
                             defaultValue={amount}
                             onChange={setAmount}
+                            action={action}
                         />
                     }
                     {

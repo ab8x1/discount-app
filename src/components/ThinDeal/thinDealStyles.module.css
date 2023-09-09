@@ -8,17 +8,13 @@
 .dealContainer{
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
-    border-radius: 15px;
-    border: 1px solid #EAECF0;
     background: #FFF;
-}
-
-.dealContent{
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 20px 15px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #75B7FF 0%, #2775CA 100%);
+    box-shadow: 0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px -1px rgba(16, 24, 40, 0.08);
+    padding: 28px;
 }
 
 .token{
@@ -27,30 +23,36 @@
     font-weight: 600;
 }
 
-.prices{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 10px;
-}
 
-.discountPrice{
-    padding: 9px 16px;
-    border-radius: 7px;
-    border: 1px solid #ECFDF3;
-    background: #ECFDF3;
+.discount{
+    margin-bottom: 37px;
+    padding: 4px 12px;
+    border-radius: 15px;
+    background: #FFF;
     gap: 7px;
-    color: var(--brand-color);
     font-size: 0.9rem;
     font-weight: 600;
 }
 
+.discount::before{
+    content: '•';
+    font-size: 20px;
+    color: var(--brand-color);
+}
+
+.discountPrice{
+    color: white;
+    font-weight: 600;
+    font-size: 2.32rem;
+    margin: 40px 0 20px 0;
+}
+
 .originalPrice{
-    color: #F47272;
-    font-size: 0.9rem;
-    font-weight: 700;
+    color: #1E1D34;
+    font-size: 1.25rem;
+    font-weight: 400;
     text-decoration-line: line-through;
+    margin-bottom: 37px;
 }
 
 @media(min-width: 768px){
@@ -64,8 +66,5 @@
     #dealsGrid{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-    }
-    .dealContent{
-        padding: 30px 25px;
     }
 }

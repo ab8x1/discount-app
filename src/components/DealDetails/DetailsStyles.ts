@@ -16,7 +16,7 @@ export const DetailsGrid = styled.div<{$summary?: boolean}>`
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: ${({$summary}) => $summary ? '850px' : '480px'};
+    max-width: ${({$summary}) => $summary ? '900px' : '480px'};
     @media(min-width: 768px){
         min-height: 590px;
     }
@@ -31,7 +31,7 @@ export const DealGrid = styled.div<{$summary?: boolean}>`
     margin-top: 30px;
     @media(min-width: 768px){
         ${({$summary}) => $summary && `
-            grid-template-columns: 0.6fr 0.4fr;
+            grid-template-columns: 0.55fr 0.45fr;
         `}
     }
 `
@@ -184,7 +184,6 @@ export const ProgressTitle = styled.h3`
     display: block;
     color: #000;
     margin-bottom: 20px;
-    color: #475467;
 `
 export const StageButton = styled.span`
     width: 60px;
@@ -211,7 +210,9 @@ export const Step = styled.div<{$status: "fullfilled" | "filled" | "next" | "pen
     gap: 12px;
     margin: 0;
     padding: 0 0 24px 0;
+    color: #475467;
     & p:first-of-type{
+        color: #1E1D34;
         font-weight: 600;
     }
     & span{
@@ -227,7 +228,7 @@ export const Step = styled.div<{$status: "fullfilled" | "filled" | "next" | "pen
         height: 22px;
         padding-bottom: 2px;
         color: ${({$status}) => $status === "pending" ? "#EAECF0" : "var(--brand-color)"};
-        background: ${({$status}) => ($status === "filled" || $status === "fullfilled") ? '#C0F599' : $status === 'next' ? '#F5FFF5' : '#FAFAFA'};
+        background: ${({$status}) => ($status === "filled" || $status === "fullfilled") ? '#CCF6E1' : $status === 'next' ? '#F5FFF5' : '#FAFAFA'};
         box-shadow: ${({$status}) => $status === "pending" ? "none" : "0px 0px 0px 4px #F4EBFF"};
         z-index: 10;
         ${({$status}) => {

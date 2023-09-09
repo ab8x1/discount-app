@@ -10,26 +10,28 @@ export default function ThinDeal({
     originalPrice,
     discountedPrice,
 } : ThinDeal){
+    const discount = 100 - (discountedPrice / originalPrice) * 100;
     return(
         <div className={styles.dealContainer}>
-            <div className={styles.dealContent}>
-                <div className={`alignY ${styles.token}`}>
-                    <Image src={`/tokens/${token}.svg`} width={44} height={44} alt='coin' priority/>
-                    {token}
-                </div>
-                <div className={styles.prices}>
-                    <div className={`alignY ${styles.discountPrice}`}>
-                        <Image src="/tag.svg" width={18} height={18} alt='tag' priority/>
-                        ${fixedNumber(discountedPrice, true, 2)}
-                    </div>
-                    <div className={styles.originalPrice}>
-                        ${fixedNumber(originalPrice, true, 2)}
-                    </div>
-                </div>
+
+            <div className={`alignY ${styles.discount}`}>
+                {fixedNumber(discount, false, 1)}% Discount
             </div>
+
+            <div className={`alignY ${styles.token}`}>
+                <Image src={`/tokens/${token}.svg`} width={115} height={115} alt='coin' priority/>
+            </div>
+
+            <div className={styles.discountPrice}>
+                ${fixedNumber(discountedPrice,false,2)}
+            </div>
+
+            <div className={styles.originalPrice}>
+                ${fixedNumber(originalPrice, true, 2)}
+            </div>
+
             <Link href={`/deal/${id}`} className={`alignY boxButton`}>
-                Get USDC at {fixedNumber(100 - (discountedPrice / originalPrice) * 100, false, 2)}% Discount
-                <Image src="/arrow-circle-right.svg" width={24} height={24} alt='arrow circle right' priority/>
+                Buy
             </Link>
         </div>
     )
