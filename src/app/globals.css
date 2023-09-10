@@ -71,12 +71,17 @@ a, button {
   color: #1C3256;
   font-size: 1.125rem;
   font-weight: 600;
+  transition: transform 0.2s ease-in-out;
 }
 
+.boxButton:hover{
+  transform: scale(1.02);
+}
 
 .disabledButton{
-  background: #BDBDBD;
+  background: #F5F5F5;
   pointer-events: none;
+  color: #ADADAD;
 }
 
 @media(max-width: 767px){

@@ -6,6 +6,8 @@ export const exampleThinDeals: ThinDeal[] = [
         token: 'USDC',
         discountedPrice: 0.955,
         originalPrice: 1,
+        background: 'linear-gradient(180deg, #75B7FF 0%, #2775CA 100%)',
+        isEnabled: true,
         date: {
             start: 0,
             end: 1723204039000
@@ -13,9 +15,11 @@ export const exampleThinDeals: ThinDeal[] = [
     },
     {
         id: '1',
-        token: 'USDC',
-        discountedPrice: 0.88,
-        originalPrice: 1,
+        token: 'ETH',
+        discountedPrice: 1600,
+        originalPrice: 1685,
+        background: 'linear-gradient(180deg, #8B6DCD 0%, #627EEA 100%)',
+        isEnabled: false,
         date: {
             start: 0,
             end: 1754740039000
@@ -23,9 +27,11 @@ export const exampleThinDeals: ThinDeal[] = [
     },
     {
         id: '2',
-        token: 'USDC',
-        discountedPrice: 0.85,
+        token: 'DAI',
+        discountedPrice: 0.95,
         originalPrice: 1,
+        background: 'linear-gradient(180deg, #FFC566 0%, #E08E0B 100%)',
+        isEnabled: false,
         date: {
             start: 0,
             end: 1786276039000

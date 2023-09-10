@@ -9,10 +9,12 @@ export default function ThinDeal({
     token,
     originalPrice,
     discountedPrice,
+    background,
+    isEnabled
 } : ThinDeal){
     const discount = 100 - (discountedPrice / originalPrice) * 100;
     return(
-        <div className={styles.dealContainer}>
+        <div className={styles.dealContainer} style={{background}}>
 
             <div className={`alignY ${styles.discount}`}>
                 {fixedNumber(discount, false, 1)}% Discount
@@ -30,8 +32,8 @@ export default function ThinDeal({
                 ${fixedNumber(originalPrice, true, 2)}
             </div>
 
-            <Link href={`/deal/${id}`} className={`alignY boxButton`}>
-                Buy
+            <Link href={`/deal/${id}`} className={`alignY boxButton ${!isEnabled && 'disabledButton'}`}>
+                {isEnabled ? 'Buy' : 'Coming Soon'}
             </Link>
         </div>
     )

@@ -1,10 +1,12 @@
-export type tokens = "USDC";
+export type tokens = "USDC" | "ETH" | "DAI";
 
 export type ThinDeal = {
     id: string,
     token: tokens,
     originalPrice: number,
     discountedPrice: number,
+    background: string,
+    isEnabled: boolean,
     date: {
         start: number,
         end: number
