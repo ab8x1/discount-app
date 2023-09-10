@@ -21,7 +21,7 @@ export default function ThinDeal({
             </div>
 
             <div className={`alignY ${styles.token}`}>
-                <Image src={`/tokens/${token}.svg`} width={115} height={115} alt='coin' priority/>
+                <Image src={`/tokens/${token}.svg`} width={115} height={115} alt={`${token} coin`} priority/>
             </div>
 
             <div className={styles.discountPrice}>

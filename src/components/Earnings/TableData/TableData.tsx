@@ -41,10 +41,13 @@ export default function TableData({
                 <thead>
                     <tr className={styles.tableRow}>
                         <th className={styles.tableHeader}>
+                            Spent
+                        </th>
+                        <th className={styles.tableHeader}>
                             Fixed Return
                         </th>
                         <th className={styles.tableHeader}>
-                            Return Date
+                            Claim Date
                         </th>
                         <th className={`${styles.tableHeader} brand`}>
                             Fixed Profit
@@ -54,9 +57,18 @@ export default function TableData({
                 <tbody>
                     {
                         deals?.length > 0 ? orderedDeals.slice((page-1) * 5, page * 5).map( (deal, i) => {
-                            const {id, amount, token, date} = deal;
+                            const {id, amount, token, date, purchasePrice} = deal;
                             return(
                                 <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/offer/${id}?returnToPage=${page}`)}>
+                                    <td className={styles.tableData}>
+                                        <div className={styles.amount}>
+                                            <Image src="/tokens/USDC.svg" width={40} height={40} alt="ptUsdc"/>
+                                            <div>
+                                                <span className={styles.heavyData}>{purchasePrice}</span>
+                                                <span className={styles.lightData}>{token}</span>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td className={styles.tableData}>
                                         <div className={styles.amount}>
                                             <Image src="/tokens/USDC.svg" width={40} height={40} alt="ptUsdc"/>
