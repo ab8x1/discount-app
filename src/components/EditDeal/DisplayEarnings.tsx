@@ -15,9 +15,9 @@ export default function DisplayEarnings({
     const reedem = reedemValue(deal);
 
     return(
-        <DealContainer style={{marginTop: '15px'}}>
+        <DealContainer style={{marginBottom: '20px'}}>
             <InfoContent>
-                <h3>Earnings</h3>
+                <h3 style={{marginBottom: '20px'}}>Earnings</h3>
                 <InfoRow>
                     <span>{timestamp && 'Prev'} Avg. 24hr Profits:</span>
                     <span className="brand">{fixedNumber((deal.amount - deal.purchasePrice) / days_between(deal.date.purchasedAt, deal.date.maturity))} {deal.token}</span>

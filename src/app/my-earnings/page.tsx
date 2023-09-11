@@ -30,12 +30,12 @@ export default function RootLayout({
   }, [address]);
 
   return(
-    <main className='container'>
+    <main className='container' style={{paddingBottom: '40px'}}>
         <InfoBoxes deals={deals}/>
         <div className={styles.dataGrid}>
             <Chart deals={deals} />
             <Link href={'/'} className={styles.exploreDeals}>
-              <Image src="/explore-deals.svg" fill alt='explore deals'/>
+              <Image src="/explore-deals.svg" fill alt='explore deals' />
             </Link>
         </div>
         <TableData

@@ -8,6 +8,7 @@ import DealDetailsProgress from "../DealDetails/DetailsProgress";
 import { PurchasedDeal } from "@/types/deal";
 import { useConnectWallet } from "@web3-onboard/react";
 import DisplayEarnings from "./DisplayEarnings";
+import BackButton from "../Navbar/BackButton";
 
 export default function EditDeal({
     id
@@ -29,14 +30,16 @@ export default function EditDeal({
     }, [address])
     return(
         <>
+            <BackButton/>
             {
                 deal ?
                 deal.date?.redeemedAt ?
                 <DisplayEarnings deal={deal} timestamp={deal.date?.redeemedAt}/>
                 :
-                <DealGrid>
+                <DealGrid $summary>
                     <EditDealInfo deal={deal}/>
                     <ReversedMobileOrder>
+                        <DisplayEarnings deal={deal}/>
                         <DealDetailsProgress
                             amount={deal.purchasePrice}
                             dealDetails={{
@@ -52,20 +55,8 @@ export default function EditDeal({
                             }}
                             step="wait"
                         />
-                        <DisplayEarnings deal={deal}/>
                     </ReversedMobileOrder>
                     <ReedemEarly deal={deal} address={address || ''}/>
-                    <DealContainer>
-                        <InfoContent>
-                            <h3 className="alignY" style={{gap: '5px'}}>
-                                FAQ
-                                <Image src="/navIcons/faq.svg" width={24} height={24} alt="faq"/>
-                            </h3>
-                            <p style={{margin: '10px 0'}}>
-                                When redeeming early, the amount of tokens you receive will depend on various factors such as time remaining and available liquidity.
-                            </p>
-                        </InfoContent>
-                    </DealContainer>
                 </DealGrid>
                 : deal === null
                 ? <h1>Deal not found</h1>

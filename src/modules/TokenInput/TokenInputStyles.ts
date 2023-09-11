@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const InputContainer = styled.div`
-
+    margin-bottom: 25px;
 `
 
 export const InputLabel = styled.label`

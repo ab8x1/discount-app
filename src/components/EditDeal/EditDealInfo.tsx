@@ -18,34 +18,38 @@ export default function EditDealInfo({
                 <DealHeader>
                     <Token className="alignY">
                         <TokenImg src={`/tokens/${token}.svg`} width={53} height={53} alt="coin"/>
-                        {token}
+                        {token} | <span style={{fontWeight: 'normal'}}>Purchase Summary</span>
                     </Token>
                 </DealHeader>
                 <DealContent>
                     <InfoRow>
-                        <span>Fixed Return</span>
-                        <span style={{color: '#627EEA', fontWeight: 600}}>{amount} {token}</span>
+                        <span>Purchase Date</span>
+                        <span>{timestampToDate(date.purchasedAt)}</span>
                     </InfoRow>
                     <InfoRow>
-                        <span>Discounted Price</span>
-                        <span>{purchasePrice} {token} <span style={{color: '#627EEA', fontWeight: 600}}>({discount}%)</span></span>
+                        <span>You Paid</span>
+                        <span>{purchasePrice} {token}</span>
                     </InfoRow>
                     <InfoRow>
-                        <span>Return Date</span>
+                        <span>You’ll Receive</span>
+                        <span>{amount} {token}</span>
+                    </InfoRow>
+                    <InfoRow>
+                        <span>Claim Date</span>
                         <span>{timestampToDate(date.maturity)}</span>
                     </InfoRow>
                     <InfoRow>
-                        <span>ROI</span>
-                        <span className="brand">{discount}%</span>
+                        <span>Discount</span>
+                        <span className="brand">{fixedNumber(amount - purchasePrice)} $</span>
                     </InfoRow>
                     <InfoRow>
                         <span>Fixed Profit</span>
                         <span className="brand">{fixedNumber(amount - purchasePrice)} {token}</span>
                     </InfoRow>
+                    <DefaultButton $fullWidth $disabled style={{padding: '18px', marginTop: '25px'}}>
+                        Claim {amount} {token}
+                    </DefaultButton>
                 </DealContent>
-                <button className={`boxButton alignY disabledButton`} onClick={() => connect()} style={{padding: '30px 0'}}>
-                    Claim {amount} {token}
-                </button>
             </DealContainer>
     )
 }

@@ -1,9 +1,8 @@
 .dataGrid{
     display: grid;
-    gap: 30px;
+    gap: 40px;
     grid-template-columns: 1fr;
     margin-top: 30px;
-    align-items: flex-start;
 }
 
 .chartWrapper{
@@ -146,7 +145,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 100%;
+    max-width: 100%;
     background: linear-gradient(180deg, #3AE792 0%, #00D26B 100%);
     border-radius: 15px;
     box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.08);
@@ -169,6 +168,6 @@
 
 @media(min-width: 1250px){
     .dataGrid{
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 0.5fr 0.5fr;
     }
 }

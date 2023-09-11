@@ -24,7 +24,7 @@ export const DetailsGrid = styled.div<{$summary?: boolean}>`
 
 export const DealGrid = styled.div<{$summary?: boolean}>`
     display: grid;
-    height: 100%;
+    /* height: 100%; */
     width: 100%;
     grid-template-columns: 1fr;
     gap: 25px 30px;
@@ -48,11 +48,12 @@ export const ReversedMobileOrder = styled.div`
 
 export const DealContainer = styled.div`
     border-radius: 15px;
-    border: 1px solid #E7E7E7;
     color: #344054;
     font-size: 0.875rem;
     font-weight: 500;
     background-color: white;
+    /* border: 1px solid #E7E7E7; */
+    box-shadow: 0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px -1px rgba(16, 24, 40, 0.08);
 `
 
 export const DealHeader = styled.div`
@@ -116,6 +117,9 @@ export const InfoRow = styled.p`
     justify-content: space-between;
     padding-top: 25px;
     margin: 0;
+    &:first-of-type{
+        padding-top: 0;
+    }
     & span:last-of-type{
         font-weight: 600;
     }
@@ -152,7 +156,7 @@ export const PopUpContainer = styled.div`
     width: 100%;
     max-width: 430px;
     border-radius: 15px;
-    padding: 15px;
+    padding: 25px 15px;
     border: 1px solid #E4E4E4;
     background: #FFF;
     & h3{
@@ -175,7 +179,8 @@ export const PopUpContent = styled.div`
 export const ProgressContainer = styled.div`
     font-size: 0.87rem;
     border-radius: 15px;
-    border: 1px solid #E4E4E4;
+    /* border: 1px solid #E4E4E4; */
+    box-shadow: 0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px -1px rgba(16, 24, 40, 0.08);
     background: #FFF;
     padding: 15px;
 `

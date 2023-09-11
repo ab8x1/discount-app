@@ -43,7 +43,7 @@ export default function DetailsState({
                                         Redeem Anytime
                                     </h3>
                                     <p style={{margin: '10px 0'}}>
-                                    You redeem your funds anytime before Claim Date via <b>My Earnings</b> page. Certain conditions apply.
+                                    You redeem your funds anytime before Claim Date via <b>My Earnings</b> page.
                                     </p>
                                 </InfoContent>
                             </DealContainer>

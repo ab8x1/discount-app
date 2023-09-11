@@ -32,10 +32,10 @@ export default function ReedemEarly({
         <>
             <DealContainer>
                 <InfoContent>
-                    <h3>Redeem Early</h3>
-                    <InfoRow>
+                    <h3>Claim Early</h3>
+                    <InfoRow style={{margin: '15px 0'}}>
                         <span>Estimated Value</span>
-                        <span>
+                        <span style={{color: '#7F56D9'}}>
                             <RefreshValue
                                 updateFunction={calcActualVal}
                                 roundTo={8}
@@ -45,8 +45,8 @@ export default function ReedemEarly({
                             </span>
                         </span>
                     </InfoRow>
-                    <DefaultButton $bg="#FFB673" $bgHover="#f7bf8a" $fullWidth style={{padding: '15px 0'}} onClick={() => setStage("confirmation")}>
-                        Redeem Early
+                    <DefaultButton $bg="#7F56D9" $bgHover="#8965d8" $fullWidth style={{padding: '18px 0'}} onClick={() => setStage("confirmation")}>
+                        Claim Early
                     </DefaultButton>
                 </InfoContent>
             </DealContainer>
@@ -54,7 +54,7 @@ export default function ReedemEarly({
                 stage === "confirmation" ?
                 <PopUpBackground>
                     <PopUpContainer ref={ref} style={{fontSize: '0.9rem'}}>
-                        <h3>Redeem Early</h3>
+                        <h3 style={{fontSize: '1.12rem'}}>Claim Early</h3>
                         <InfoRow>
                             <span>Estimated Value</span>
                             <span>
@@ -79,7 +79,7 @@ export default function ReedemEarly({
                                 <span style={{marginLeft: '5px'}}>{deal.token}</span>
                             </span>
                         </InfoRow>
-                        <DefaultButton $bg="#FFB673" $bgHover="#f7bf8a" $fullWidth style={{marginTop: '10px'}} onClick={reedem}>
+                        <DefaultButton $bg="#7F56D9" $bgHover="#8965d8" $fullWidth style={{marginTop: '20px'}} onClick={reedem}>
                         Redeem Early
                     </DefaultButton>
                     </PopUpContainer>
