@@ -135,6 +135,8 @@ export default function DealDetails({
                     type="buy"
                     amount={amount}
                     reedem={reedem}
+                    maturity={date.end}
+                    token={token}
                 />
             }
         </>

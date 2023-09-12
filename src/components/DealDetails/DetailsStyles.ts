@@ -154,26 +154,21 @@ export const PopUpBackground = styled.div`
 
 export const PopUpContainer = styled.div`
     width: 100%;
-    max-width: 430px;
+    max-width: 400px;
     border-radius: 15px;
     padding: 25px 15px;
     border: 1px solid #E4E4E4;
     background: #FFF;
     & h3{
         align-self: flex-start;
-        margin-bottom: 20px;
-        font-size: 0.9rem;
+        margin: 20px 0 25px 0;
+        font-size: 1.25;
     }
 `
 
 export const PopUpContent = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    font-size: 1.3rem;
-    text-align: center;
-    font-weight: 600;
-    line-height: 1.8rem;
 `
 
 export const ProgressContainer = styled.div`

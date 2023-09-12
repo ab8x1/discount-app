@@ -88,6 +88,8 @@ export default function ReedemEarly({
                 <ActionConfirmation
                     type="reedemEarly"
                     {...stage}
+                    maturity={deal.date.maturity}
+                    token={deal.token}
                 />
                 : null
             }

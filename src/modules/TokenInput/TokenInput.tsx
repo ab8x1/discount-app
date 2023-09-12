@@ -24,7 +24,7 @@ export default function TokenInput({
     }
 
     const keyDownListener = (e: React.KeyboardEvent<HTMLInputElement>):void => {
-        if(e.key === "Enter"){
+        if(e.key === "Enter" && window.innerWidth >= 768){
             action()
         }
     }

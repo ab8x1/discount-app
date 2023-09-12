@@ -1,29 +1,52 @@
 import Confetti from 'react-confetti';
 import { DefaultButtonLink } from "../Navbar/NavbarStyles";
-import { PopUpBackground, PopUpContainer, PopUpContent } from "./DetailsStyles";
+import { InfoRow, PopUpBackground, PopUpContainer, PopUpContent, Profit } from "./DetailsStyles";
 import { useSearchParams } from "next/navigation";
+import { DealDetailsType } from './DetailsTypes';
+import timestampToDate from '@/helpers/timestampToDate';
+import Image from 'next/image';
+import fixedNumber from '@/helpers/fixedNumber';
 
 export default function ActionConfirmation({
     type,
+    amount,
     reedem,
-    amount
+    token,
+    maturity
 } : {
     type: "buy" | "reedemFull" | "reedemEarly",
+    amount: number,
     reedem: number,
-    amount: number
+    token: string,
+    maturity: number
 }){
     const params = useSearchParams();
     const returnToPage = params.get('returnToPage');
+
     return(
         <PopUpBackground>
             <PopUpContainer>
-                <h3>Woohoo!</h3>
+                <Image src="/circle-tick.svg" width={48} height={48} alt='cricle tick'/>
+                <h3>Purchase Complete</h3>
                 <PopUpContent>
-                    <div>{type === "buy" ? "You’ve Purchased" : type === "reedemFull" ? "You’ve redeemead" : "You’ve redeemead early"}</div>
-                    <div><span style={{color: '#627EEA'}}>{reedem} Discounted USDC</span></div>
-                    <div>for <span className="brand">{amount} USDC</span></div>
-                    <DefaultButtonLink href={`/my-earnings?page=${returnToPage || 1}`} $bg="#344054;" $bgHover="#43526c" $fullWidth style={{marginTop: '20px'}}>
-                        Close & {type === "buy" ? 'Open' : 'Return to'} My Earnings
+                    <InfoRow>
+                        <span> You Paid </span>
+                        <span> {amount} {token} </span>
+                    </InfoRow>
+                    <InfoRow>
+                        <span> You’ll Receive </span>
+                        <span> {reedem} {token} </span>
+                    </InfoRow>
+                    <InfoRow>
+                        <span> Claim Date </span>
+                        <span> {timestampToDate( type === "buy" ? maturity : Date.now())} </span>
+                    </InfoRow>
+                    <Profit>
+                        <Image src="/thumbs-up.svg" width={20} height={20} alt="thumbs-up"/>
+                        You’re saving ${fixedNumber(reedem - amount)} on this deal
+                    </Profit>
+                    <DefaultButtonLink href={`/my-earnings?page=${returnToPage || 1}`} $bg="#00D26B;" $bgHover="#23c677" $fullWidth style={{marginTop: '20px', padding: '10px'}}>
+                        Open My Earnings
                     </DefaultButtonLink>
                 </PopUpContent>
             </PopUpContainer>

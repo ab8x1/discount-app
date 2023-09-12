@@ -13,9 +13,10 @@ export default function DisplayEarnings({
 }){
     const updateFunction = () => actualProfitValue(deal);
     const reedem = reedemValue(deal);
+    const fee = fixedNumber(0.001 * deal.purchasePrice, false, 2, true) as number;
 
     return(
-        <DealContainer style={{marginBottom: '20px'}}>
+        <DealContainer style={{marginBottom: '20px', marginTop: timestamp ? '30px' : 0}}>
             <InfoContent>
                 <h3 style={{marginBottom: '20px'}}>Earnings</h3>
                 <InfoRow>
@@ -27,7 +28,7 @@ export default function DisplayEarnings({
                     <span className="brand">
                         <span style={{marginRight: '5px'}}>
                             {
-                                timestamp ? fixedNumber(reedem - deal.purchasePrice)
+                                timestamp ? fixedNumber(reedem - deal.purchasePrice - fee)
                                 :
                                 <RefreshValue
                                     updateFunction={updateFunction}
