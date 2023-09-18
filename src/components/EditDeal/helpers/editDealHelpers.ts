@@ -16,8 +16,8 @@ export function reedemEarly(deal: PurchasedDeal, fee: number, address?: string){
     }
     window.localStorage.setItem('purchasedDeals', JSON.stringify(updatedAllDeals));
     return {
-        reedem: fixedNumber(reedemValue(deal), false, 5, true) as number,
-        amount: deal.purchasePrice + fee
+        reedem: fixedNumber(reedemValue(deal) - fee, false, 5, true) as number,
+        amount: deal.purchasePrice
     };
 }
 

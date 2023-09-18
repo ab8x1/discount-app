@@ -8,6 +8,7 @@ import fixedNumber from "@/helpers/fixedNumber";
 import { actualProfitValue, reedemValue, RefreshValue } from "@/helpers/calculateProfits";
 import { mergeDeep } from '@/components/Earnings/Chart/chartHelpers';
 import { reedemEarly } from "./helpers/editDealHelpers";
+import ReedemConfirmation from './ReedemConfirmation';
 
 export default function ReedemEarly({
     deal,
@@ -85,10 +86,9 @@ export default function ReedemEarly({
                     </PopUpContainer>
                 </PopUpBackground>
                 : stage ?
-                <ActionConfirmation
+                <ReedemConfirmation
                     type="reedemEarly"
                     {...stage}
-                    maturity={deal.date.maturity}
                     token={deal.token}
                 />
                 : null

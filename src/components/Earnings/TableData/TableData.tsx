@@ -41,6 +41,9 @@ export default function TableData({
                 <thead>
                     <tr className={styles.tableRow}>
                         <th className={styles.tableHeader}>
+                            Purchase Date
+                        </th>
+                        <th className={styles.tableHeader}>
                             Spent
                         </th>
                         <th className={styles.tableHeader}>
@@ -60,6 +63,9 @@ export default function TableData({
                             const {id, amount, token, date, purchasePrice} = deal;
                             return(
                                 <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/offer/${id}?returnToPage=${page}`)}>
+                                    <td className={styles.tableData}>
+                                        <span className={styles.lightData}>{timestampToDate(date.purchasedAt)}</span>
+                                    </td>
                                     <td className={styles.tableData}>
                                         <div className={styles.amount}>
                                             <Image src="/tokens/USDC.svg" width={40} height={40} alt="ptUsdc"/>
@@ -108,10 +114,10 @@ export default function TableData({
                             )
                             :
                             <tr>
-                                <td colSpan={3} style={{width: '100%', height:'100px', textAlign: 'center'}}>
+                                <td colSpan={10} style={{width: '100%', height:'100px', textAlign: 'center'}}>
                                     {
                                         <div className={styles.emptyTable}>
-                                            <b style={{fontSize: '1.2rem'}}>No deals</b>
+                                            <b style={{fontSize: '1.2rem'}}>No active deals</b>
                                             <DefaultButtonLink href={'/'}>Explore Deals</DefaultButtonLink>
                                         </div>
                                     }

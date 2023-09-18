@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import TableData from '@/components/Earnings/TableData/TableData';
 import Link from 'next/link';
 import Image from 'next/image';
-
 import Chart from "@/components/Earnings/Chart/ProfitsChart"
 
 export default function RootLayout({
@@ -22,9 +21,9 @@ export default function RootLayout({
 
   useEffect(() => {
       const purchasedDeals = JSON.parse(window.localStorage?.getItem('purchasedDeals') || "{}");
-      const userDeals = purchasedDeals?.[address || 'unloggedDeals'];
+      const userDeals: PurchasedDeal[] = purchasedDeals?.[address || 'unloggedDeals'];
       if(userDeals)
-        setDeals(userDeals);
+        setDeals(userDeals.filter(({date}) => !date?.redeemedAt));
       else
           setDeals([]);
   }, [address]);
