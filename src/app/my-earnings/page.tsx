@@ -23,7 +23,7 @@ export default function RootLayout({
       const purchasedDeals = JSON.parse(window.localStorage?.getItem('purchasedDeals') || "{}");
       const userDeals: PurchasedDeal[] = purchasedDeals?.[address || 'unloggedDeals'];
       if(userDeals)
-        setDeals(userDeals.filter(({date}) => !date?.redeemedAt));
+        setDeals(userDeals);
       else
           setDeals([]);
   }, [address]);

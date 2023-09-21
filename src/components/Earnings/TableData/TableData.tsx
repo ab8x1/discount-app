@@ -25,7 +25,7 @@ export default function TableData({
 }){
     const page = currentPage || 1;
     const router = useRouter();
-    const orderedDeals = [...deals || []].reverse();
+    const orderedDeals = [...deals.filter(({date}) => !date?.redeemedAt) || []].reverse();
 
     useEffect(() => {
         orderedDeals.slice((page-1) * 5, page * 5).forEach(({id}) => {
@@ -59,7 +59,7 @@ export default function TableData({
                 </thead>
                 <tbody>
                     {
-                        deals?.length > 0 ? orderedDeals.slice((page-1) * 5, page * 5).map( (deal, i) => {
+                        orderedDeals?.length > 0 ? orderedDeals.slice((page-1) * 5, page * 5).map( (deal, i) => {
                             const {id, amount, token, date, purchasePrice} = deal;
                             return(
                                 <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/offer/${id}?returnToPage=${page}`)}>
@@ -127,7 +127,7 @@ export default function TableData({
                 </tbody>
                 <TableFooter
                     page={page}
-                    lastItemIndex={deals?.length}
+                    lastItemIndex={orderedDeals?.length}
                 />
             </table>
         </div>
