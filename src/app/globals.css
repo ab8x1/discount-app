@@ -94,6 +94,9 @@ a, button {
   html{
     font-size: 16px;
   }
+  .container{
+    padding: 15px 25px;
+  }
   .hide-desktop{
     display: none!important;
   }
