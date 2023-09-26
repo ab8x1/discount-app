@@ -12,7 +12,7 @@
     width: 100%;
     background: #FFF;
     border-radius: 12px;
-    padding: 28px;
+    padding: 28px 20px;
     transition: box-shadow 0.2s ease-in-out;
 }
 
@@ -20,42 +20,58 @@
     box-shadow: 0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px -1px rgba(16, 24, 40, 0.08);
 }
 
-.token{
-    gap: 12px;
-    font-size: 1.5rem;
-    font-weight: 600;
+.dealInfo{
+    width: 100%;
+    max-width: 320px;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: white;
+    margin-bottom: 30px;
 }
 
-
-.discount{
-    margin-bottom: 37px;
-    padding: 4px 12px;
-    border-radius: 15px;
-    background: #FFF;
-    gap: 7px;
+.originalPrice{
+    align-self: flex-start;
+    color: white;
     font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.discount::before{
-    content: '•';
-    font-size: 20px;
-    color: var(--brand-color);
+    font-weight: 400;
+    margin-bottom: 50px;
+    gap: 5px;
 }
 
 .discountPrice{
     color: white;
-    font-weight: 600;
-    font-size: 2.32rem;
-    margin: 40px 0 20px 0;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin: 3px 0 0 0;
 }
 
-.originalPrice{
-    color: #1E1D34;
-    font-size: 1.25rem;
-    font-weight: 400;
-    text-decoration-line: line-through;
-    margin-bottom: 37px;
+.claimDate{
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: white;
+}
+
+.claimDate span:last-of-type{
+    color: #EEEEEE;
+}
+
+.progressBar{
+    position: relative;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.line{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 4px;
 }
 
 @media(min-width: 768px){

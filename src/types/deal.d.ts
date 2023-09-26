@@ -6,6 +6,10 @@ export type ThinDeal = {
     originalPrice: number,
     discountedPrice: number,
     background: string,
+    progressColor: {
+        background: string,
+        line: string
+    },
     isEnabled: boolean,
     date: {
         start: number,

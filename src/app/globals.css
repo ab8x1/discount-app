@@ -48,30 +48,32 @@ a, button {
 
 .container{
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 10px;
 }
 
 .brand{
+  display: contents;
   color: var(--brand-color)!important;
   font-weight: 600!important;
 }
 
 .boxButton{
   display: flex;
-  max-width: 288px;
   width: 100%;
-  padding: 12px 24px;
+  padding: 20px 20px;
   justify-content: center;
   align-items: center;
   border-radius: 9px;
   background: #FFF;
   box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.08);
   color: #1C3256;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 600;
   transition: transform 0.2s ease-in-out;
+  text-align: center;
+  flex: 1;
 }
 
 .boxButton:hover{
