@@ -19,7 +19,7 @@ export default function ThinDeal({
         <Link href={`/deal/${id}`} className={styles.dealContainer} style={{background, pointerEvents: isEnabled ? 'all' : 'none'}}>
             <div className={`${styles.originalPrice} alignY`}>
                 <Image src="/bar-chart.svg" width={25} height={25} alt='bar-chart'/>
-                USDC Market Price
+                {token} Market Price
                 ${fixedNumber(originalPrice, true, 2)}
             </div>
             <div className={`${styles.dealInfo} alignY`}>

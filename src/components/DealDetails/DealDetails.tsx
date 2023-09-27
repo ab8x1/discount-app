@@ -38,9 +38,9 @@ export default function DetailsState({
                             <DealDetailsProgress amount={amount} dealDetails={dealDetails} step="buy"/>
                             <DealContainer style={{marginTop: '15px'}}>
                                 <InfoContent>
-                                    <h3 className="brand alignY" style={{gap: '5px'}}>
+                                    <h3 className="alignY" style={{gap: '5px'}}>
                                         <Image src="/shield-tick.svg" width={24} height={24} alt="shield"/>
-                                        Redeem Anytime
+                                        <span className="brand">Redeem Anytime</span>
                                     </h3>
                                     <p style={{margin: '10px 0'}}>
                                     You redeem your funds anytime before Claim Date via <b>My Earnings</b> page.

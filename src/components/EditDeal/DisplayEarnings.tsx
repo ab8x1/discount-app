@@ -25,19 +25,21 @@ export default function DisplayEarnings({
                 </InfoRow>
                 <InfoRow>
                     <span>Total Profits {!timestamp && 'So Far'}:</span>
-                    <span className="brand">
-                        <span style={{marginRight: '5px'}}>
-                            {
-                                timestamp ? fixedNumber(reedem - deal.purchasePrice - fee)
-                                :
-                                <RefreshValue
-                                    updateFunction={updateFunction}
-                                    roundTo={8}
-                                />
-                            }
+                    <div>
+                        <span className="brand">
+                            <span style={{marginRight: '3px'}}>
+                                {
+                                    timestamp ? fixedNumber(reedem - deal.purchasePrice - fee)
+                                    :
+                                    <RefreshValue
+                                        updateFunction={updateFunction}
+                                        roundTo={8}
+                                    />
+                                }
+                            </span>
+                            USDC
                         </span>
-                        USDC
-                    </span>
+                    </div>
                 </InfoRow>
             </InfoContent>
         </DealContainer>

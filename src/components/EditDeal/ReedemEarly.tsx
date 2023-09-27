@@ -72,13 +72,15 @@ export default function ReedemEarly({
                         </InfoRow>
                         <InfoRow>
                             <span>Minimum Received</span>
-                            <span className="brand">
-                                <RefreshValue
-                                    updateFunction={() => calcActualVal() - fee}
-                                    roundTo={8}
-                                />
-                                <span style={{marginLeft: '5px'}}>{deal.token}</span>
-                            </span>
+                            <div>
+                                <span className="brand">
+                                    <RefreshValue
+                                        updateFunction={() => calcActualVal() - fee}
+                                        roundTo={8}
+                                    />
+                                    <span style={{marginLeft: '5px'}}>{deal.token}</span>
+                                </span>
+                            </div>
                         </InfoRow>
                         <DefaultButton $bg="#7F56D9" $bgHover="#8965d8" $fullWidth style={{marginTop: '20px'}} onClick={reedem}>
                         Redeem Early

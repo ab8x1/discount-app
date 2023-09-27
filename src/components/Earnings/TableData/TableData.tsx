@@ -52,8 +52,8 @@ export default function TableData({
                         <th className={styles.tableHeader}>
                             Claim Date
                         </th>
-                        <th className={`${styles.tableHeader} brand`}>
-                            Fixed Profit
+                        <th className={styles.tableHeader}>
+                            <span className='brand'>Fixed Profit</span>
                         </th>
                     </tr>
                 </thead>
