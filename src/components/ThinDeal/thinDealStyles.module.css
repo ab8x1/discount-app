@@ -30,19 +30,12 @@
 }
 
 .originalPrice{
-    position: relative;
     align-self: flex-start;
     color: white;
     font-size: 0.9rem;
     font-weight: 400;
     margin-bottom: 50px;
     gap: 5px;
-    padding-left: 50px;
-}
-
-.originalPrice img{
-    position: absolute;
-    left: 0;
 }
 
 .discountPrice{
