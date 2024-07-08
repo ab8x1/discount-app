@@ -47,12 +47,12 @@ export default function DealDetails({
                 <DealHeader>
                     <Token className="alignY">
                         <TokenContainer>
-                            <TokenImg src="/tokens/USDC.svg" width={56} height={56} alt="coin"/>
+                            <TokenImg src={`/tokens/${token}.svg`} width={56} height={56} alt="coin"/>
                             <span>
                                 <Image src="/discounted.svg" width={18} height={18} alt="discounted"/>
                             </span>
                         </TokenContainer>
-                        USDC
+                        {token}
                     </Token>
                     <DiscountValue>
                         ~{discount}%
@@ -65,6 +65,7 @@ export default function DealDetails({
                             defaultValue={amount}
                             onChange={setAmount}
                             action={action}
+                            token={token}
                         />
                     }
                     {
@@ -76,7 +77,7 @@ export default function DealDetails({
                     }
                     <InfoRow>
                         <span>You’ll Receive</span>
-                        <span>{fixedNumber(reedem)} USDC</span>
+                        <span>{fixedNumber(reedem)} {token}</span>
                     </InfoRow>
                     {
                         confirmStage ?

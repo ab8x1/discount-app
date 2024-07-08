@@ -1,6 +1,6 @@
-import { ThinDeal } from "@/types/deal"
+import { ThinDealType } from "@/types/deal"
 
-export const exampleThinDeals: ThinDeal[] = [
+export const exampleThinDeals: ThinDealType[] = [
     {
         id: '0',
         token: 'USDC',
@@ -14,30 +14,31 @@ export const exampleThinDeals: ThinDeal[] = [
         isEnabled: true,
         date: {
             start: 1672598910000,
-            end: 1723204039000
+            end: 1751982492000
         }
     },
     {
         id: '1',
-        token: 'ETH',
-        discountedPrice: 1600,
-        originalPrice: 1685,
+        token: 'GHO',
+        discountedPrice: 0.91,
+        originalPrice: 1,
+
         background: 'linear-gradient(180deg, #8B6DCD 0%, #627EEA 100%)',
         progressColor: {
             background: '#E9D7FE',
             line: '#9E77ED'
         },
-        isEnabled: false,
+        isEnabled: true,
         date: {
             start: 1672598910000,
-            end: 1754740039000
+            end: 1751982492000
         }
     },
     {
         id: '2',
-        token: 'DAI',
-        discountedPrice: 0.95,
-        originalPrice: 1,
+        token: 'ETH',
+        discountedPrice: 2850,
+        originalPrice: 2900,
         background: 'linear-gradient(180deg, #FFC566 0%, #E08E0B 100%)',
         progressColor: {
             background: '#FFEFCF',
@@ -46,7 +47,7 @@ export const exampleThinDeals: ThinDeal[] = [
         isEnabled: false,
         date: {
             start: 1672598910000,
-            end: 1786276039000
+            end: 1751982492000
         }
     },
 ]

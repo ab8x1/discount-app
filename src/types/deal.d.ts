@@ -1,6 +1,6 @@
-export type tokens = "USDC" | "ETH" | "DAI";
+export type tokens = "USDC" | "ETH" | "GHO";
 
-export type ThinDeal = {
+export type ThinDealType = {
     id: string,
     token: tokens,
     originalPrice: number,

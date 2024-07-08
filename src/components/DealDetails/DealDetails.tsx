@@ -3,7 +3,7 @@ import { useState } from "react"
 import { DetailsPage, DetailsGrid, DealContainer, DealGrid, InfoContent, InfoRow, DealContent } from "./DetailsStyles"
 import DealDetailsProgress from "./DetailsProgress"
 import DealDetails from "./Details"
-import { ThinDeal } from "@/types/deal"
+import { ThinDealType } from "@/types/deal"
 import { DealDetailsType, Stage } from "./DetailsTypes"
 import Image from "next/image"
 import fixedNumber from "@/helpers/fixedNumber"
@@ -12,7 +12,7 @@ import BackButton from "../Navbar/BackButton"
 export default function DetailsState({
     thinDeal
 } : {
-    thinDeal: ThinDeal
+    thinDeal: ThinDealType
 }){
     const {discountedPrice, originalPrice, date, token} = thinDeal;
     const [amount, setAmount] = useState<number>(0);
@@ -35,7 +35,7 @@ export default function DetailsState({
                     <DealDetails setAmount={setAmount} dealDetails={dealDetails} stage={stage} amount={amount} setStage={setStage}/>
                     { stage === 'confirm' &&
                         <div>
-                            <DealDetailsProgress amount={amount} dealDetails={dealDetails} step="buy"/>
+                            <DealDetailsProgress amount={amount} dealDetails={dealDetails} step="buy" token={token}/>
                             <DealContainer style={{marginTop: '15px'}}>
                                 <InfoContent>
                                     <h3 className="alignY" style={{gap: '5px'}}>

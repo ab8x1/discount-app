@@ -1,8 +1,9 @@
 import styles from './thinDealStyles.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ThinDeal } from '@/types/deal'
+import { ThinDealType } from '@/types/deal'
 import fixedNumber from '@/helpers/fixedNumber'
+import timestampToDate from '@/helpers/timestampToDate'
 
 export default function ThinDeal({
     id,
@@ -13,7 +14,7 @@ export default function ThinDeal({
     progressColor,
     isEnabled,
     date
-} : ThinDeal){
+} : ThinDealType){
     const discount = 100 - (discountedPrice / originalPrice) * 100;
     return(
         <Link href={`/deal/${id}`} className={styles.dealContainer} style={{background, pointerEvents: isEnabled ? 'all' : 'none'}}>
@@ -36,7 +37,7 @@ export default function ThinDeal({
             </div>
             <p className={`${styles.claimDate} alignY`}>
                 <span>Claim Date</span>
-                <span>1 Jan 2024</span>
+                <span>{timestampToDate(date.end)}</span>
             </p>
             <span className={styles.progressBar} style={{background: progressColor.background}}>
                 <span className={styles.line} style={{width: `${(Date.now() - date.start)/(date.end - date.start)*100}%`, background: progressColor.line}}/>

@@ -1,16 +1,19 @@
 import { useState, Dispatch, SetStateAction } from "react";
 import {Input, InputContainer, InputLabel, InputLayout, InputToken} from './TokenInputStyles';
 import Image from "next/image";
+import { tokens } from "@/types/deal";
 
 export default function TokenInput({
     onChange,
     defaultValue,
-    action
+    action,
+    token
 
 } : {
     onChange: Dispatch<SetStateAction<number>>,
     defaultValue: number,
-    action: () => void
+    action: () => void,
+    token: tokens
 }){
     const [userQuery, setUserQuery] = useState(defaultValue ? defaultValue.toString() : "");
 
@@ -41,8 +44,8 @@ export default function TokenInput({
                     onKeyDown={keyDownListener}
                 />
                 <InputToken>
-                    <Image src="/tokens/USDC.svg" width={24} height={24} alt="token"/>
-                    USDC
+                    <Image src={`/tokens/${token}.svg`} width={24} height={24} alt="token"/>
+                    {token}
                 </InputToken>
             </InputLayout>
         </InputContainer>

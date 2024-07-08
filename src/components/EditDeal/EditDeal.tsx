@@ -54,6 +54,7 @@ export default function EditDeal({
                                 }
                             }}
                             step="wait"
+                            token={deal.token}
                         />
                     </ReversedMobileOrder>
                     <ReedemEarly deal={deal} address={address || ''}/>
