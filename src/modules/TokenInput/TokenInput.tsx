@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, useRef } from "react";
 import {Input, InputContainer, InputLabel, InputLayout, InputToken} from './TokenInputStyles';
 import Image from "next/image";
 import { tokens } from "@/types/deal";
@@ -27,8 +27,13 @@ export default function TokenInput({
     }
 
     const keyDownListener = (e: React.KeyboardEvent<HTMLInputElement>):void => {
-        if(e.key === "Enter" && window.innerWidth >= 768){
-            action()
+        if(e.key === "Enter"){
+            if(window.innerWidth >= 768){
+                action();
+            }
+            else{
+                (document?.activeElement as HTMLElement)?.blur();
+            }
         }
     }
 
