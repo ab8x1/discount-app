@@ -1,9 +1,8 @@
 'use client'
 import { useEffect, useState } from "react";
-import { DealGrid, DealContainer, InfoContent, InfoRow, ReversedMobileOrder } from "../DealDetails/DetailsStyles";
+import { DealGrid, ReversedMobileOrder } from "../DealDetails/DetailsStyles";
 import ReedemEarly from "./ReedemEarly";
 import EditDealInfo from "./EditDealInfo";
-import Image from "next/image";
 import DealDetailsProgress from "../DealDetails/DetailsProgress";
 import { PurchasedDeal } from "@/types/deal";
 import { useConnectWallet } from "@web3-onboard/react";

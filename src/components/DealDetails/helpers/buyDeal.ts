@@ -27,4 +27,5 @@ export default function buyDeal(
             newPurchase
         ]
     }))
+    return newPurchase.id;
 }

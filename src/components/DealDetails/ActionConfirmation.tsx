@@ -11,13 +11,15 @@ export default function ActionConfirmation({
     amount,
     reedem,
     token,
-    maturity
+    maturity,
+    offerId
 } : {
     type: "buy" | "reedemFull" | "reedemEarly",
     amount: number,
     reedem: number,
     token: string,
-    maturity: number
+    maturity: number,
+    offerId: string
 }){
     const params = useSearchParams();
     const returnToPage = params.get('returnToPage');
@@ -44,8 +46,8 @@ export default function ActionConfirmation({
                         <Image src="/thumbs-up.svg" width={20} height={20} alt="thumbs-up"/>
                         You’re saving ${fixedNumber(reedem - amount)} on this deal
                     </Profit>
-                    <DefaultButtonLink href={`/my-earnings?page=${returnToPage || 1}`} $bg="#00D26B;" $bgHover="#23c677" $fullWidth style={{marginTop: '20px', padding: '10px'}}>
-                        Open My Earnings
+                    <DefaultButtonLink href={`/offer/${offerId}?returnToEarnings=${returnToPage || 1}`} $bg="#00D26B;" $bgHover="#23c677" $fullWidth style={{marginTop: '20px', padding: '10px'}}>
+                        Open Purchase Summary
                     </DefaultButtonLink>
                 </PopUpContent>
             </PopUpContainer>

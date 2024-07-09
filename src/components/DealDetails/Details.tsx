@@ -30,12 +30,12 @@ export default function DealDetails({
     const fee = fixedNumber(amount * 0.001, false, 2, true) as number;
     const [{ wallet }, connect] = useConnectWallet();
     const {address} = wallet?.accounts[0] ?? {};
-    const [openConfirmation, setOpenConfirmation] = useState(false);
+    const [confirmationID, setConfirmationID] = useState<string | null>(null);
     const confirmStage = stage === 'confirm';
     const action = () => {
         if(confirmStage){
-            buyDeal(dealDetails, amount, address);
-            setOpenConfirmation(true);
+            const newOfferId = buyDeal(dealDetails, amount, address);
+            setConfirmationID(newOfferId);
         }
         else if(amount) {
             setStage("confirm");
@@ -131,13 +131,14 @@ export default function DealDetails({
                 </DealContent>
             </DealContainer>
             {
-                openConfirmation &&
+                confirmationID &&
                 <ActionConfirmation
                     type="buy"
                     amount={amount}
                     reedem={reedem}
                     maturity={date.end}
                     token={token}
+                    offerId={confirmationID}
                 />
             }
         </>
