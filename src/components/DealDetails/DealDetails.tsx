@@ -32,8 +32,12 @@ export default function DetailsState({
     }
     useEffect(() => {
         if (wallet) {
-            const ethersProvider = new BrowserProvider(wallet.provider, 'any');
-            console.log(ethersProvider);
+            const getSigner = async() => {
+                const ethersProvider = new BrowserProvider(wallet.provider, 'any');
+                const signer = await ethersProvider.getSigner()
+                console.log(signer);
+            }
+            getSigner();
         }
     }, [])
     return(
