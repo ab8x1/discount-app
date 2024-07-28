@@ -5,12 +5,12 @@ import TableFooter from './TableFooter'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { PurchasedDeal } from '@/types/deal'
-import ConnectWallet from '@/components/Navbar/ConnectWallet'
 import { DefaultButtonLink } from '@/components/Navbar/NavbarStyles'
 import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from '@/helpers/fixedNumber'
 import {  fixedProfit } from '@/helpers/calculateProfits'
 import { WalletState } from '@web3-onboard/core'
+import useUser from '@/hooks/useUser'
 
 export default function TableData({
     currentPage,
@@ -23,10 +23,11 @@ export default function TableData({
     address?: string,
     wallet: WalletState | null
 }){
+    const user = useUser();
     const page = currentPage || 1;
     const router = useRouter();
     const orderedDeals = [...deals.filter(({date}) => !date?.redeemedAt) || []].reverse();
-
+    console.log(user?.address)
     useEffect(() => {
         orderedDeals.slice((page-1) * 5, page * 5).forEach(({id}) => {
             router.prefetch(

@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import WalletProvider from '@/components/WalletProvider'
 import Navbar from '@/components/Navbar'
 import { Metadata } from 'next'
+import Providers from '@/components/Providers'
 import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -33,12 +34,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <StyledComponentsRegistry>
-          <WalletProvider>
-            <Navbar/>
-            {children}
-          </WalletProvider>
-        </StyledComponentsRegistry>
+        <Providers>
+          <Navbar/>
+          {children}
+        </Providers>
       </body>
       {
         process.env.NODE_ENV === "production" &&

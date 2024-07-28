@@ -6,17 +6,13 @@ import DealDetails from "./Details"
 import { ThinDealType } from "@/types/deal"
 import { DealDetailsType, Stage } from "./DetailsTypes"
 import Image from "next/image"
-import fixedNumber from "@/helpers/fixedNumber"
 import BackButton from "../Navbar/BackButton"
-import {BrowserProvider} from "ethers"
-import { useConnectWallet } from "@web3-onboard/react"
 
 export default function DetailsState({
     thinDeal
 } : {
     thinDeal: ThinDealType
 }){
-    const [{ wallet }, connect] = useConnectWallet();
     const {discountedPrice, originalPrice, date, token} = thinDeal;
     const [amount, setAmount] = useState<number>(0);
     const [stage, setStage] = useState<Stage>("buy");
@@ -30,16 +26,6 @@ export default function DetailsState({
         date,
         token
     }
-    useEffect(() => {
-        if (wallet) {
-            const getSigner = async() => {
-                const ethersProvider = new BrowserProvider(wallet.provider, 'any');
-                const signer = await ethersProvider.getSigner()
-                console.log(signer);
-            }
-            getSigner();
-        }
-    }, [])
     return(
         <DetailsPage>
             <DetailsGrid $summary={stage==='confirm'}>
