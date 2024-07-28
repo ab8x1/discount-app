@@ -8,13 +8,15 @@ const mobilePosition: CommonPositions = 'bottomRight';
 const injected = injectedModule();
 
 export const walletConfig = {
+  // https://explorer.blocknative.com/account
+  apiKey: process.env.NEXT_PUBLIC_BLOCKNATIVE_KEY,
   wallets: [injected],
   chains: [
     {
       id: '0x5',
       token: 'ETH',
       label: 'Goerli',
-      rpcUrl: process.env.NEXT_PUBLIC_GOERLI_URL
+      rpcUrl: "https://eth-goerli.g.alchemy.com/v2/demo"
     }
   ],
   appMetadata: {

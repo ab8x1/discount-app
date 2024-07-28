@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { DetailsPage, DetailsGrid, DealContainer, DealGrid, InfoContent, InfoRow, DealContent } from "./DetailsStyles"
 import DealDetailsProgress from "./DetailsProgress"
 import DealDetails from "./Details"
@@ -8,12 +8,15 @@ import { DealDetailsType, Stage } from "./DetailsTypes"
 import Image from "next/image"
 import fixedNumber from "@/helpers/fixedNumber"
 import BackButton from "../Navbar/BackButton"
+import {BrowserProvider} from "ethers"
+import { useConnectWallet } from "@web3-onboard/react"
 
 export default function DetailsState({
     thinDeal
 } : {
     thinDeal: ThinDealType
 }){
+    const [{ wallet }, connect] = useConnectWallet();
     const {discountedPrice, originalPrice, date, token} = thinDeal;
     const [amount, setAmount] = useState<number>(0);
     const [stage, setStage] = useState<Stage>("buy");
@@ -27,6 +30,12 @@ export default function DetailsState({
         date,
         token
     }
+    useEffect(() => {
+        if (wallet) {
+            const ethersProvider = new BrowserProvider(wallet.provider, 'any');
+            console.log(ethersProvider);
+        }
+    }, [])
     return(
         <DetailsPage>
             <DetailsGrid $summary={stage==='confirm'}>
