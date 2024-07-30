@@ -1,5 +1,5 @@
 'use client'
-import { DetailsWrapper, DealContainer, DealHeader, Token, TokenContainer, TokenImg, DiscountValue, DealContent, InfoRow, StageButton, PopUpBackground, PopUpContainer, Profit } from "./DetailsStyles"
+import { DealContainer, DealHeader, Token, TokenContainer, TokenImg, DiscountValue, DealContent, InfoRow, StageButton, Profit } from "./DetailsStyles"
 import Image from "next/image"
 import { useConnectWallet } from "@web3-onboard/react";
 import { useState, Dispatch, SetStateAction } from "react";
@@ -10,8 +10,7 @@ import { DealDetailsType, Stage } from "./DetailsTypes"
 import ActionConfirmation from "./ActionConfirmation";
 import buyDeal from "./helpers/buyDeal";
 import { DefaultButton } from "../Navbar/NavbarStyles";
-import BackButton from "../Navbar/BackButton";
-import { time } from "console";
+import useUser from "@/hooks/useUser";
 
 export default function DealDetails({
     setAmount,
@@ -26,16 +25,22 @@ export default function DealDetails({
     amount: number,
     setStage: Dispatch<SetStateAction<Stage>>,
 }){
+    const user = useUser();
     const {date, discount, earn, reedem, roi, token} = dealDetails;
     const fee = fixedNumber(amount * 0.001, false, 2, true) as number;
     const [{ wallet }, connect] = useConnectWallet();
     const {address} = wallet?.accounts[0] ?? {};
     const [confirmationID, setConfirmationID] = useState<string | null>(null);
     const confirmStage = stage === 'confirm';
-    const action = () => {
+    const action = async () => {
         if(confirmStage){
-            const newOfferId = buyDeal(dealDetails, amount, address);
-            setConfirmationID(newOfferId);
+            if(user){
+                const newOfferId = await buyDeal(amount, user);
+                setConfirmationID(newOfferId);
+            }
+            else{
+                connect();
+            }
         }
         else if(amount) {
             setStage("confirm");
@@ -124,7 +129,12 @@ export default function DealDetails({
                             </StageButton>
                         }
                         <DefaultButton $disabled={!amount} $fullWidth onClick={action} style={{padding: '18px'}}>
-                            {confirmStage ? `Pay ${amount} ${token}` : "Continue"}
+                            {confirmStage
+                                ? wallet 
+                                ? `Pay ${amount} ${token}`
+                                : "Connect Wallet" 
+                                : "Continue"
+                            }
                             {!confirmStage && <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>}
                         </DefaultButton>
                     </div>

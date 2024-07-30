@@ -3,7 +3,7 @@ import { createContext, useContext, FC, ReactNode, useEffect, useState } from 'r
 import { useConnectWallet } from "@web3-onboard/react"
 import { BrowserProvider, JsonRpcSigner } from 'ethers';
 
-type UserType = {
+export type UserType = {
   address: string,
   provider: BrowserProvider,
   signer: JsonRpcSigner
