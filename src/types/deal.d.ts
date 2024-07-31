@@ -1,4 +1,4 @@
-export type tokens = "USDC" | "ETH" | "GHO";
+export type tokens = "USDT" | "ETH" | "GHO";
 
 export type ThinDealType = {
     id: string,
