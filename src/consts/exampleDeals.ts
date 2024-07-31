@@ -15,6 +15,7 @@ export const exampleThinDeals: ThinDealType[] = [
         date: {
             start: 1712527200000,
             end: 1728338400000
-        }
+        },
+        chainHexId: "0xaa36a7"
     }
 ]

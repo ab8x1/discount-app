@@ -14,7 +14,8 @@ export type ThinDealType = {
     date: {
         start: number,
         end: number
-    }
+    },
+    chainHexId: string
 }
 
 export type PurchasedDeal = {

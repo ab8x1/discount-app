@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { DetailsPage, DetailsGrid, DealContainer, DealGrid, InfoContent, InfoRow, DealContent } from "./DetailsStyles"
 import DealDetailsProgress from "./DetailsProgress"
 import DealDetails from "./Details"
@@ -13,7 +13,7 @@ export default function DetailsState({
 } : {
     thinDeal: ThinDealType
 }){
-    const {discountedPrice, originalPrice, date, token} = thinDeal;
+    const {discountedPrice, originalPrice, date, token, chainHexId} = thinDeal;
     const [amount, setAmount] = useState<number>(0);
     const [stage, setStage] = useState<Stage>("buy");
     const discount = 100 - (discountedPrice / originalPrice) * 100;
@@ -24,7 +24,8 @@ export default function DetailsState({
         earn: profit,
         roi: discount,
         date,
-        token
+        token,
+        chainHexId
     }
     return(
         <DetailsPage>

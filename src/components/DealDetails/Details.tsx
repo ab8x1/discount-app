@@ -1,7 +1,7 @@
 'use client'
 import { DealContainer, DealHeader, Token, TokenContainer, TokenImg, DiscountValue, DealContent, InfoRow, StageButton, Profit } from "./DetailsStyles"
 import Image from "next/image"
-import { useConnectWallet } from "@web3-onboard/react";
+import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import { useState, Dispatch, SetStateAction } from "react";
 import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from "@/helpers/fixedNumber";
@@ -26,20 +26,37 @@ export default function DealDetails({
     setStage: Dispatch<SetStateAction<Stage>>,
 }){
     const user = useUser();
-    const {date, discount, earn, reedem, roi, token} = dealDetails;
+    const [{ connectedChain, settingChain }, setChain] = useSetChain();
+    const {date, discount, earn, reedem, token, chainHexId} = dealDetails;
     const fee = fixedNumber(amount * 0.001, false, 2, true) as number;
     const [{ wallet }, connect] = useConnectWallet();
-    const {address} = wallet?.accounts[0] ?? {};
     const [confirmationID, setConfirmationID] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
     const confirmStage = stage === 'confirm';
     const action = async () => {
         if(confirmStage){
-            if(user){
-                const newOfferId = await buyDeal(amount, user);
-                setConfirmationID(newOfferId);
+            try{
+                if(user){
+                    if(connectedChain?.id === chainHexId){
+                        setLoading(true);
+                        const newOfferId = await buyDeal(amount, user);
+                        setLoading(false);
+                        setConfirmationID(newOfferId);
+                    }
+                    else{
+                        setLoading(true);
+                        await setChain({chainId: chainHexId});
+                        setLoading(false)
+                    }
+                }
+                else{
+                    setLoading(true);
+                    await connect();
+                    setLoading(false);
+                }
             }
-            else{
-                connect();
+            catch(e){
+                setLoading(false);
             }
         }
         else if(amount) {
@@ -128,13 +145,16 @@ export default function DealDetails({
                                 <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>
                             </StageButton>
                         }
-                        <DefaultButton $disabled={!amount} $fullWidth onClick={action} style={{padding: '18px'}}>
+                        <DefaultButton $disabled={!amount || loading} $fullWidth onClick={action} style={{padding: '18px'}}>
                             {confirmStage
-                                ? wallet 
+                                ? wallet
+                                ? connectedChain?.id === chainHexId
                                 ? `Pay ${amount} ${token}`
-                                : "Connect Wallet" 
+                                : "Change Network to Sepolia"
+                                : "Connect Wallet"
                                 : "Continue"
                             }
+                            {loading && "..."}
                             {!confirmStage && <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>}
                         </DefaultButton>
                     </div>

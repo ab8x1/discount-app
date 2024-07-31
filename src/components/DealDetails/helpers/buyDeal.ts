@@ -13,22 +13,28 @@ export default async function buyDeal(
     user: UserType,
 ){
     return new Promise<string> (async (res, rej) => {
-        const { signer } = user;
-        const parsedAmount = parseUnits(amount.toString(), "ether");
+        try{
+            const { signer } = user;
+            const parsedAmount = parseUnits(amount.toString(), "ether");
 
-        const underlyingERC20Contract = new Contract(underlyingToken, erc20Abi, signer);
-        const txApprove = await underlyingERC20Contract.approve(discountContractAddress, parsedAmount);
-        const receipt = await txApprove.wait();
+            const underlyingERC20Contract = new Contract(underlyingToken, erc20Abi, signer);
+            const txApprove = await underlyingERC20Contract.approve(discountContractAddress, parsedAmount);
+            const receipt = await txApprove.wait();
 
-        const discountContract = new Contract(discountContractAddress, discountV1ABI, signer);
-        const tx = await discountContract.buyDiscountedAsset(
-            underlyingToken,
-            parsedAmount,
-            "0xD7fd5213B94Cb3B2BBFdeDf5fB5Ac7b5644552b1", //IBT
-            "0x080732d65987C5D5F9Aaa72999d7B0e02713aE72", //curvePool
-            0,
-            1
-        );
-        res("newPurchase.id");
+            const discountContract = new Contract(discountContractAddress, discountV1ABI, signer);
+            const tx = await discountContract.buyDiscountedAsset(
+                underlyingToken,
+                parsedAmount,
+                "0xD7fd5213B94Cb3B2BBFdeDf5fB5Ac7b5644552b1", //IBT
+                "0x080732d65987C5D5F9Aaa72999d7B0e02713aE72", //curvePool
+                0,
+                1
+            );
+            res("id");
+        }
+        catch(e){
+            console.log(e);
+            rej("")
+        }
     })
 }

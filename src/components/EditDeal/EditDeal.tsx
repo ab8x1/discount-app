@@ -42,7 +42,7 @@ export default function EditDeal({
                         <DealDetailsProgress
                             amount={deal.purchasePrice}
                             dealDetails={{
-                                token: 'USDC',
+                                token: 'USDT',
                                 discount: 0,
                                 reedem: deal.amount,
                                 earn: deal.amount - deal.purchasePrice,
@@ -50,7 +50,8 @@ export default function EditDeal({
                                 date: {
                                     start: 0,
                                     end: deal.date.maturity
-                                }
+                                },
+                                chainHexId: "0xaa36a7"
                             }}
                             step="wait"
                             token={deal.token}

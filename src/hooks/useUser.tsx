@@ -1,6 +1,6 @@
 'use client'
 import { createContext, useContext, FC, ReactNode, useEffect, useState } from 'react';
-import { useConnectWallet } from "@web3-onboard/react"
+import { useConnectWallet, useSetChain } from "@web3-onboard/react"
 import { BrowserProvider, JsonRpcSigner } from 'ethers';
 
 export type UserType = {
@@ -15,8 +15,10 @@ const useUser = () => useContext(UserContext);
 
 export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
   const [{ wallet }] = useConnectWallet();
+  const [{chains, connectedChain}] = useSetChain();
   const [user, setUser] = useState<UserType | null>(null);
-
+  console.log(chains);
+  console.log(connectedChain);
   useEffect(() => {
       const getUserData = async() => {
         console.log("Update User Data");
@@ -29,7 +31,7 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
             signer
           })
         }
-        else  
+        else
           setUser(null)
     }
     getUserData();

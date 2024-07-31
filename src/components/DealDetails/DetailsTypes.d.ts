@@ -9,7 +9,8 @@ export type DealDetailsType = {
     date: {
         start: number,
         end: number
-    }
+    },
+    chainHexId: string
 }
 
 export type Stage = "buy" | "confirm"

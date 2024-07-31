@@ -13,10 +13,10 @@ export const walletConfig = {
   wallets: [injected],
   chains: [
     {
-      id: '0x5',
+      id: '0xaa36a7',
       token: 'ETH',
-      label: 'Goerli',
-      rpcUrl: "https://eth-goerli.g.alchemy.com/v2/demo"
+      label: 'Sepolia',
+      rpcUrl: "https://eth-sepolia.g.alchemy.com/v2/demo"
     }
   ],
   appMetadata: {
