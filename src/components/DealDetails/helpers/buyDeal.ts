@@ -4,7 +4,7 @@ import DiscountAbi from "@/artifacts/contracts/DiscountV1.sol/DiscountV1.json";
 import ERC20ABI from "@/artifacts/contracts/@openzeppelin/contracts/token/ERC20/IERC20.sol/IERC20.json";
 
 const erc20Abi = ERC20ABI.abi;
-const discountContractAddress = "0x38A90a2E857d4cC8343CF8A57056B8B36B725863";
+const discountContractAddress = "0x64340691B5D04d7e6a4bF268F7472037F4152641";
 const discountV1ABI = DiscountAbi.abi;
 const underlyingToken = "0x0372cE7418865080D82d0B6677a692a2c045e4D3"; //(spectra USDT):
 
