@@ -18,6 +18,7 @@ export default async function buyDeal(
 
         const underlyingERC20Contract = new Contract(underlyingToken, erc20Abi, signer);
         const txApprove = await underlyingERC20Contract.approve(discountContractAddress, parsedAmount);
+        const receipt = await txApprove.wait();
 
         const discountContract = new Contract(discountContractAddress, discountV1ABI, signer);
         const tx = await discountContract.buyDiscountedAsset(
