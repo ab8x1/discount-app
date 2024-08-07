@@ -1,6 +1,6 @@
 export type tokens = "USDT" | "ETH" | "GHO";
 
-export type ThinDealType = {
+export type DealType = {
     id: string,
     token: tokens,
     originalPrice: number,
@@ -15,7 +15,10 @@ export type ThinDealType = {
         start: number,
         end: number
     },
-    chainHexId: string
+    chainHexId: string,
+    curvePool: string,
+    IBTindexInCurvePool: 0 | 1,
+    PTindexInCurvePool: 0 | 1
 }
 
 export type PurchasedDeal = {

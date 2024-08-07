@@ -1,13 +1,15 @@
 'use client'
 import { createContext, useContext, FC, ReactNode, useEffect, useState } from 'react';
 import { useConnectWallet, useSetChain } from "@web3-onboard/react"
-import { BrowserProvider, JsonRpcSigner } from 'ethers';
+import { BrowserProvider, JsonRpcSigner, JsonRpcProvider } from 'ethers';
 
 export type UserType = {
   address: string,
   provider: BrowserProvider,
   signer: JsonRpcSigner
 }
+
+export const defaultProvider = new JsonRpcProvider(process.env.NEXT_PUBLIC_SEPOLIA_RPC);
 
 const UserContext = createContext<UserType | null>(null);
 
@@ -17,11 +19,9 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
   const [{ wallet }] = useConnectWallet();
   const [{chains, connectedChain}] = useSetChain();
   const [user, setUser] = useState<UserType | null>(null);
-  console.log(chains);
-  console.log(connectedChain);
+
   useEffect(() => {
       const getUserData = async() => {
-        console.log("Update User Data");
         if(wallet){
           const ethersProvider = new BrowserProvider(wallet.provider, 'any');
           const signer = await ethersProvider.getSigner()

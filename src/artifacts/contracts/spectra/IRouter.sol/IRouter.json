@@ -1,0 +1,125 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IRouter",
+  "sourceName": "contracts/spectra/IRouter.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "DirectOnFlashloanCall",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "LengthMismatch",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "TransactionDeadlinePassed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "UnauthorizedOnFlashloanCaller",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "UnauthorizedReentrantCall",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "_commands",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "_inputs",
+          "type": "bytes[]"
+        }
+      ],
+      "name": "execute",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "_commands",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "_inputs",
+          "type": "bytes[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_deadline",
+          "type": "uint256"
+        }
+      ],
+      "name": "execute",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "_commands",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "_inputs",
+          "type": "bytes[]"
+        }
+      ],
+      "name": "previewRate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "_commands",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "_inputs",
+          "type": "bytes[]"
+        }
+      ],
+      "name": "previewSpotRate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

@@ -16,7 +16,7 @@ export const walletConfig = {
       id: '0xaa36a7',
       token: 'ETH',
       label: 'Sepolia',
-      rpcUrl: "https://eth-sepolia.g.alchemy.com/v2/demo"
+      rpcUrl: process.env.NEXT_PUBLIC_SEPOLIA_RPC
     }
   ],
   appMetadata: {

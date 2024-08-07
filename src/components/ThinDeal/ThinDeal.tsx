@@ -1,7 +1,7 @@
 import styles from './thinDealStyles.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ThinDealType } from '@/types/deal'
+import { DealType } from '@/types/deal'
 import fixedNumber from '@/helpers/fixedNumber'
 import timestampToDate from '@/helpers/timestampToDate'
 
@@ -14,7 +14,7 @@ export default function ThinDeal({
     progressColor,
     isEnabled,
     date
-} : ThinDealType){
+} : DealType){
     const discount = 100 - (discountedPrice / originalPrice) * 100;
     return(
         <Link href={`/deal/${id}`} className={styles.dealContainer} style={{background, pointerEvents: isEnabled ? 'all' : 'none'}}>

@@ -3,15 +3,16 @@ import { useState } from "react"
 import { DetailsPage, DetailsGrid, DealContainer, DealGrid, InfoContent, InfoRow, DealContent } from "./DetailsStyles"
 import DealDetailsProgress from "./DetailsProgress"
 import DealDetails from "./Details"
-import { ThinDealType } from "@/types/deal"
+import { DealType } from "@/types/deal"
 import { DealDetailsType, Stage } from "./DetailsTypes"
 import Image from "next/image"
 import BackButton from "../Navbar/BackButton"
+import PreviewDiscountedAsset from "../previewDiscountedAsset/PreviewDiscountedAsset"
 
 export default function DetailsState({
     thinDeal
 } : {
-    thinDeal: ThinDealType
+    thinDeal: DealType
 }){
     const {discountedPrice, originalPrice, date, token, chainHexId} = thinDeal;
     const [amount, setAmount] = useState<number>(0);
@@ -29,6 +30,7 @@ export default function DetailsState({
     }
     return(
         <DetailsPage>
+            <PreviewDiscountedAsset dealInfo={thinDeal}/>
             <DetailsGrid $summary={stage==='confirm'}>
                 <BackButton/>
                 <DealGrid $summary={stage==='confirm'}>

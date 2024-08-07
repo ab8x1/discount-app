@@ -1,6 +1,6 @@
-import { ThinDealType } from "@/types/deal"
+import { DealType } from "@/types/deal"
 
-export const exampleThinDeals: ThinDealType[] = [
+export const exampleThinDeals: DealType[] = [
     {
         id: '0',
         token: 'USDT',
@@ -16,6 +16,9 @@ export const exampleThinDeals: ThinDealType[] = [
             start: 1712527200000,
             end: 1728338400000
         },
-        chainHexId: "0xaa36a7"
+        chainHexId: "0xaa36a7",
+        curvePool: "0x080732d65987C5D5F9Aaa72999d7B0e02713aE72",
+        IBTindexInCurvePool: 0,
+        PTindexInCurvePool: 1
     }
 ]

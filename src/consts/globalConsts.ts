@@ -1,0 +1,1 @@
+export const discountContractAddress = "0x7F302410FaDC97e2549446dC989E45f1501F7e87";
