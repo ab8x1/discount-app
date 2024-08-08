@@ -37,8 +37,8 @@ export default function DealDetailsProgress({
             <Step $status={step === "wait" ? "next" : step === "earn" ? "filled" : "pending"}>
                 <div>
                     <p>On Claim Date</p>
-                    <p>Claim <span>{fixedNumber(reedem)} {token}</span></p>
-                    <p>Earn <span style={{color: 'var(--brand-color)'}}>{fixedNumber(earn)} {token}</span></p>
+                    <p>Claim <span>{fixedNumber(reedem || 1)} {token}</span></p>
+                    <p>Earn <span style={{color: 'var(--brand-color)'}}>{fixedNumber(earn || 1)} {token}</span></p>
                 </div>
             </Step>
         </ProgressContainer>
