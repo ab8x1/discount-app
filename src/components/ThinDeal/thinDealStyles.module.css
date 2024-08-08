@@ -39,6 +39,9 @@
 }
 
 .discountPrice{
+    display: flex;
+    width: 65px;
+    height: 19px;
     color: white;
     font-weight: 700;
     font-size: 1.25rem;
@@ -72,6 +75,12 @@
     top: 0;
     bottom: 0;
     border-radius: 4px;
+}
+
+.computedValue{
+    width: 35px;
+    height: 19px;
+    margin: 0 5px;
 }
 
 @media(min-width: 768px){

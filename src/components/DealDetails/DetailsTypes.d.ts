@@ -1,10 +1,10 @@
 import { tokens } from "@/types/deal"
 
 export type DealDetailsType = {
-    discount: number,
-    reedem: number,
-    earn: number,
-    roi: number,
+    discount: number | null,
+    reedem: number | null,
+    earn: number | null,
+    roi: number | null,
     token: tokens,
     date: {
         start: number,

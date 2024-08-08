@@ -11,6 +11,7 @@ import ActionConfirmation from "./ActionConfirmation";
 import buyDeal from "./helpers/buyDeal";
 import { DefaultButton } from "../Navbar/NavbarStyles";
 import useUser from "@/hooks/useUser";
+import LoadingValue from "../LoadingValue";
 
 export default function DealDetails({
     setAmount,
@@ -77,7 +78,18 @@ export default function DealDetails({
                         {token}
                     </Token>
                     <DiscountValue>
-                        ~{discount}%
+                        <LoadingValue
+                            isLoading={!discount}
+                            value={
+                                <>
+                                    <span>•</span>
+                                    {`~${fixedNumber(discount || 0, false, 0)}%`}
+                                </>
+                            }
+                            loaderWidth={20}
+                            loaderHeight={20}
+                            loaderColor="green"
+                        />
                     </DiscountValue>
                 </DealHeader>
                 <DealContent>
@@ -99,7 +111,16 @@ export default function DealDetails({
                     }
                     <InfoRow>
                         <span>You’ll Receive</span>
-                        <span>{fixedNumber(reedem)} {token}</span>
+                        <div className="alignY gap-1">
+                            <LoadingValue
+                                isLoading={!reedem}
+                                value={fixedNumber(reedem || 1)}
+                                loaderWidth={18}
+                                loaderHeight={18}
+                                loaderColor="black"
+                            />
+                            {token}
+                        </div>
                     </InfoRow>
                     {
                         confirmStage ?
@@ -121,7 +142,16 @@ export default function DealDetails({
                         <>
                             <InfoRow>
                                 <span>Market Price</span>
-                                <span style={{color: '#F47272'}}>{fixedNumber(reedem)} $</span>
+                                <div className="alignY gap-1" style={{color: '#F47272'}}>
+                                    <LoadingValue
+                                        isLoading={!reedem}
+                                        value={fixedNumber(reedem || 1)}
+                                        loaderWidth={18}
+                                        loaderHeight={18}
+                                        loaderColor="#F47272"
+                                    />
+                                    $
+                                </div>
                             </InfoRow>
                             <InfoRow>
                                 <span className="alignY">
@@ -135,7 +165,15 @@ export default function DealDetails({
                             </InfoRow>
                             <Profit>
                                 <Image src="/thumbs-up.svg" width={20} height={20} alt="thumbs-up"/>
-                                You’re saving ${fixedNumber(earn)} on this deal
+                                You’re saving $
+                                <LoadingValue
+                                    isLoading={!earn}
+                                    value={fixedNumber(earn || 1, false, 2)}
+                                    loaderWidth={15}
+                                    loaderHeight={5}
+                                    loaderColor="green"
+                                />
+                                on this deal
                             </Profit>
                         </>
                     }
@@ -154,14 +192,20 @@ export default function DealDetails({
                                 : "Connect Wallet"
                                 : "Continue"
                             }
-                            {loading && "..."}
+                            <LoadingValue
+                                isLoading={loading}
+                                value=""
+                                loaderColor="white"
+                                loaderHeight={10}
+                                loaderWidth={20}
+                            />
                             {!confirmStage && <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>}
                         </DefaultButton>
                     </div>
                 </DealContent>
             </DealContainer>
             {
-                confirmationID &&
+                confirmationID && reedem &&
                 <ActionConfirmation
                     type="buy"
                     amount={amount}

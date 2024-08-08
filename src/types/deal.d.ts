@@ -3,8 +3,6 @@ export type tokens = "USDT" | "ETH" | "GHO";
 export type DealType = {
     id: string,
     token: tokens,
-    originalPrice: number,
-    discountedPrice: number,
     background: string,
     progressColor: {
         background: string,

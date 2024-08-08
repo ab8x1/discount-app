@@ -46,6 +46,10 @@ a, button {
   align-items: center;
 }
 
+.gap-1{
+  gap: 5px;
+}
+
 .container{
   width: 100%;
   max-width: 1300px;

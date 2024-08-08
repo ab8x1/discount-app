@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { DetailsPage, DetailsGrid, DealContainer, DealGrid, InfoContent, InfoRow, DealContent } from "./DetailsStyles"
 import DealDetailsProgress from "./DetailsProgress"
 import DealDetails from "./Details"
@@ -7,30 +7,42 @@ import { DealType } from "@/types/deal"
 import { DealDetailsType, Stage } from "./DetailsTypes"
 import Image from "next/image"
 import BackButton from "../Navbar/BackButton"
-import PreviewDiscountedAsset from "../previewDiscountedAsset/PreviewDiscountedAsset"
+import previewDiscountedAsset from "@/helpers/previewDiscountedAsset"
 
 export default function DetailsState({
     thinDeal
 } : {
     thinDeal: DealType
 }){
-    const {discountedPrice, originalPrice, date, token, chainHexId} = thinDeal;
-    const [amount, setAmount] = useState<number>(0);
+    const {date, token, chainHexId} = thinDeal;
+    const [amount, setAmount] = useState<number>(1);
+    const [discountedAsset, setDiscountedAsset] = useState<number | null>(null);
     const [stage, setStage] = useState<Stage>("buy");
-    const discount = 100 - (discountedPrice / originalPrice) * 100;
-    const profit = amount * discount / 100;
+    const discount = discountedAsset ? ((discountedAsset - amount) / discountedAsset) * 100 : null;
+    const profit = discountedAsset ? discountedAsset - amount : null;
     const dealDetails : DealDetailsType = {
         discount,
-        reedem: amount + profit,
+        reedem: discountedAsset,
         earn: profit,
         roi: discount,
         date,
         token,
         chainHexId
     }
+
+    useEffect(() => {
+        const calculateDiscount = async () => {
+            setDiscountedAsset(null);
+            if(amount > 0){
+                const userWillGet = await previewDiscountedAsset(thinDeal, amount);
+                setDiscountedAsset(userWillGet);
+            }
+        }
+        calculateDiscount();
+    }, [amount])
+
     return(
         <DetailsPage>
-            <PreviewDiscountedAsset dealInfo={thinDeal}/>
             <DetailsGrid $summary={stage==='confirm'}>
                 <BackButton/>
                 <DealGrid $summary={stage==='confirm'}>

@@ -89,17 +89,18 @@ export const TokenImg = styled(Image)`
 
 export const DiscountValue = styled.div`
     display: flex;
+    justify-content: center;
     gap: 5px;
     padding: 3px 6px;
     font-weight: 500;
     border-radius: 6px;
     border: 1px solid #D0D5DD;
     background: #fff;
-    &::before{
+    min-width: 67px;
+    & span{
         content: '•';
         color: var(--brand-color);
     }
-
 `
 
 export const DealContent = styled.div`
@@ -111,7 +112,7 @@ export const InfoContent = styled.div`
     color: #475467;
 `
 
-export const InfoRow = styled.p`
+export const InfoRow = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -12,16 +12,3 @@ export const alignSpotPriceDecimals = (
         return spotPrice * BigInt(10) ** BigInt(-decimalDelta);
     }
 };
-
-export const getDecimalPlaces = (number: number) => {
-    const [integer, decimal] = number.toString().split(".");
-    if(number >= 1){
-        return integer.length - 1;
-    }
-    else{
-        const match = decimal.match(/(0*)([1-9].*)/);
-        const decimals = match?.[1];
-        if(!decimals) return -1
-        else return -(decimals.length + 1)
-    }
-}

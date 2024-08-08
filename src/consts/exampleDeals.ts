@@ -4,8 +4,6 @@ export const exampleThinDeals: DealType[] = [
     {
         id: '0',
         token: 'USDT',
-        discountedPrice: 0.32,
-        originalPrice: 1,
         background: 'linear-gradient(180deg, #75B7FF 0%, #2775CA 100%)',
         progressColor: {
             background: '#B9DAFF',

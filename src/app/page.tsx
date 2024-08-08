@@ -19,7 +19,7 @@ export default async function Home() { console.log('Index Page');
       <div id={styles.dealsGrid}>
         {
           thinDeals.map(thinDeal =>
-            <ThinDeal key={thinDeal.id} {...thinDeal}/>
+            <ThinDeal key={thinDeal.id} dealInfo={thinDeal}/>
           )
         }
       </div>
