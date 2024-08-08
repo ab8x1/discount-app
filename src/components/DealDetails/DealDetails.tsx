@@ -30,23 +30,38 @@ export default function DetailsState({
         chainHexId
     }
 
+    const changeAmount = (amount: number) => {
+        setDiscountedAsset(null);
+        setAmount(amount);
+    }
+
     useEffect(() => {
+        let isLatest = true;
+
         const calculateDiscount = async () => {
-            setDiscountedAsset(null);
             if(amount > 0){
-                const userWillGet = await previewDiscountedAsset(thinDeal, amount);
-                setDiscountedAsset(userWillGet);
+                const currentAmount = amount;
+                const { userWillGet } = await previewDiscountedAsset(thinDeal, currentAmount);
+
+                if (isLatest) {
+                    setDiscountedAsset(userWillGet);
+                }
             }
-        }
+        };
+
         calculateDiscount();
-    }, [amount])
+
+        return () => {
+            isLatest = false;
+        };
+    }, [amount]);
 
     return(
         <DetailsPage>
             <DetailsGrid $summary={stage==='confirm'}>
                 <BackButton/>
                 <DealGrid $summary={stage==='confirm'}>
-                    <DealDetails setAmount={setAmount} dealDetails={dealDetails} stage={stage} amount={amount} setStage={setStage}/>
+                    <DealDetails setAmount={changeAmount} dealDetails={dealDetails} stage={stage} amount={amount} setStage={setStage}/>
                     { stage === 'confirm' &&
                         <div>
                             <DealDetailsProgress amount={amount} dealDetails={dealDetails} step="buy" token={token}/>

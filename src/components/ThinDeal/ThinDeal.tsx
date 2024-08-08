@@ -25,7 +25,7 @@ export default function ThinDeal({dealInfo} : {
 
     useEffect(() => {
         const calculateDiscount = async () => {
-            const userWillGet = await previewDiscountedAsset(dealInfo, 1);
+            const {userWillGet} = await previewDiscountedAsset(dealInfo, 1);
             setDiscountedAsset(userWillGet);
         }
         calculateDiscount();

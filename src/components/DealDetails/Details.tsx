@@ -20,7 +20,7 @@ export default function DealDetails({
     amount,
     setStage
 } : {
-    setAmount: Dispatch<SetStateAction<number>>,
+    setAmount: (amount: number) => void,
     dealDetails: DealDetailsType,
     stage: Stage,
     amount: number,
@@ -131,11 +131,11 @@ export default function DealDetails({
                             </InfoRow>
                             <InfoRow>
                                 <span>Discount</span>
-                                <span className="brand">{earn} $</span>
+                                <span className="brand">{fixedNumber(earn || 0, false, 2)} $</span>
                             </InfoRow>
                             <InfoRow>
                                 <span>Fixed Profit</span>
-                                <span className="brand">{earn} {token}</span>
+                                <span className="brand">{fixedNumber(earn || 0, false, 2)} {token}</span>
                             </InfoRow>
                         </>
                         :

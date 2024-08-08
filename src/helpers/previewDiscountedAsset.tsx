@@ -14,7 +14,10 @@ const eRC20Abi = ERC20_ABI.abi;
 const ptAbi = PT_ABI.abi;
 const discountV1ABI = DISCOUNTV1_ABI.abi;
 
-export default async function previewDiscountedAsset(dealInfo: DealType, amount: number): Promise<number | null>{
+export default async function previewDiscountedAsset(dealInfo: DealType, amount: number): Promise<{
+    userWillGet: number | null,
+    passedAmount: number
+}>{
     return new Promise (async (res, rej) => {
         try{
             const {curvePool, IBTindexInCurvePool, PTindexInCurvePool} = dealInfo;
@@ -36,7 +39,7 @@ export default async function previewDiscountedAsset(dealInfo: DealType, amount:
             const previewResultNormalized = alignSpotPriceDecimals(previewResult, Number(underlyingDecimals) + 27 - Number(ptDecimals), Number(ptDecimals));
             const userWillGet = amount * Number(formatUnits(previewResultNormalized, "ether"));
 
-            res(userWillGet)
+            res({userWillGet, passedAmount: amount})
         }
         catch(e){
             console.log(e);

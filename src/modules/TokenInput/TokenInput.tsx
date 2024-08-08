@@ -10,7 +10,7 @@ export default function TokenInput({
     token
 
 } : {
-    onChange: Dispatch<SetStateAction<number>>,
+    onChange: (amount: number) => void,
     defaultValue: number,
     action: () => void,
     token: tokens
@@ -22,7 +22,9 @@ export default function TokenInput({
         if (/^[0-9]*(\.|,)?[0-9]{0,5}$/.test(value)) {
             setUserQuery(value);
             const numVal = Number(value.replace(',', '.'));
-            if(numVal >= 0) onChange(numVal);
+            if(numVal >= 0) {
+                onChange(numVal)
+            };
         }
     }
 
