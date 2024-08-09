@@ -41,7 +41,7 @@ export default function ThinDeal({dealInfo} : {
                 <Image src={`/tokens/${token}.svg`} width={86} height={86} alt={`${token} coin`} priority/>
                 <div className='alignY' style={{gap: '10px'}}>
                     <Image src="/discount.svg" width={40} height={40} alt='discount' priority/>
-                    {/* <div>
+                    <div>
                         Our Price
                         <div className={styles.discountPrice}>
                             $
@@ -53,7 +53,7 @@ export default function ThinDeal({dealInfo} : {
                                 loaderWidth={30}
                             />
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </div>
             {/* <p className={`${styles.claimDate} alignY`}>
