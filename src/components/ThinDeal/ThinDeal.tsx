@@ -68,7 +68,7 @@ export default function ThinDeal({dealInfo} : {
                 />
             </span> */}
             <div className={`alignY boxButton ${!isEnabled && 'disabledButton'}`}>
-                {/* {
+                {
                     isEnabled
                     ?
                         <>
@@ -88,7 +88,7 @@ export default function ThinDeal({dealInfo} : {
                         </>
                     :
                         'Coming Soon'
-                } */}
+                }
             </div>
         </Link>
     )
