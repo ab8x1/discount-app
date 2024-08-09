@@ -56,10 +56,10 @@ export default function ThinDeal({dealInfo} : {
                     </div>
                 </div>
             </div>
-            {/* <p className={`${styles.claimDate} alignY`}>
+            <p className={`${styles.claimDate} alignY`}>
                 <span>Claim Date</span>
                 <span>{timestampToDate(date.end)}</span>
-            </p> */}
+            </p>
             {/* <span className={styles.progressBar} style={{background: progressColor.background}}>
                 <span
                     className={styles.line}
