@@ -33,7 +33,7 @@ export default function RootLayout({
         <InfoBoxes deals={deals}/>
         <div className={styles.dataGrid}>
             <Chart deals={deals} />
-            <Link href={'/'} className={styles.exploreDeals}>
+            <Link href="/" className={styles.exploreDeals}>
               <Image src="/explore-deals.svg" fill alt='explore deals' />
             </Link>
         </div>

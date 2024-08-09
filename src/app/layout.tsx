@@ -1,7 +1,5 @@
 import './globals.css'
-import StyledComponentsRegistry from '@/lib/registry'
 import { Inter } from 'next/font/google'
-import WalletProvider from '@/components/WalletProvider'
 import Navbar from '@/components/Navbar'
 import { Metadata } from 'next'
 import Providers from '@/components/Providers'
@@ -30,7 +28,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
-}) { console.log('RootLayout');
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>
