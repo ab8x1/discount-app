@@ -18,17 +18,17 @@ export default function DetailsState({
     const [amount, setAmount] = useState<number>(1);
     const [discountedAsset, setDiscountedAsset] = useState<number | null>(null);
     const [stage, setStage] = useState<Stage>("buy");
-    // const discount = discountedAsset ? ((discountedAsset - amount) / discountedAsset) * 100 : null;
-    // const profit = discountedAsset ? discountedAsset - amount : null;
-    // const dealDetails : DealDetailsType = {
-    //     discount,
-    //     reedem: discountedAsset,
-    //     earn: profit,
-    //     roi: discount,
-    //     date,
-    //     token,
-    //     chainHexId
-    // }
+    const discount = discountedAsset ? ((discountedAsset - amount) / discountedAsset) * 100 : null;
+    const profit = discountedAsset ? discountedAsset - amount : null;
+    const dealDetails : DealDetailsType = {
+        discount,
+        reedem: discountedAsset,
+        earn: profit,
+        roi: discount,
+        date,
+        token,
+        chainHexId
+    }
 
     const changeAmount = (amount: number) => {
         setDiscountedAsset(null);
@@ -61,10 +61,10 @@ export default function DetailsState({
             <DetailsGrid $summary={stage==='confirm'}>
                 <BackButton/>
                 <DealGrid $summary={stage==='confirm'}>
-                    {/* <DealDetails setAmount={changeAmount} dealDetails={dealDetails} stage={stage} amount={amount} setStage={setStage}/> */}
+                    <DealDetails setAmount={changeAmount} dealDetails={dealDetails} stage={stage} amount={amount} setStage={setStage}/>
                     { stage === 'confirm' &&
                         <div>
-                            {/* <DealDetailsProgress amount={amount} dealDetails={dealDetails} step="buy" token={token}/> */}
+                            <DealDetailsProgress amount={amount} dealDetails={dealDetails} step="buy" token={token}/>
                             <DealContainer style={{marginTop: '15px'}}>
                                 <InfoContent>
                                     <h3 className="alignY" style={{gap: '5px'}}>
