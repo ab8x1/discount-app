@@ -41,7 +41,7 @@ export default function ThinDeal({dealInfo} : {
                 <Image src={`/tokens/${token}.svg`} width={86} height={86} alt={`${token} coin`} priority/>
                 <div className='alignY' style={{gap: '10px'}}>
                     <Image src="/discount.svg" width={40} height={40} alt='discount' priority/>
-                    <div>
+                    {/* <div>
                         Our Price
                         <div className={styles.discountPrice}>
                             $
@@ -53,22 +53,22 @@ export default function ThinDeal({dealInfo} : {
                                 loaderWidth={30}
                             />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <p className={`${styles.claimDate} alignY`}>
                 <span>Claim Date</span>
                 <span>{timestampToDate(date.end)}</span>
             </p>
-            {/* <span className={styles.progressBar} style={{background: progressColor.background}}>
+            <span className={styles.progressBar} style={{background: progressColor.background}}>
                 <span
                     className={styles.line}
                     style={{width: `${(Date.now() - date.start)/(date.end - date.start)*100}%`,
                     background: progressColor.line}}
                 />
-            </span> */}
-            {/* <div className={`alignY boxButton ${!isEnabled && 'disabledButton'}`}>
-                {
+            </span>
+            <div className={`alignY boxButton ${!isEnabled && 'disabledButton'}`}>
+                {/* {
                     isEnabled
                     ?
                         <>
@@ -88,8 +88,8 @@ export default function ThinDeal({dealInfo} : {
                         </>
                     :
                         'Coming Soon'
-                }
-            </div> */}
+                } */}
+            </div>
         </Link>
     )
 }
