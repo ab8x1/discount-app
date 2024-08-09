@@ -52,7 +52,7 @@ export default function Navbar(){
                 </TopNav>
                 <NavbarToogle opened={opened} close={close} wallet={wallet}/>
             </nav>
-            <BetaWarning/>
+            {/* <BetaWarning/> */}
         </>
     )
 }
