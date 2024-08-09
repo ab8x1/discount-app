@@ -32,7 +32,7 @@ export default function ThinDeal({dealInfo} : {
 
     return(
         <Link href={`/deal/${id}`} className={styles.dealContainer} style={{background, pointerEvents: isEnabled ? 'all' : 'none'}}>
-            <div className={`${styles.originalPrice} alignY`}>
+            {/* <div className={`${styles.originalPrice} alignY`}>
                 <Image src="/bar-chart.svg" width={25} height={25} alt='bar-chart'/>
                 {token} Market Price
                 $1
@@ -89,7 +89,7 @@ export default function ThinDeal({dealInfo} : {
                     :
                         'Coming Soon'
                 }
-            </div>
+            </div> */}
         </Link>
     )
 }
