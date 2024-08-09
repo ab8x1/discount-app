@@ -7,7 +7,6 @@ import { DealType } from '@/types/deal'
 import fixedNumber from '@/helpers/fixedNumber'
 import timestampToDate from '@/helpers/timestampToDate'
 import previewDiscountedAsset from '@/helpers/previewDiscountedAsset'
-import ReactLoading from 'react-loading';
 import LoadingValue from '../LoadingValue'
 
 export default function ThinDeal({dealInfo} : {
@@ -62,11 +61,11 @@ export default function ThinDeal({dealInfo} : {
                 <span>{timestampToDate(date.end)}</span>
             </p>
             <span className={styles.progressBar} style={{background: progressColor.background}}>
-                {/* <span
+                <span
                     className={styles.line}
                     style={{width: `${(Date.now() - date.start)/(date.end - date.start)*100}%`,
                     background: progressColor.line}}
-                /> */}
+                />
             </span>
             <div className={`alignY boxButton ${!isEnabled && 'disabledButton'}`}>
                 {
