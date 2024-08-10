@@ -21,7 +21,7 @@ export default function ThinDeal({dealInfo} : {
         date
     } = dealInfo
     const [discountedAsset, setDiscountedAsset] = useState<number | null>(null);
-    const isClient = typeof window !== 'undefined'; 
+    const isServer = typeof window === 'undefined'; 
 
     useEffect(() => {
         const calculateDiscount = async () => {
@@ -59,7 +59,7 @@ export default function ThinDeal({dealInfo} : {
             </div>
             <p className={`${styles.claimDate} alignY`}>
                 <span>Claim Date</span>
-                <span>{isClient && timestampToDate(date.end)}</span>
+                <span>{isServer ? null : timestampToDate(date.end)}</span>
             </p>
             <span className={styles.progressBar} style={{background: progressColor.background}}>
                 <span
