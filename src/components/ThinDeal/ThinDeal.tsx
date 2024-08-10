@@ -21,9 +21,10 @@ export default function ThinDeal({dealInfo} : {
         date
     } = dealInfo
     const [discountedAsset, setDiscountedAsset] = useState<number | null>(null);
-    const isServer = typeof window === 'undefined'; 
+    const [clientMaturityDate, setClientMaturityDate] = useState<number | null>(null);
 
     useEffect(() => {
+        setClientMaturityDate(date.end)
         const calculateDiscount = async () => {
             const {userWillGet} = await previewDiscountedAsset(dealInfo, 1);
             setDiscountedAsset(userWillGet);
@@ -59,7 +60,7 @@ export default function ThinDeal({dealInfo} : {
             </div>
             <p className={`${styles.claimDate} alignY`}>
                 <span>Claim Date</span>
-                <span>{isServer ? null : timestampToDate(date.end)}</span>
+                <span>{clientMaturityDate ? timestampToDate(clientMaturityDate) : null}</span>
             </p>
             <span className={styles.progressBar} style={{background: progressColor.background}}>
                 <span
