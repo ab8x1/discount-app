@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { PurchasedDeal } from "@/types/deal";
+import { DealType } from "@/types/deal";
 import fixedNumber from "./fixedNumber";
 
-function getDealSpecification(deal: PurchasedDeal){
+function getDealSpecification(deal: DealType){
     return{
         profit: deal.amount - deal.purchasePrice,
         time: deal.date?.redeemedAt || Date.now(),
@@ -12,18 +12,18 @@ function getDealSpecification(deal: PurchasedDeal){
 }
 
 //actual profit of the deal
-export function actualProfitValue(deal: PurchasedDeal){
+export function actualProfitValue(deal: DealType){
     const { profit, start, end, time } = getDealSpecification(deal);
     return profit * (time >= end ? 1 : ((time - start) / (end - start)));
 }
 
 //tells how much a deal is worth now
-export function reedemValue(deal: PurchasedDeal){
+export function reedemValue(deal: DealType){
     return deal.purchasePrice + actualProfitValue(deal);
 }
 
 //total deal profits
-export function fixedProfit(deal: PurchasedDeal){
+export function fixedProfit(deal: DealType){
     // if reedem early
     if(deal?.date?.redeemedAt && deal?.date?.redeemedAt < deal.date.maturity){
         const fee = fixedNumber(0.001 * deal.purchasePrice, false, 2, true) as number;
@@ -37,7 +37,7 @@ export function fixedProfit(deal: PurchasedDeal){
 }
 
 //daily profits of active positions
-export function activeDailyProfit(deal: PurchasedDeal){
+export function activeDailyProfit(deal: DealType){
     const { profit, start, end } = getDealSpecification(deal);
     return deal?.date?.redeemedAt ? 0 : (profit / days_between(start, end))
 }

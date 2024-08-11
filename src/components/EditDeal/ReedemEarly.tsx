@@ -3,7 +3,7 @@ import { DefaultButton } from "../Navbar/NavbarStyles";
 import { useState, useRef } from "react";
 import OnClickOutside from "@/hooks/useClickOutside";
 import ActionConfirmation from "../DealDetails/ActionConfirmation";
-import { PurchasedDeal } from "@/types/deal";
+import { DealType } from "@/types/deal";
 import fixedNumber from "@/helpers/fixedNumber";
 import { actualProfitValue, reedemValue, RefreshValue } from "@/helpers/calculateProfits";
 import { mergeDeep } from '@/components/Earnings/Chart/chartHelpers';
@@ -14,7 +14,7 @@ export default function ReedemEarly({
     deal,
     address
 } : {
-    deal: PurchasedDeal,
+    deal: DealType,
     address: string
 }){
     const [stage, setStage] = useState<null | "confirmation" | {

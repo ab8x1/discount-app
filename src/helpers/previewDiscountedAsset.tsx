@@ -1,5 +1,5 @@
 "use client"
-import { DealType } from "@/types/deal"
+import { OfferType } from "@/types/offer"
 import { Contract, formatUnits, parseUnits } from "ethers";
 import {defaultProvider} from "@/hooks/useUser";
 import CURVE_ABI from "@/artifacts/contracts/curve/ICurvePool.sol/ICurvePool.json"
@@ -14,7 +14,7 @@ const eRC20Abi = ERC20_ABI.abi;
 const ptAbi = PT_ABI.abi;
 const discountV1ABI = DISCOUNTV1_ABI.abi;
 
-export default async function previewDiscountedAsset(dealInfo: DealType, amount: number): Promise<{
+export default async function previewDiscountedAsset(dealInfo: OfferType, amount: number): Promise<{
     userWillGet: number | null,
     passedAmount: number
 }>{

@@ -1,6 +1,6 @@
 import { days_between } from "@/helpers/calculateProfits";
 import fixedNumber from "@/helpers/fixedNumber";
-import { PurchasedDeal } from "@/types/deal";
+import { DealType } from "@/types/deal";
 import { dateOptions } from "./chartConsts";
 import { ChartOptions } from 'chart.js';
 
@@ -64,7 +64,7 @@ export const calcDate = (days: number, before = true) => {
   return date.setTime(before ? date.getTime() - dateOffset : date.getTime() + dateOffset);
 }
 
-const calcProfitsAtDay = (deals: PurchasedDeal[], day: number) => fixedNumber(
+const calcProfitsAtDay = (deals: DealType[], day: number) => fixedNumber(
   deals?.reduce(
     (acc, deal) => {
       const redeemedAt = deal.date?.redeemedAt;
@@ -81,7 +81,7 @@ const calcProfitsAtDay = (deals: PurchasedDeal[], day: number) => fixedNumber(
 || 0, false, 5, true)
 
 //calculate the data set for label
-export const calcDataSet = (deals: PurchasedDeal[]) => {
+export const calcDataSet = (deals: DealType[]) => {
   const begginOfEarings = deals?.length > 0 ? begginOfTheDay(Math.min(...deals?.map(({date}) => date.purchasedAt))) : Date.now();
   const daysWithEarnings = Math.ceil(days_between(Date.now(), begginOfEarings));
 

@@ -4,7 +4,7 @@ import styles from './tableData.module.css'
 import TableFooter from './TableFooter'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { PurchasedDeal } from '@/types/deal'
+import { DealType } from '@/types/deal'
 import { DefaultButtonLink } from '@/components/Navbar/NavbarStyles'
 import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from '@/helpers/fixedNumber'
@@ -19,7 +19,7 @@ export default function TableData({
     wallet
 } : {
     currentPage?: number,
-    deals: PurchasedDeal[],
+    deals: DealType[],
     address?: string,
     wallet: WalletState | null
 }){
@@ -31,7 +31,7 @@ export default function TableData({
     useEffect(() => {
         orderedDeals.slice((page-1) * 5, page * 5).forEach(({id}) => {
             router.prefetch(
-                `/offer/${id}?returnToPage=${page}`
+                `/deal/${id}?returnToPage=${page}`
             );
         })
     }, [page, deals])
@@ -63,7 +63,7 @@ export default function TableData({
                         orderedDeals?.length > 0 ? orderedDeals.slice((page-1) * 5, page * 5).map( (deal, i) => {
                             const {id, amount, token, date, purchasePrice} = deal;
                             return(
-                                <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/offer/${id}?returnToPage=${page}`)}>
+                                <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/deal/${id}?returnToPage=${page}`)}>
                                     <td className={styles.tableData}>
                                         <span className={styles.lightData}>{timestampToDate(date.purchasedAt)}</span>
                                     </td>

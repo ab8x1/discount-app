@@ -1,6 +1,6 @@
-import { DealType } from "@/types/deal"
+import { OfferType } from "@/types/offer"
 
-export const exampleThinDeals: DealType[] = [
+export const exampleThinDeals: OfferType[] = [
     {
         id: '0',
         token: 'USDT',

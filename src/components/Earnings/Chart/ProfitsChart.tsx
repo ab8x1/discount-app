@@ -11,7 +11,7 @@ import {
     Tooltip,
   } from 'chart.js';
   import { Line } from 'react-chartjs-2';
-  import { PurchasedDeal } from '@/types/deal';
+  import { DealType } from '@/types/deal';
   import {calcDataSet, mergeDeep, calcDynamicOptions} from './chartHelpers'
   import { defaultOptions, DrawLine } from './chartConsts';
 
@@ -29,7 +29,7 @@ import {
 export default memo(function ProfitsChart({
   deals
 } : {
-  deals: PurchasedDeal[]
+  deals: DealType[]
 } ){
   const data = calcDataSet(deals);
   const dynamicOptions = calcDynamicOptions(data);

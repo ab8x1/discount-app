@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react'
 import styles from './thinDealStyles.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
-import { DealType } from '@/types/deal'
+import { OfferType } from '@/types/offer'
 import fixedNumber from '@/helpers/fixedNumber'
 import timestampToDate from '@/helpers/timestampToDate'
 import previewDiscountedAsset from '@/helpers/previewDiscountedAsset'
 import LoadingValue from '../LoadingValue'
 
 export default function ThinDeal({dealInfo} : {
-    dealInfo: DealType
+    dealInfo: OfferType
 }){
     const {
         id,
@@ -33,7 +33,7 @@ export default function ThinDeal({dealInfo} : {
     }, [])
 
     return(
-        <Link href={`/deal/${id}`} className={styles.dealContainer} style={{background, pointerEvents: isEnabled ? 'all' : 'none'}}>
+        <Link href={`/offer/${id}`} className={styles.dealContainer} style={{background, pointerEvents: isEnabled ? 'all' : 'none'}}>
             <div className={`${styles.originalPrice} alignY`}>
                 <Image src="/bar-chart.svg" width={25} height={25} alt='bar-chart'/>
                 {token} Market Price

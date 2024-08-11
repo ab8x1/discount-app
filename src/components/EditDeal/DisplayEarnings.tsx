@@ -1,14 +1,14 @@
 import { days_between, RefreshValue, actualProfitValue, reedemValue } from "@/helpers/calculateProfits";
 import fixedNumber from "@/helpers/fixedNumber";
 import { DealContainer, InfoContent, InfoRow } from "../DealDetails/DetailsStyles";
-import { PurchasedDeal } from "@/types/deal";
+import { DealType } from "@/types/deal";
 
 
 export default function DisplayEarnings({
     deal,
     timestamp
 } : {
-    deal: PurchasedDeal,
+    deal: DealType,
     timestamp?: number
 }){
     const updateFunction = () => actualProfitValue(deal);

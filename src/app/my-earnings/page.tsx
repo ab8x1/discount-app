@@ -1,7 +1,7 @@
 'use client'
 import styles from '@/components/Earnings/TableData/tableData.module.css';
 import InfoBoxes from "@/components/Earnings/InfoBoxes";
-import { PurchasedDeal } from "@/types/deal";
+import { DealType } from "@/types/deal";
 import { useConnectWallet } from "@web3-onboard/react";
 import { useState, useEffect } from "react";
 import TableData from '@/components/Earnings/TableData/TableData';
@@ -15,13 +15,13 @@ export default function RootLayout({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const { page } = searchParams;
-  const [deals, setDeals] = useState<PurchasedDeal[]>([]);
+  const [deals, setDeals] = useState<DealType[]>([]);
   const [{ wallet }, connect] = useConnectWallet();
   const {address} = wallet?.accounts[0] ?? {};
 
   useEffect(() => {
-      const purchasedDeals = JSON.parse(window.localStorage?.getItem('purchasedDeals') || "{}");
-      const userDeals: PurchasedDeal[] = purchasedDeals?.[address || 'unloggedDeals'];
+      const DealTypes = JSON.parse(window.localStorage?.getItem('DealTypes') || "{}");
+      const userDeals: DealType[] = DealTypes?.[address || 'unloggedDeals'];
       if(userDeals)
         setDeals(userDeals);
       else

@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import styles from './infoBoxStyles.module.css'
 import InfoBox from './InfoBox'
-import { PurchasedDeal } from '@/types/deal'
+import { DealType } from '@/types/deal'
 import {activeDailyProfit, fixedProfit, actualProfitValue} from '@/helpers/calculateProfits'
 import fixedNumber from '@/helpers/fixedNumber'
 import { RefreshValue } from '@/helpers/calculateProfits'
@@ -9,7 +9,7 @@ import { RefreshValue } from '@/helpers/calculateProfits'
 export default memo(function InfoBoxes({
     deals
 } : {
-    deals: PurchasedDeal[],
+    deals: DealType[],
 }){
     return(
         <div id={styles.grid}>
