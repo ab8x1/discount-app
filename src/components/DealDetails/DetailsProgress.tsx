@@ -3,7 +3,6 @@ import { ProgressContainer, ProgressTitle, Step } from "./DetailsStyles"
 import timestampToDate from "@/helpers/timestampToDate"
 import fixedNumber from "@/helpers/fixedNumber"
 import { DealDetailsType } from "./DetailsTypes"
-import { tokens } from "@/types/deal"
 
 export default function DealDetailsProgress({
     amount,
@@ -15,7 +14,7 @@ export default function DealDetailsProgress({
     amount: number,
     dealDetails: DealDetailsType,
     step: "buy" | "wait" | "earn",
-    token: tokens
+    token: string
 }){
     const {date, earn, reedem} = dealDetails;
     const fee = fixedNumber(amount * 0.001, false, 2, true) as number;

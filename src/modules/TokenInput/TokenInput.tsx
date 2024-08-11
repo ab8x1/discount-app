@@ -1,7 +1,6 @@
 import { useState, Dispatch, SetStateAction, useRef } from "react";
 import {Input, InputContainer, InputLabel, InputLayout, InputToken} from './TokenInputStyles';
 import Image from "next/image";
-import { tokens } from "@/types/deal";
 
 export default function TokenInput({
     onChange,
@@ -13,7 +12,7 @@ export default function TokenInput({
     onChange: (amount: number) => void,
     defaultValue: number,
     action: () => void,
-    token: tokens
+    token: string
 }){
     const [userQuery, setUserQuery] = useState(defaultValue ? defaultValue.toString() : "");
 

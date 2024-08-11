@@ -4,7 +4,7 @@ import { DealGrid, ReversedMobileOrder } from "../DealDetails/DetailsStyles";
 import ReedemEarly from "./ReedemEarly";
 import EditDealInfo from "./EditDealInfo";
 import DealDetailsProgress from "../DealDetails/DetailsProgress";
-import { PurchasedDeal } from "@/types/deal";
+import { DealType } from "@/types/deal";
 import { useConnectWallet } from "@web3-onboard/react";
 import DisplayEarnings from "./DisplayEarnings";
 import BackButton from "../Navbar/BackButton";
@@ -14,12 +14,12 @@ export default function EditDeal({
 } : {
     id: string
 }){
-    const [deal, setDeal] = useState<PurchasedDeal | null>();
+    const [deal, setDeal] = useState<DealType | null>();
     const [{ wallet }, connect] = useConnectWallet();
     const {address} = wallet?.accounts[0] ?? {};
     useEffect(() => {
         const allDeals = JSON.parse(window.localStorage.getItem('purchasedDeals') || "{}");
-        const userDeals: PurchasedDeal[] | undefined = allDeals?.[address || 'unloggedDeals'];
+        const userDeals: DealType[] | undefined = allDeals?.[address || 'unloggedDeals'];
         const userDeal = userDeals?.find(deal => deal.id === id);
         if(userDeal)
             setDeal(userDeal);
