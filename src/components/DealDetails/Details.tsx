@@ -40,7 +40,7 @@ export default function DealDetails({
                 if(user){
                     if(connectedChain?.id === chainHexId){
                         setLoading(true);
-                        const newOfferId = await buyDeal(amount, user);
+                        const newOfferId = await buyDeal(amount, user, dealDetails);
                         setLoading(false);
                         setConfirmationID(newOfferId);
                     }
