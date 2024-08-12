@@ -1,20 +1,20 @@
 'use client'
 import { useEffect, useState } from "react"
-import { DetailsPage, DetailsGrid, DealContainer, DealGrid, InfoContent, InfoRow, DealContent } from "./DetailsStyles"
-import DealDetailsProgress from "./DetailsProgress"
-import DealDetails from "./Details"
+import { OfferPage, OfferGrid, OfferContainer, OfferDetailsGrid, InfoContent, InfoRow, OfferContent } from "./DetailsStyles"
+import OfferDetailsProgress from "./DetailsProgress"
+import OfferDetails from "./OfferDetails"
 import { OfferType } from "@/types/offer"
 import { DealDetailsType, Stage } from "./DetailsTypes"
 import Image from "next/image"
 import BackButton from "../Navbar/BackButton"
 import previewDiscountedAsset from "@/helpers/previewDiscountedAsset"
 
-export default function DetailsState({
-    thinDeal
+export default function Offer({
+    offerData
 } : {
-    thinDeal: OfferType
+    offerData: OfferType
 }){
-    const {date, token, chainHexId} = thinDeal;
+    const {date, token, chainHexId} = offerData;
     const [amount, setAmount] = useState<number>(1);
     const [discountedAsset, setDiscountedAsset] = useState<number | null>(null);
     const [stage, setStage] = useState<Stage>("buy");
@@ -41,7 +41,7 @@ export default function DetailsState({
         const calculateDiscount = async () => {
             if(amount > 0){
                 const currentAmount = amount;
-                const { userWillGet } = await previewDiscountedAsset(thinDeal, currentAmount);
+                const { userWillGet } = await previewDiscountedAsset(offerData, currentAmount);
 
                 if (isLatest) {
                     setDiscountedAsset(userWillGet);
@@ -57,15 +57,15 @@ export default function DetailsState({
     }, [amount]);
 
     return(
-        <DetailsPage>
-            <DetailsGrid $summary={stage==='confirm'}>
+        <OfferPage>
+            <OfferGrid $summary={stage==='confirm'}>
                 <BackButton/>
-                <DealGrid $summary={stage==='confirm'}>
-                    <DealDetails setAmount={changeAmount} dealDetails={dealDetails} stage={stage} amount={amount} setStage={setStage}/>
+                <OfferDetailsGrid $summary={stage==='confirm'}>
+                    <OfferDetails setAmount={changeAmount} dealDetails={dealDetails} stage={stage} amount={amount} setStage={setStage}/>
                     { stage === 'confirm' &&
                         <div>
-                            <DealDetailsProgress amount={amount} dealDetails={dealDetails} step="buy" token={token}/>
-                            <DealContainer style={{marginTop: '15px'}}>
+                            <OfferDetailsProgress amount={amount} dealDetails={dealDetails} step="buy" token={token}/>
+                            <OfferContainer style={{marginTop: '15px'}}>
                                 <InfoContent>
                                     <h3 className="alignY" style={{gap: '5px'}}>
                                         <Image src="/shield-tick.svg" width={24} height={24} alt="shield"/>
@@ -75,11 +75,11 @@ export default function DetailsState({
                                     You redeem your funds anytime before Claim Date via <b>My Earnings</b> page.
                                     </p>
                                 </InfoContent>
-                            </DealContainer>
+                            </OfferContainer>
                         </div>
                     }
-                </DealGrid>
-            </DetailsGrid>
-        </DetailsPage>
+                </OfferDetailsGrid>
+            </OfferGrid>
+        </OfferPage>
     )
 }

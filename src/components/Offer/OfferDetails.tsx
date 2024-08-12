@@ -1,5 +1,5 @@
 'use client'
-import { DealContainer, DealHeader, Token, TokenContainer, TokenImg, DiscountValue, DealContent, InfoRow, StageButton, Profit } from "./DetailsStyles"
+import { OfferContainer, OfferHeader, Token, TokenContainer, TokenImg, DiscountValue, OfferContent, InfoRow, StageButton, Profit } from "./DetailsStyles"
 import Image from "next/image"
 import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import { useState, Dispatch, SetStateAction } from "react";
@@ -27,9 +27,8 @@ export default function DealDetails({
     setStage: Dispatch<SetStateAction<Stage>>,
 }){
     const user = useUser();
-    const [{ connectedChain, settingChain }, setChain] = useSetChain();
+    const [{ connectedChain }, setChain] = useSetChain();
     const {date, discount, earn, reedem, token, chainHexId} = dealDetails;
-    const fee = fixedNumber(amount * 0.001, false, 2, true) as number;
     const [{ wallet }, connect] = useConnectWallet();
     const [confirmationID, setConfirmationID] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -40,7 +39,7 @@ export default function DealDetails({
                 if(user){
                     if(connectedChain?.id === chainHexId){
                         setLoading(true);
-                        const newOfferId = await buyDeal(amount, user, dealDetails);
+                        const {newOfferId} = await buyDeal(amount, user, dealDetails);
                         setLoading(false);
                         setConfirmationID(newOfferId);
                     }
@@ -57,6 +56,7 @@ export default function DealDetails({
                 }
             }
             catch(e){
+                console.log(e);
                 setLoading(false);
             }
         }
@@ -66,8 +66,8 @@ export default function DealDetails({
     }
     return(
         <>
-            <DealContainer>
-                <DealHeader>
+            <OfferContainer>
+                <OfferHeader>
                     <Token className="alignY">
                         <TokenContainer>
                             <TokenImg src={`/tokens/${token}.svg`} width={56} height={56} alt="coin"/>
@@ -91,8 +91,8 @@ export default function DealDetails({
                             loaderColor="green"
                         />
                     </DiscountValue>
-                </DealHeader>
-                <DealContent>
+                </OfferHeader>
+                <OfferContent>
                     {
                         !confirmStage &&
                         <TokenInput
@@ -202,8 +202,8 @@ export default function DealDetails({
                             {!confirmStage && <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>}
                         </DefaultButton>
                     </div>
-                </DealContent>
-            </DealContainer>
+                </OfferContent>
+            </OfferContainer>
             {
                 confirmationID && reedem &&
                 <ActionConfirmation

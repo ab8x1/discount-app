@@ -27,7 +27,6 @@ export default function TableData({
     const page = currentPage || 1;
     const router = useRouter();
     const orderedDeals = [...deals.filter(({date}) => !date?.redeemedAt) || []].reverse();
-    console.log(user?.address)
     useEffect(() => {
         orderedDeals.slice((page-1) * 5, page * 5).forEach(({id}) => {
             router.prefetch(

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 
-export const DetailsPage = styled.div`
+export const OfferPage = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,7 +12,7 @@ export const DetailsPage = styled.div`
     }
 `
 
-export const DetailsGrid = styled.div<{$summary?: boolean}>`
+export const OfferGrid = styled.div<{$summary?: boolean}>`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -22,7 +22,7 @@ export const DetailsGrid = styled.div<{$summary?: boolean}>`
     }
 `
 
-export const DealGrid = styled.div<{$summary?: boolean}>`
+export const OfferDetailsGrid = styled.div<{$summary?: boolean}>`
     display: grid;
     /* height: 100%; */
     width: 100%;
@@ -36,7 +36,7 @@ export const DealGrid = styled.div<{$summary?: boolean}>`
     }
 `
 
-export const DetailsWrapper = styled.div`
+export const OfferDetailsWrapper = styled.div`
     width: 100%;
 `
 
@@ -46,7 +46,7 @@ export const ReversedMobileOrder = styled.div`
     }
 `
 
-export const DealContainer = styled.div`
+export const OfferContainer = styled.div`
     border-radius: 15px;
     color: #344054;
     font-size: 0.875rem;
@@ -56,7 +56,7 @@ export const DealContainer = styled.div`
     box-shadow: 0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px -1px rgba(16, 24, 40, 0.08);
 `
 
-export const DealHeader = styled.div`
+export const OfferHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -103,7 +103,7 @@ export const DiscountValue = styled.div`
     }
 `
 
-export const DealContent = styled.div`
+export const OfferContent = styled.div`
     padding: 15px 24px;
 `
 

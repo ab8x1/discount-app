@@ -20,12 +20,30 @@ export default function RootLayout({
   const {address} = wallet?.accounts[0] ?? {};
 
   useEffect(() => {
-      const DealTypes = JSON.parse(window.localStorage?.getItem('DealTypes') || "{}");
-      const userDeals: DealType[] = DealTypes?.[address || 'unloggedDeals'];
-      if(userDeals)
-        setDeals(userDeals);
-      else
+    const getUserDeals = async () => {
+      if(address){
+        const queryString = new URLSearchParams({user: address}).toString();
+        const userDealsRes = await fetch(`${process.env.NEXT_PUBLIC_ORIGIN}/api/getUserDeals?${queryString}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const userDeals: DealType[] = await userDealsRes.json();
+        if(userDeals){
+          setDeals(userDeals);
+        }
+        else{
           setDeals([]);
+        }
+      }
+      else{
+        setDeals([]);
+      }
+
+    }
+    getUserDeals();
+
   }, [address]);
 
   return(

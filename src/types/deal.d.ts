@@ -1,6 +1,7 @@
 
 export type DealType = {
     id: string,
+    owner: string,
     token: string,
     amount: number,
     purchasePrice: number,

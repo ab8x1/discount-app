@@ -1,32 +1,21 @@
 'use client'
 import { useEffect, useState } from "react";
-import { DealGrid, ReversedMobileOrder } from "../DealDetails/DetailsStyles";
+import { OfferDetailsGrid, ReversedMobileOrder } from "../Offer/DetailsStyles";
 import ReedemEarly from "./ReedemEarly";
 import EditDealInfo from "./EditDealInfo";
-import DealDetailsProgress from "../DealDetails/DetailsProgress";
+import DealDetailsProgress from "../Offer/DetailsProgress";
 import { DealType } from "@/types/deal";
 import { useConnectWallet } from "@web3-onboard/react";
 import DisplayEarnings from "./DisplayEarnings";
 import BackButton from "../Navbar/BackButton";
 
 export default function EditDeal({
-    id
+    deal
 } : {
-    id: string
+    deal: DealType | null
 }){
-    const [deal, setDeal] = useState<DealType | null>();
     const [{ wallet }, connect] = useConnectWallet();
     const {address} = wallet?.accounts[0] ?? {};
-    useEffect(() => {
-        const allDeals = JSON.parse(window.localStorage.getItem('purchasedDeals') || "{}");
-        const userDeals: DealType[] | undefined = allDeals?.[address || 'unloggedDeals'];
-        const userDeal = userDeals?.find(deal => deal.id === id);
-        if(userDeal)
-            setDeal(userDeal);
-        else
-            setDeal(null);
-
-    }, [address])
     return(
         <>
             <BackButton/>
@@ -35,7 +24,7 @@ export default function EditDeal({
                 deal.date?.redeemedAt ?
                 <DisplayEarnings deal={deal} timestamp={deal.date?.redeemedAt}/>
                 :
-                <DealGrid $summary>
+                <OfferDetailsGrid $summary>
                     <EditDealInfo deal={deal}/>
                     <ReversedMobileOrder>
                         <DisplayEarnings deal={deal}/>
@@ -58,7 +47,7 @@ export default function EditDeal({
                         />
                     </ReversedMobileOrder>
                     <ReedemEarly deal={deal} address={address || ''}/>
-                </DealGrid>
+                </OfferDetailsGrid>
                 : deal === null
                 ? <h1>Deal not found</h1>
                 : null

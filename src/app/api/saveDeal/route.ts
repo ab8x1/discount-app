@@ -4,30 +4,16 @@ import Deal from '../../../../lib/models/Deal';
 import { DealType } from '@/types/deal';
 export const dynamic = "force-dynamic";
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
     try{
         await dbConnect();
-        const newDeal: DealType = {
-            id: "test",
-            amount: 0,
-            date: {
-                maturity: 0,
-                purchasedAt: 0
-            },
-            discount: 0,
-            purchasePrice: 0,
-            token: "none"
-        }
-        await Deal.create(newDeal);
-        return NextResponse.json({
-            message: "true"
-        })
+        const data = await request.json();
+        await Deal.create(data);
+        return NextResponse.json({message: "Deal added to DB"}, {status: 200})
     }
     catch(e){
         console.log("Error in saveDeal");
         console.log(e);
-        return NextResponse.json({
-            allContracts: []
-        })
+        return NextResponse.json({message: "Error in saveDeal"}, {status: 400})
     }
   }

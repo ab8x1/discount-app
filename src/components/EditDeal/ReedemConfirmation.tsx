@@ -1,6 +1,6 @@
 import Confetti from 'react-confetti';
 import { DefaultButtonLink } from "../Navbar/NavbarStyles";
-import { InfoRow, PopUpBackground, PopUpContainer, PopUpContent, Profit } from "@/components/DealDetails/DetailsStyles";
+import { InfoRow, PopUpBackground, PopUpContainer, PopUpContent, Profit } from "@/components/Offer/DetailsStyles";
 import { useSearchParams } from "next/navigation";
 import Image from 'next/image';
 import fixedNumber from '@/helpers/fixedNumber';

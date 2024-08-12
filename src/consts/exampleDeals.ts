@@ -1,6 +1,6 @@
 import { OfferType } from "@/types/offer"
 
-export const exampleThinDeals: OfferType[] = [
+export const exampleOffers: OfferType[] = [
     {
         id: '0',
         token: 'USDT',

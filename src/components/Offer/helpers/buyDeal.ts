@@ -6,6 +6,7 @@ import { discountContractAddress } from "@/consts/globalConsts";
 import { DealType } from "@/types/deal";
 import { DealDetailsType } from "../DetailsTypes";
 import { v4 as uuidv4 } from 'uuid';
+import fixedNumber from "@/helpers/fixedNumber";
 
 const erc20Abi = ERC20ABI.abi;
 const discountV1ABI = DISCOUNTV1_ABI.abi;
@@ -16,9 +17,9 @@ export default async function buyDeal(
     user: UserType,
     dealDetails: DealDetailsType
 ){
-    return new Promise<string> (async (res, rej) => {
+    return new Promise<{status: "success" | "error", message: string, newOfferId: string}> (async (res, rej) => {
         try{
-            const { signer } = user;
+            const { signer, address } = user;
             const parsedAmount = parseUnits(amount.toString(), "ether");
 
             const underlyingERC20Contract = new Contract(underlyingToken, erc20Abi, signer);
@@ -35,9 +36,11 @@ export default async function buyDeal(
             await tx.wait();
 
             const {date, discount, earn, reedem, roi, token} = dealDetails;
+            const newId = uuidv4();
             const newDeal: DealType = {
-                id:  uuidv4(),
-                amount: reedem || 0,
+                id: newId,
+                owner: address,
+                amount: Number(fixedNumber(reedem || 0, false, 5)),
                 discount: discount || 0,
                 purchasePrice: amount,
                 token,
@@ -46,12 +49,47 @@ export default async function buyDeal(
                     maturity: date.end
                 }
             }
-            console.log(newDeal);
-            res("id");
+            const addToDbStatus = await saveDealInDB(newDeal);
+            if(addToDbStatus){
+                res({
+                    status: "success",
+                    message: "Deal purchase completed",
+                    newOfferId: newId
+                });
+            }
+            else{
+                rej("Deal purchase completed but information not saved, please contact our support");
+            }
+
         }
         catch(e){
             console.log(e);
-            rej("")
+            rej("Deal purchase failed")
         }
+    })
+}
+
+async function saveDealInDB(data: any) {
+    return new Promise<boolean>(async(res) => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_ORIGIN}/api/saveDeal`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+              console.log(`HTTP error! status: ${response.status}`);
+              res(false);
+            }
+
+            res(true);
+
+          } catch (error) {
+            console.error('Error:', error);
+            res(false);
+          }
     })
 }

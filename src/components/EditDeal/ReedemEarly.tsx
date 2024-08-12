@@ -1,12 +1,10 @@
-import { DealContainer, InfoContent, InfoRow, PopUpBackground, PopUpContainer } from "../DealDetails/DetailsStyles";
+import { OfferContainer, InfoContent, InfoRow, PopUpBackground, PopUpContainer } from "../Offer/DetailsStyles";
 import { DefaultButton } from "../Navbar/NavbarStyles";
 import { useState, useRef } from "react";
 import OnClickOutside from "@/hooks/useClickOutside";
-import ActionConfirmation from "../DealDetails/ActionConfirmation";
 import { DealType } from "@/types/deal";
 import fixedNumber from "@/helpers/fixedNumber";
-import { actualProfitValue, reedemValue, RefreshValue } from "@/helpers/calculateProfits";
-import { mergeDeep } from '@/components/Earnings/Chart/chartHelpers';
+import { reedemValue, RefreshValue } from "@/helpers/calculateProfits";
 import { reedemEarly } from "./helpers/editDealHelpers";
 import ReedemConfirmation from './ReedemConfirmation';
 
@@ -31,7 +29,7 @@ export default function ReedemEarly({
     }
     return(
         <>
-            <DealContainer>
+            <OfferContainer>
                 <InfoContent>
                     <h3>Claim Early</h3>
                     <InfoRow style={{margin: '15px 0'}}>
@@ -50,7 +48,7 @@ export default function ReedemEarly({
                         Claim Early
                     </DefaultButton>
                 </InfoContent>
-            </DealContainer>
+            </OfferContainer>
             {
                 stage === "confirmation" ?
                 <PopUpBackground>

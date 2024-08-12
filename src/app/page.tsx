@@ -1,9 +1,9 @@
 import ThinDeal from "@/components/ThinDeal";
 import styles from '@/components/ThinDeal/thinDealStyles.module.css'
-import { exampleThinDeals } from "@/consts/exampleDeals";
+import { exampleOffers } from "@/consts/exampleDeals";
 
 async function getThinDeals() {
-  const res = exampleThinDeals;
+  const res = exampleOffers;
 
   if (!res) {
     throw new Error('Failed to fetch data')

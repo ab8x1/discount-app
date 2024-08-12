@@ -1,6 +1,6 @@
 import { days_between, RefreshValue, actualProfitValue, reedemValue } from "@/helpers/calculateProfits";
 import fixedNumber from "@/helpers/fixedNumber";
-import { DealContainer, InfoContent, InfoRow } from "../DealDetails/DetailsStyles";
+import { OfferContainer, InfoContent, InfoRow } from "../Offer/DetailsStyles";
 import { DealType } from "@/types/deal";
 
 
@@ -16,7 +16,7 @@ export default function DisplayEarnings({
     const fee = fixedNumber(0.001 * deal.purchasePrice, false, 2, true) as number;
 
     return(
-        <DealContainer style={{marginBottom: '20px', marginTop: timestamp ? '30px' : 0}}>
+        <OfferContainer style={{marginBottom: '20px', marginTop: timestamp ? '30px' : 0}}>
             <InfoContent>
                 <h3 style={{marginBottom: '20px'}}>Earnings</h3>
                 <InfoRow>
@@ -42,6 +42,6 @@ export default function DisplayEarnings({
                     </div>
                 </InfoRow>
             </InfoContent>
-        </DealContainer>
+        </OfferContainer>
     )
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { PopUpBackground, PopUpContainer } from "../DealDetails/DetailsStyles"
+import { PopUpBackground, PopUpContainer } from "../Offer/DetailsStyles"
 import { DefaultButton } from "./NavbarStyles";
 import styled from 'styled-components';
 import Image from "next/image";
