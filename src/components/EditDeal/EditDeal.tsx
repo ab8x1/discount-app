@@ -1,11 +1,9 @@
-'use client'
-import { useEffect, useState } from "react";
+"use client"
 import { OfferDetailsGrid, ReversedMobileOrder } from "../Offer/DetailsStyles";
 import ReedemEarly from "./ReedemEarly";
 import EditDealInfo from "./EditDealInfo";
 import DealDetailsProgress from "../Offer/DetailsProgress";
 import { DealType } from "@/types/deal";
-import { useConnectWallet } from "@web3-onboard/react";
 import DisplayEarnings from "./DisplayEarnings";
 import BackButton from "../Navbar/BackButton";
 
@@ -14,8 +12,6 @@ export default function EditDeal({
 } : {
     deal: DealType | null
 }){
-    const [{ wallet }, connect] = useConnectWallet();
-    const {address} = wallet?.accounts[0] ?? {};
     return(
         <>
             <BackButton/>
@@ -46,10 +42,10 @@ export default function EditDeal({
                             token={deal.token}
                         />
                     </ReversedMobileOrder>
-                    <ReedemEarly deal={deal} address={address || ''}/>
+                    <ReedemEarly deal={deal}/>
                 </OfferDetailsGrid>
                 : deal === null
-                ? <h1>Deal not found</h1>
+                ? <h1 style={{marginTop: "50px"}}>Deal not found</h1>
                 : null
             }
         </>

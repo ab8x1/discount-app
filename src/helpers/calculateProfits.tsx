@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { DealType } from "@/types/deal";
 import fixedNumber from "./fixedNumber";

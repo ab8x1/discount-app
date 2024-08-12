@@ -36,7 +36,7 @@ export default function ActionConfirmation({
                     </InfoRow>
                     <InfoRow>
                         <span> You’ll Receive </span>
-                        <span> {reedem} {token} </span>
+                        <span> {fixedNumber(reedem, false, 5)} {token} </span>
                     </InfoRow>
                     <InfoRow>
                         <span> Claim Date </span>
@@ -44,9 +44,9 @@ export default function ActionConfirmation({
                     </InfoRow>
                     <Profit>
                         <Image src="/thumbs-up.svg" width={20} height={20} alt="thumbs-up"/>
-                        You’re saving ${fixedNumber(reedem - amount)} on this deal
+                        You’re saving ${fixedNumber(reedem - amount, false, 2)} on this deal
                     </Profit>
-                    <DefaultButtonLink href={`/offer/${offerId}?returnToEarnings=${returnToPage || 1}`} $bg="#00D26B;" $bgHover="#23c677" $fullWidth style={{marginTop: '20px', padding: '10px'}}>
+                    <DefaultButtonLink href={`/deal/${offerId}?returnToEarnings=${returnToPage || 1}`} $bg="#00D26B;" $bgHover="#23c677" $fullWidth style={{marginTop: '20px', padding: '10px'}}>
                         Open Purchase Summary
                     </DefaultButtonLink>
                 </PopUpContent>

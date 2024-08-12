@@ -14,7 +14,7 @@ export default function Error({
 
   return (
     <main className='container' style={{maxWidth: '930px'}}>
-      <h2>Deal not found</h2>
+      <h2 style={{marginTop: "50px"}}>Deal not found</h2>
     </main>
   )
 }

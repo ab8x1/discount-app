@@ -1,8 +1,6 @@
-'use client'
 import { DealType } from "@/types/deal";
 import { OfferContainer, OfferHeader, Token, TokenImg, InfoRow, OfferContent } from "../Offer/DetailsStyles";
 import { DefaultButton } from "../Navbar/NavbarStyles";
-import { useConnectWallet } from "@web3-onboard/react";
 import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from "@/helpers/fixedNumber";
 
@@ -11,8 +9,8 @@ export default function EditDealInfo({
 } : {
     deal: DealType
 }){
-    const [{ wallet }, connect] = useConnectWallet();
-    const {amount, date, discount, token, purchasePrice} = deal;
+    const {amount, token, purchasePrice, date} = deal;
+
     return(
             <OfferContainer>
                 <OfferHeader>

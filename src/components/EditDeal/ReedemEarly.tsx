@@ -7,14 +7,14 @@ import fixedNumber from "@/helpers/fixedNumber";
 import { reedemValue, RefreshValue } from "@/helpers/calculateProfits";
 import { reedemEarly } from "./helpers/editDealHelpers";
 import ReedemConfirmation from './ReedemConfirmation';
+import useUser from "@/hooks/useUser";
 
 export default function ReedemEarly({
     deal,
-    address
 } : {
     deal: DealType,
-    address: string
 }){
+    const user = useUser();
     const [stage, setStage] = useState<null | "confirmation" | {
         reedem: number,
         amount: number
@@ -24,7 +24,7 @@ export default function ReedemEarly({
     const calcActualVal = () => reedemValue(deal);
     const fee = fixedNumber(0.001 * deal.purchasePrice, false, 2, true) as number;
     const reedem = () => {
-        const reedemVal = reedemEarly(deal, fee, address);
+        const reedemVal = reedemEarly(deal, fee, user?.address);
         setStage(reedemVal);
     }
     return(
