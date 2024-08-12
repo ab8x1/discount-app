@@ -3,6 +3,7 @@ import { ProgressContainer, ProgressTitle, Step } from "./DetailsStyles"
 import timestampToDate from "@/helpers/timestampToDate"
 import fixedNumber from "@/helpers/fixedNumber"
 import { DealDetailsType } from "./DetailsTypes"
+import { useState, useEffect } from "react"
 
 export default function DealDetailsProgress({
     amount,
@@ -17,7 +18,10 @@ export default function DealDetailsProgress({
     token: string
 }){
     const {date, earn, reedem} = dealDetails;
-    const fee = fixedNumber(amount * 0.001, false, 2, true) as number;
+    const [dealDate, setDealDate] = useState<DealDetailsType["date"]>();
+    useEffect(() => {
+        setDealDate(date);
+    }, [])
     return(
         <ProgressContainer>
             <ProgressTitle>Progress</ProgressTitle>
@@ -30,7 +34,7 @@ export default function DealDetailsProgress({
             <Step $status={step === "buy" ? "next" : "filled"}>
                 <div>
                     <p>Wait until Claim Date</p>
-                    <p>{timestampToDate(date.end)}</p>
+                    <p>{dealDate && timestampToDate(dealDate.end)}</p>
                 </div>
             </Step>
             <Step $status={step === "wait" ? "next" : step === "earn" ? "filled" : "pending"}>

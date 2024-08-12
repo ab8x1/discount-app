@@ -1,4 +1,5 @@
 import { DealType } from "@/types/deal";
+import { useState, useEffect } from "react";
 import { OfferContainer, OfferHeader, Token, TokenImg, InfoRow, OfferContent } from "../Offer/DetailsStyles";
 import { DefaultButton } from "../Navbar/NavbarStyles";
 import timestampToDate from "@/helpers/timestampToDate";
@@ -10,7 +11,10 @@ export default function EditDealInfo({
     deal: DealType
 }){
     const {amount, token, purchasePrice, date} = deal;
-
+    const [dealDate, setDealDate] = useState<DealType["date"]>();
+    useEffect(() => {
+        setDealDate(date);
+    }, [])
     return(
             <OfferContainer>
                 <OfferHeader>
@@ -22,7 +26,7 @@ export default function EditDealInfo({
                 <OfferContent>
                     <InfoRow>
                         <span>Purchase Date</span>
-                        <span>{timestampToDate(date.purchasedAt)}</span>
+                        <span>{dealDate && timestampToDate(dealDate.purchasedAt)}</span>
                     </InfoRow>
                     <InfoRow>
                         <span>You Paid</span>
@@ -34,7 +38,7 @@ export default function EditDealInfo({
                     </InfoRow>
                     <InfoRow>
                         <span>Claim Date</span>
-                        <span>{timestampToDate(date.maturity)}</span>
+                        <span>{dealDate && timestampToDate(dealDate.maturity)}</span>
                     </InfoRow>
                     <InfoRow>
                         <span>Discount</span>
