@@ -6,17 +6,19 @@ import DealDetailsProgress from "../Offer/DetailsProgress";
 import { DealType } from "@/types/deal";
 import DisplayEarnings from "./DisplayEarnings";
 import BackButton from "../Navbar/BackButton";
+import useUser from "@/hooks/useUser";
 
 export default function EditDeal({
     deal
 } : {
     deal: DealType | null
 }){
+    const user = useUser();
     return(
         <>
             <BackButton/>
             {
-                deal ?
+                deal && user?.address === deal.owner ?
                 deal.date?.redeemedAt ?
                 <DisplayEarnings deal={deal} timestamp={deal.date?.redeemedAt}/>
                 :
@@ -44,9 +46,7 @@ export default function EditDeal({
                     </ReversedMobileOrder>
                     <ReedemEarly deal={deal}/>
                 </OfferDetailsGrid>
-                : deal === null
-                ? <h1 style={{marginTop: "50px"}}>Deal not found</h1>
-                : null
+                : <h1 style={{marginTop: "50px"}}>Deal not found</h1>
             }
         </>
     )

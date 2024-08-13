@@ -1,4 +1,4 @@
-import { Contract, parseUnits } from "ethers";
+import { Contract, parseUnits, zeroPadValue, getBigInt, parseEther, formatEther, formatUnits } from "ethers";
 import { UserType } from "@/hooks/useUser";
 import DISCOUNTV1_ABI from "@/artifacts/contracts/DiscountV1.sol/DiscountV1.json"
 import ERC20ABI from "@/artifacts/contracts/@openzeppelin/contracts/token/ERC20/IERC20.sol/IERC20.json";
@@ -6,7 +6,6 @@ import { discountContractAddress } from "@/consts/globalConsts";
 import { DealType } from "@/types/deal";
 import { DealDetailsType } from "../DetailsTypes";
 import { v4 as uuidv4 } from 'uuid';
-import fixedNumber from "@/helpers/fixedNumber";
 
 const erc20Abi = ERC20ABI.abi;
 const discountV1ABI = DISCOUNTV1_ABI.abi;
@@ -17,7 +16,7 @@ export default async function buyDeal(
     user: UserType,
     dealDetails: DealDetailsType
 ){
-    return new Promise<{status: "success" | "error", message: string, newOfferId: string}> (async (res, rej) => {
+    return new Promise<{status: "success" | "error", message: string, newOfferId: string, realReedem: number}> (async (res, rej) => {
         try{
             const { signer, address } = user;
             const parsedAmount = parseUnits(amount.toString(), "ether");
@@ -33,14 +32,24 @@ export default async function buyDeal(
                 0,
                 1
             );
-            await tx.wait();
+            const receipt = await tx.wait();
+            const paddedSenderAddress = zeroPadValue(address, 32);
+            const logs = receipt.logs.filter((log: any) =>
+                //what the user receivs:
+                log.address.toLowerCase() ===  "0x15d5b6B2ed96a8926872aa742Ef658b15B3C7951".toLowerCase() && //PT
+                log.topics[2] === paddedSenderAddress //to owner
+            );
+            const log = logs[0];
+            const decodedAmount = getBigInt(log.data);
+            const realReedem = Number(formatEther(decodedAmount));
 
             const {date, discount, earn, reedem, roi, token} = dealDetails;
             const newId = uuidv4();
             const newDeal: DealType = {
                 id: newId,
                 owner: address,
-                amount: Number(fixedNumber(reedem || 0, false, 5)),
+                amountBigIntStringified: decodedAmount.toString(),
+                amount: realReedem,
                 discount: discount || 0,
                 purchasePrice: amount,
                 token,
@@ -54,7 +63,8 @@ export default async function buyDeal(
                 res({
                     status: "success",
                     message: "Deal purchase completed",
-                    newOfferId: newId
+                    newOfferId: newId,
+                    realReedem
                 });
             }
             else{

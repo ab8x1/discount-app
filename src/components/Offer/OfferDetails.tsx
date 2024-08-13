@@ -13,6 +13,11 @@ import { DefaultButton } from "../Navbar/NavbarStyles";
 import useUser from "@/hooks/useUser";
 import LoadingValue from "../LoadingValue";
 
+type ConfirmationData = {
+    id: string,
+    realReedem: number
+}
+
 export default function DealDetails({
     setAmount,
     dealDetails,
@@ -30,7 +35,7 @@ export default function DealDetails({
     const [{ connectedChain }, setChain] = useSetChain();
     const {date, discount, earn, reedem, token, chainHexId} = dealDetails;
     const [{ wallet }, connect] = useConnectWallet();
-    const [confirmationID, setConfirmationID] = useState<string | null>(null);
+    const [confirmationData, setConfirmationData] = useState<ConfirmationData | null>(null);
     const [loading, setLoading] = useState(false);
     const confirmStage = stage === 'confirm';
     const action = async () => {
@@ -39,9 +44,12 @@ export default function DealDetails({
                 if(user){
                     if(connectedChain?.id === chainHexId){
                         setLoading(true);
-                        const {newOfferId} = await buyDeal(amount, user, dealDetails);
+                        const {newOfferId, realReedem} = await buyDeal(amount, user, dealDetails);
                         setLoading(false);
-                        setConfirmationID(newOfferId);
+                        setConfirmationData({
+                            id: newOfferId,
+                            realReedem
+                        });
                     }
                     else{
                         setLoading(true);
@@ -205,14 +213,14 @@ export default function DealDetails({
                 </OfferContent>
             </OfferContainer>
             {
-                confirmationID && reedem &&
+                confirmationData && reedem &&
                 <ActionConfirmation
                     type="buy"
                     amount={amount}
-                    reedem={reedem}
+                    reedem={confirmationData.realReedem}
                     maturity={date.end}
                     token={token}
-                    offerId={confirmationID}
+                    offerId={confirmationData.id}
                 />
             }
         </>

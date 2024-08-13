@@ -8,6 +8,7 @@ async function getDeal(id: string): Promise<DealType | null>{
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: "no-store"
     });
     const userDeals: DealType[] = await userDealRes.json();
     const [userDeal] = userDeals

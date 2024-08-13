@@ -25,7 +25,7 @@ export const walletConfig = {
     description: "Discount Finance App",
   },
   connect: {
-    autoConnectLastWallet: false
+    autoConnectLastWallet: true
   },
   accountCenter: {
     desktop: {

@@ -60,7 +60,7 @@ export default function TableData({
                 <tbody>
                     {
                         orderedDeals?.length > 0 ? orderedDeals.slice((page-1) * 5, page * 5).map( (deal, i) => {
-                            const {id, amount, token, date, purchasePrice} = deal;
+                            const {id, token, date, purchasePrice, amount} = deal;
                             return(
                                 <tr className={`${styles.tableRow} ${styles.interactiveTableRow}`} key={i} onClick={() => router.push(`/deal/${id}?returnToPage=${page}`)}>
                                     <td className={styles.tableData}>
@@ -79,7 +79,7 @@ export default function TableData({
                                         <div className={styles.amount}>
                                             <Image src="/tokens/USDC.svg" width={40} height={40} alt="ptUsdc"/>
                                             <div>
-                                                <span className={styles.heavyData}>{amount}</span>
+                                                <span className={styles.heavyData}>{fixedNumber(amount,false,5)}</span>
                                                 <span className={styles.lightData}>{token}</span>
                                             </div>
                                         </div>

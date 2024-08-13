@@ -10,7 +10,7 @@ export default function EditDealInfo({
 } : {
     deal: DealType
 }){
-    const {amount, token, purchasePrice, date} = deal;
+    const {amount, token, purchasePrice, date, owner} = deal;
     const [dealDate, setDealDate] = useState<DealType["date"]>();
     useEffect(() => {
         setDealDate(date);
@@ -34,7 +34,7 @@ export default function EditDealInfo({
                     </InfoRow>
                     <InfoRow>
                         <span>You’ll Receive</span>
-                        <span>{amount} {token}</span>
+                        <span>{fixedNumber(amount, false, 4)} {token}</span>
                     </InfoRow>
                     <InfoRow>
                         <span>Claim Date</span>
@@ -42,14 +42,14 @@ export default function EditDealInfo({
                     </InfoRow>
                     <InfoRow>
                         <span>Discount</span>
-                        <span className="brand">{fixedNumber(amount - purchasePrice)} $</span>
+                        <span className="brand">{fixedNumber(amount - purchasePrice, false, 2)} $</span>
                     </InfoRow>
                     <InfoRow>
                         <span>Fixed Profit</span>
-                        <span className="brand">{fixedNumber(amount - purchasePrice)} {token}</span>
+                        <span className="brand">{fixedNumber(amount - purchasePrice, false, 2)} {token}</span>
                     </InfoRow>
-                    <DefaultButton $fullWidth $disabled style={{padding: '18px', marginTop: '25px'}}>
-                        Claim {amount} {token}
+                    <DefaultButton $fullWidth $disabled={Date.now() < date.maturity} style={{padding: '18px', marginTop: '25px'}}>
+                        Claim {fixedNumber(amount, false, 4)} {token}
                     </DefaultButton>
                 </OfferContent>
             </OfferContainer>

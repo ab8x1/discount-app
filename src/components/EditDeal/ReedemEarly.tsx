@@ -1,6 +1,6 @@
 import { OfferContainer, InfoContent, InfoRow, PopUpBackground, PopUpContainer } from "../Offer/DetailsStyles";
 import { DefaultButton } from "../Navbar/NavbarStyles";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import OnClickOutside from "@/hooks/useClickOutside";
 import { DealType } from "@/types/deal";
 import fixedNumber from "@/helpers/fixedNumber";
@@ -8,6 +8,11 @@ import { reedemValue, RefreshValue } from "@/helpers/calculateProfits";
 import { reedemEarly } from "./helpers/editDealHelpers";
 import ReedemConfirmation from './ReedemConfirmation';
 import useUser from "@/hooks/useUser";
+import { Contract, formatEther, parseEther, parseUnits } from "ethers";
+import { discountContractAddress } from "@/consts/globalConsts";
+import {defaultProvider} from "@/hooks/useUser";
+import DISCOUNTV1_ABI from "@/artifacts/contracts/DiscountV1.sol/DiscountV1.json"
+const discountV1ABI = DISCOUNTV1_ABI.abi;
 
 export default function ReedemEarly({
     deal,
@@ -15,18 +20,33 @@ export default function ReedemEarly({
     deal: DealType,
 }){
     const user = useUser();
+    const [estimatedReedem, setEstimatedReedem] = useState(0);
     const [stage, setStage] = useState<null | "confirmation" | {
         reedem: number,
         amount: number
     }>(null);
     const ref: any = useRef();
     OnClickOutside(ref, () => setStage(null));
-    const calcActualVal = () => reedemValue(deal);
-    const fee = fixedNumber(0.001 * deal.purchasePrice, false, 2, true) as number;
+
+    useEffect(() => {
+        const getReedemEarlyPreview = async() => {
+            const discountContract = new Contract(discountContractAddress, discountV1ABI, defaultProvider);
+            const previewClaimEarlyAmount = await discountContract.previewClaimPTEarly(
+                "0x080732d65987C5D5F9Aaa72999d7B0e02713aE72", //curve pool
+                1, //i / inputTokenIndex
+                0, //j / outputTokenIndex
+                BigInt(deal.amountBigIntStringified)
+            );
+            setEstimatedReedem(Number(formatEther(previewClaimEarlyAmount)))
+        }
+        getReedemEarlyPreview();
+    }, [])
+
+
     const reedem = () => {
-        const reedemVal = reedemEarly(deal, fee, user?.address);
-        setStage(reedemVal);
+
     }
+
     return(
         <>
             <OfferContainer>
@@ -35,10 +55,7 @@ export default function ReedemEarly({
                     <InfoRow style={{margin: '15px 0'}}>
                         <span>Estimated Value</span>
                         <span style={{color: '#7F56D9'}}>
-                            <RefreshValue
-                                updateFunction={calcActualVal}
-                                roundTo={8}
-                            />
+                            {fixedNumber(estimatedReedem, false, 4)}
                             <span style={{marginLeft: '5px'}}>
                                 {deal.token}
                             </span>
@@ -57,25 +74,19 @@ export default function ReedemEarly({
                         <InfoRow>
                             <span>Estimated Value</span>
                             <span>
-                                <RefreshValue
-                                    updateFunction={calcActualVal}
-                                    roundTo={8}
-                                />
+                                {fixedNumber(estimatedReedem, false, 4)}
                                <span style={{marginLeft: '5px'}}>{deal.token}</span>
                             </span>
                         </InfoRow>
                         <InfoRow>
                             <span>Platform Fee (0.1%)</span>
-                            <span>{fee} {deal.token}</span>
+                            {/* <span>{fee} {deal.token}</span> */}
                         </InfoRow>
                         <InfoRow>
                             <span>Minimum Received</span>
                             <div>
                                 <span className="brand">
-                                    <RefreshValue
-                                        updateFunction={() => calcActualVal() - fee}
-                                        roundTo={8}
-                                    />
+
                                     <span style={{marginLeft: '5px'}}>{deal.token}</span>
                                 </span>
                             </div>
