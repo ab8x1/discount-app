@@ -9,6 +9,7 @@ import { reedemEarly } from "./helpers/editDealHelpers";
 import ReedemConfirmation from './ReedemConfirmation';
 import useUser from "@/hooks/useUser";
 import { Contract, formatEther, parseEther, parseUnits } from "ethers";
+import LoadingValue from "../LoadingValue";
 import { discountContractAddress } from "@/consts/globalConsts";
 import {defaultProvider} from "@/hooks/useUser";
 import DISCOUNTV1_ABI from "@/artifacts/contracts/DiscountV1.sol/DiscountV1.json"
@@ -20,7 +21,7 @@ export default function ReedemEarly({
     deal: DealType,
 }){
     const user = useUser();
-    const [estimatedReedem, setEstimatedReedem] = useState(0);
+    const [estimatedReedem, setEstimatedReedem] = useState<number>();
     const [stage, setStage] = useState<null | "confirmation" | {
         reedem: number,
         amount: number
@@ -54,12 +55,20 @@ export default function ReedemEarly({
                     <h3>Claim Early</h3>
                     <InfoRow style={{margin: '15px 0'}}>
                         <span>Estimated Value</span>
-                        <span style={{color: '#7F56D9'}}>
-                            {fixedNumber(estimatedReedem, false, 4)}
+                        <div className="alignY" style={{color: '#7F56D9'}}>
+                            {
+                                <LoadingValue
+                                    isLoading={!estimatedReedem}
+                                    value={fixedNumber(estimatedReedem || 1, false, 4)}
+                                    loaderColor="#7F56D9"
+                                    loaderWidth={15}
+                                    loaderHeight={15}
+                                />
+                            }
                             <span style={{marginLeft: '5px'}}>
                                 {deal.token}
                             </span>
-                        </span>
+                        </div>
                     </InfoRow>
                     <DefaultButton $bg="#7F56D9" $bgHover="#8965d8" $fullWidth style={{padding: '18px 0'}} onClick={() => setStage("confirmation")}>
                         Claim Early
@@ -74,7 +83,12 @@ export default function ReedemEarly({
                         <InfoRow>
                             <span>Estimated Value</span>
                             <span>
-                                {fixedNumber(estimatedReedem, false, 4)}
+                                <LoadingValue
+                                    isLoading={!estimatedReedem}
+                                    value={fixedNumber(estimatedReedem || 1, false, 4)}
+                                    loaderColor="#7F56D9"
+                                    loaderWidth={5}
+                                />
                                <span style={{marginLeft: '5px'}}>{deal.token}</span>
                             </span>
                         </InfoRow>
