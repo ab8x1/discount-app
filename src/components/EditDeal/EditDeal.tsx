@@ -30,6 +30,7 @@ export default function EditDeal({
                             amount={deal.purchasePrice}
                             dealDetails={{
                                 token: 'USDT',
+                                offerId: deal.offerId,
                                 discount: 0,
                                 reedem: deal.amount,
                                 earn: deal.amount - deal.purchasePrice,
