@@ -36,8 +36,7 @@ export default async function previewDiscountedAsset(offerInfo: OfferType, amoun
                 IBTindexInCurvePool,
                 PTindexInCurvePool
             );
-            const previewResultNormalized = alignSpotPriceDecimals(previewResult, Number(underlyingDecimals) + 27 - Number(ptDecimals), Number(ptDecimals));
-            const userWillGet = amount * Number(formatUnits(previewResultNormalized, "ether"));
+            const userWillGet = Number(formatUnits(previewResult, "ether"));
 
             res({userWillGet, passedAmount: amount})
         }

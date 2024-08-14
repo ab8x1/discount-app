@@ -36,8 +36,8 @@ export default function ReedemEarly({
             const discountContract = new Contract(discountContractAddress, discountV1ABI, defaultProvider);
             const previewClaimEarlyAmount = await discountContract.previewClaimPTEarly(
                 offerData.curvePool, //curve pool
-                1, //i / inputTokenIndex
-                0, //j / outputTokenIndex
+                offerData.PTindexInCurvePool, //i / inputTokenIndex
+                offerData.IBTindexInCurvePool, //j / outputTokenIndex
                 BigInt(deal.amountBigIntStringified)
             );
             setEstimatedReedem(Number(formatEther(previewClaimEarlyAmount)))
@@ -96,7 +96,7 @@ export default function ReedemEarly({
                         </InfoRow>
                         <InfoRow>
                             <span>Platform Fee</span>
-                            <span>0.9%</span>
+                            <span>0.0%</span>
                         </InfoRow>
                         <InfoRow>
                             <span>Minimum Received</span>
