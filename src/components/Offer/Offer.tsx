@@ -14,13 +14,14 @@ export default function Offer({
 } : {
     offerData: OfferType
 }){
-    const {date, token, chainHexId} = offerData;
+    const {date, token, chainHexId, id} = offerData;
     const [amount, setAmount] = useState<number>(1);
     const [discountedAsset, setDiscountedAsset] = useState<number | null>(null);
     const [stage, setStage] = useState<Stage>("buy");
     const discount = discountedAsset ? ((discountedAsset - amount) / discountedAsset) * 100 : null;
     const profit = discountedAsset ? discountedAsset - amount : null;
     const dealDetails : DealDetailsType = {
+        offerId: id,
         discount,
         reedem: discountedAsset,
         earn: profit,

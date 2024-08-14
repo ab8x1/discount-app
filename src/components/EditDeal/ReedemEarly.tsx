@@ -12,7 +12,9 @@ import { Contract, formatEther, parseEther, parseUnits } from "ethers";
 import LoadingValue from "../LoadingValue";
 import { discountContractAddress } from "@/consts/globalConsts";
 import {defaultProvider} from "@/hooks/useUser";
+import { exampleOffers } from "@/consts/exampleDeals";
 import DISCOUNTV1_ABI from "@/artifacts/contracts/DiscountV1.sol/DiscountV1.json"
+import { OfferType } from "@/types/offer";
 const discountV1ABI = DISCOUNTV1_ABI.abi;
 
 export default function ReedemEarly({
@@ -20,7 +22,7 @@ export default function ReedemEarly({
 } : {
     deal: DealType,
 }){
-    const user = useUser();
+    const offerData = exampleOffers.find(offer => offer.id === deal.offerId) as OfferType;
     const [estimatedReedem, setEstimatedReedem] = useState<number>();
     const [stage, setStage] = useState<null | "confirmation" | {
         reedem: number,
@@ -33,7 +35,7 @@ export default function ReedemEarly({
         const getReedemEarlyPreview = async() => {
             const discountContract = new Contract(discountContractAddress, discountV1ABI, defaultProvider);
             const previewClaimEarlyAmount = await discountContract.previewClaimPTEarly(
-                "0x080732d65987C5D5F9Aaa72999d7B0e02713aE72", //curve pool
+                offerData.curvePool, //curve pool
                 1, //i / inputTokenIndex
                 0, //j / outputTokenIndex
                 BigInt(deal.amountBigIntStringified)
@@ -93,14 +95,14 @@ export default function ReedemEarly({
                             </span>
                         </InfoRow>
                         <InfoRow>
-                            <span>Platform Fee (0.1%)</span>
-                            {/* <span>{fee} {deal.token}</span> */}
+                            <span>Platform Fee</span>
+                            <span>0.9%</span>
                         </InfoRow>
                         <InfoRow>
                             <span>Minimum Received</span>
                             <div>
                                 <span className="brand">
-
+                                    {estimatedReedem && fixedNumber(estimatedReedem, false, 4)}
                                     <span style={{marginLeft: '5px'}}>{deal.token}</span>
                                 </span>
                             </div>

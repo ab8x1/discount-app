@@ -14,13 +14,13 @@ const eRC20Abi = ERC20_ABI.abi;
 const ptAbi = PT_ABI.abi;
 const discountV1ABI = DISCOUNTV1_ABI.abi;
 
-export default async function previewDiscountedAsset(dealInfo: OfferType, amount: number): Promise<{
+export default async function previewDiscountedAsset(offerInfo: OfferType, amount: number): Promise<{
     userWillGet: number | null,
     passedAmount: number
 }>{
     return new Promise (async (res, rej) => {
         try{
-            const {curvePool, IBTindexInCurvePool, PTindexInCurvePool} = dealInfo;
+            const {curvePool, IBTindexInCurvePool, PTindexInCurvePool} = offerInfo;
             const curvePoolContract = new Contract(curvePool, curvePoolAbi, defaultProvider);
             const ptAddress = await curvePoolContract.coins(PTindexInCurvePool);
             const ptContract = new Contract(ptAddress, ptAbi, defaultProvider);

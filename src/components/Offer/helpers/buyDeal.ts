@@ -43,10 +43,11 @@ export default async function buyDeal(
             const decodedAmount = getBigInt(log.data);
             const realReedem = Number(formatEther(decodedAmount));
 
-            const {date, discount, earn, reedem, roi, token} = dealDetails;
+            const {date, discount, offerId, token} = dealDetails;
             const newId = uuidv4();
             const newDeal: DealType = {
                 id: newId,
+                offerId,
                 owner: address,
                 amountBigIntStringified: decodedAmount.toString(),
                 amount: realReedem,

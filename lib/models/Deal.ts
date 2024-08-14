@@ -2,6 +2,7 @@ import {Document, Schema, models, model} from "mongoose";
 
 export interface Deals extends Document {
     id: string,
+    offerId: string,
     owner: string,
     token: string,
     amountBigIntStringified: string,
@@ -17,6 +18,7 @@ export interface Deals extends Document {
 
 const DealSchema = new Schema<Deals>({
     id: { type: String, required: true },
+    offerId: { type: String, required: true },
     owner: { type: String, required: true },
     token: { type: String, required: true },
     amountBigIntStringified: { type: String, required: true },
