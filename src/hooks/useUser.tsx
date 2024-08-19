@@ -1,12 +1,16 @@
 'use client'
 import { createContext, useContext, FC, ReactNode, useEffect, useState } from 'react';
 import { useConnectWallet, useSetChain } from "@web3-onboard/react"
-import { BrowserProvider, JsonRpcSigner, JsonRpcProvider } from 'ethers';
+import { BrowserProvider, JsonRpcSigner, JsonRpcProvider, Contract } from 'ethers';
+import { discountContractAddress } from '@/consts/globalConsts';
+import DISCOUNTV1_ABI from "@/artifacts/contracts/DiscountV1.sol/DiscountV1.json"
+const discountV1ABI = DISCOUNTV1_ABI.abi;
 
 export type UserType = {
   address: string,
   provider: BrowserProvider,
-  signer: JsonRpcSigner
+  signer: JsonRpcSigner,
+  discountContract: Contract
 }
 
 export const defaultProvider = new JsonRpcProvider(process.env.NEXT_PUBLIC_SEPOLIA_RPC);
@@ -24,11 +28,13 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
       const getUserData = async() => {
         if(wallet){
           const ethersProvider = new BrowserProvider(wallet.provider, 'any');
-          const signer = await ethersProvider.getSigner()
+          const signer = await ethersProvider.getSigner();
+          const discountContract = new Contract(discountContractAddress, discountV1ABI, signer);
           setUser({
             address: wallet.accounts[0].address,
             provider: ethersProvider,
-            signer
+            signer,
+            discountContract
           })
         }
         else

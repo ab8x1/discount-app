@@ -15,7 +15,7 @@ export default function reedemEarlyPreview(offerData: OfferType, amount: BigInt)
                 offerData.IBTindexInCurvePool, //j / outputTokenIndex
                 amount
             );
-            const claimEarlyAmount = Number(formatEther(previewClaimEarlyAmount));
+            const claimEarlyAmount = Number(formatEther(previewClaimEarlyAmount)) * 0.999;
             res(claimEarlyAmount);
         }
         catch(e){

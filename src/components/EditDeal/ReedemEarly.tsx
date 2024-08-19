@@ -7,14 +7,18 @@ import fixedNumber from "@/helpers/fixedNumber";
 import ReedemConfirmation from './ReedemConfirmation';
 import LoadingValue from "../LoadingValue";
 import { exampleOffers } from "@/consts/exampleDeals";
-import DISCOUNTV1_ABI from "@/artifacts/contracts/DiscountV1.sol/DiscountV1.json"
 import { OfferType } from "@/types/offer";
 import reedemEarlyPreview from "@/helpers/reedemEarlyPreview";
+import { UserType } from "@/hooks/useUser";
+import reedemOrClaimEarly from "@/helpers/reedemOrCalimEarly";
+
 
 export default function ReedemEarly({
     deal,
+    user
 } : {
     deal: DealType,
+    user: UserType
 }){
     const offerData = exampleOffers.find(offer => offer.id === deal.offerId) as OfferType;
     const [estimatedReedem, setEstimatedReedem] = useState<number>();
@@ -34,8 +38,15 @@ export default function ReedemEarly({
     }, [])
 
 
-    const reedem = () => {
-
+    const reedem = async () => {
+        if(user && estimatedReedem){
+            try{
+                const success = await reedemOrClaimEarly(user, offerData, deal, estimatedReedem);
+            }
+            catch(e){
+                console.log(e);
+            }
+        }
     }
 
     return(

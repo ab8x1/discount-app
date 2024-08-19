@@ -45,7 +45,7 @@ export default function EditDeal({
                             token={deal.token}
                         />
                     </ReversedMobileOrder>
-                    <ReedemEarly deal={deal}/>
+                    <ReedemEarly deal={deal} user={user}/>
                 </OfferDetailsGrid>
                 : <h1 style={{marginTop: "50px"}}>Deal not found</h1>
             }
