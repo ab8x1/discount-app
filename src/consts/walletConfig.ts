@@ -17,6 +17,12 @@ export const walletConfig = {
       token: 'ETH',
       label: 'Sepolia',
       rpcUrl: process.env.NEXT_PUBLIC_SEPOLIA_RPC
+    },
+    {
+      id: '0xA4B1',
+      token: 'ETH',
+      label: 'Arbitrum One',
+      rpcUrl: process.env.NEXT_PUBLIC_ARBITRUM_RPC
     }
   ],
   appMetadata: {

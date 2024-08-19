@@ -14,6 +14,7 @@ export type OfferType = {
         end: number
     },
     ptAddress: string,
+    underlyingTokenAddress: string,
     chainHexId: string,
     curvePool: string,
     IBTindexInCurvePool: 0 | 1,

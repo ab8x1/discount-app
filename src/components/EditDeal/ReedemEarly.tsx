@@ -10,7 +10,7 @@ import { exampleOffers } from "@/consts/exampleDeals";
 import { OfferType } from "@/types/offer";
 import reedemEarlyPreview from "@/helpers/reedemEarlyPreview";
 import { UserType } from "@/hooks/useUser";
-import reedemOrClaimEarly from "@/helpers/reedemOrCalimEarly";
+import reedemOrClaimEarly from "@/helpers/reedemOrClaimEarly";
 
 
 export default function ReedemEarly({

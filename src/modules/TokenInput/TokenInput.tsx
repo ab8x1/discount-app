@@ -1,18 +1,19 @@
-import { useState, Dispatch, SetStateAction, useRef } from "react";
-import {Input, InputContainer, InputLabel, InputLayout, InputToken} from './TokenInputStyles';
+import { useState } from "react";
+import {Input, InputContainer, InputLabel, InputLayout, InputToken, TokenBlance} from './TokenInputStyles';
 import Image from "next/image";
 
 export default function TokenInput({
     onChange,
     defaultValue,
     action,
-    token
-
+    token,
+    userTokenBalance
 } : {
     onChange: (amount: number) => void,
     defaultValue: number,
     action: () => void,
-    token: string
+    token: string,
+    userTokenBalance: number
 }){
     const [userQuery, setUserQuery] = useState(defaultValue ? defaultValue.toString() : "");
 
@@ -38,6 +39,11 @@ export default function TokenInput({
         }
     }
 
+    const setMaxBalance = () => {
+        setUserQuery(userTokenBalance.toString().replace(',', '.'));
+        onChange(userTokenBalance);
+    }
+
     return(
         <InputContainer>
             <InputLabel>I want to spend</InputLabel>
@@ -54,6 +60,7 @@ export default function TokenInput({
                     {token}
                 </InputToken>
             </InputLayout>
+            <TokenBlance onClick={setMaxBalance}>MAX: {userTokenBalance}</TokenBlance>
         </InputContainer>
     )
 }

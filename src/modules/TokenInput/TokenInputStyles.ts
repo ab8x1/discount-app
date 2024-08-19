@@ -48,3 +48,11 @@ export const InputToken = styled.span`
         padding: 10px 0;
     }
 `
+
+export const TokenBlance = styled.span`
+    font-size: 0.7rem;
+    color: #757575;
+    padding-left: 5px;
+    cursor: pointer;
+    text-decoration: underline;
+`

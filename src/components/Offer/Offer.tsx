@@ -62,7 +62,7 @@ export default function Offer({
             <OfferGrid $summary={stage==='confirm'}>
                 <BackButton/>
                 <OfferDetailsGrid $summary={stage==='confirm'}>
-                    <OfferDetails setAmount={changeAmount} dealDetails={dealDetails} stage={stage} amount={amount} setStage={setStage}/>
+                    <OfferDetails setAmount={changeAmount} dealDetails={dealDetails} stage={stage} amount={amount} setStage={setStage} offerData={offerData}/>
                     { stage === 'confirm' &&
                         <div>
                             <OfferDetailsProgress amount={amount} dealDetails={dealDetails} step="buy" token={token}/>

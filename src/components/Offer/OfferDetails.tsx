@@ -2,7 +2,7 @@
 import { OfferContainer, OfferHeader, Token, TokenContainer, TokenImg, DiscountValue, OfferContent, InfoRow, StageButton, Profit } from "./DetailsStyles"
 import Image from "next/image"
 import { useConnectWallet, useSetChain } from "@web3-onboard/react";
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from "@/helpers/fixedNumber";
 import TokenInput from "@/modules/TokenInput"
@@ -12,6 +12,8 @@ import buyDeal from "./helpers/buyDeal";
 import { DefaultButton } from "../Navbar/NavbarStyles";
 import useUser from "@/hooks/useUser";
 import LoadingValue from "../LoadingValue";
+import erc20TokenBalance from "@/helpers/erc20TokenBalance";
+import { OfferType } from "@/types/offer";
 
 type ConfirmationData = {
     id: string,
@@ -23,13 +25,15 @@ export default function DealDetails({
     dealDetails,
     stage,
     amount,
-    setStage
+    setStage,
+    offerData
 } : {
     setAmount: (amount: number) => void,
     dealDetails: DealDetailsType,
     stage: Stage,
     amount: number,
     setStage: Dispatch<SetStateAction<Stage>>,
+    offerData: OfferType
 }){
     const user = useUser();
     const [{ connectedChain }, setChain] = useSetChain();
@@ -37,7 +41,21 @@ export default function DealDetails({
     const [{ wallet }, connect] = useConnectWallet();
     const [confirmationData, setConfirmationData] = useState<ConfirmationData | null>(null);
     const [loading, setLoading] = useState(false);
+    const [userTokenBalance, setUserTokenBalance] = useState(0);
     const confirmStage = stage === 'confirm';
+
+    useEffect(() => {
+        const getUserBalance = async () => {
+            if (user) {
+                const balance = await erc20TokenBalance(user, offerData.underlyingTokenAddress);
+                if (balance !== null) {
+                    setUserTokenBalance(balance);
+                }
+            }
+        }
+        getUserBalance();
+    }, [user])
+
     const action = async () => {
         if(confirmStage){
             try{
@@ -108,6 +126,7 @@ export default function DealDetails({
                             onChange={setAmount}
                             action={action}
                             token={token}
+                            userTokenBalance={userTokenBalance}
                         />
                     }
                     {
