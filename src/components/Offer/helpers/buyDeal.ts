@@ -6,6 +6,8 @@ import { discountContractAddress } from "@/consts/globalConsts";
 import { DealType } from "@/types/deal";
 import { DealDetailsType } from "../DetailsTypes";
 import { v4 as uuidv4 } from 'uuid';
+import { exampleOffers } from "@/consts/exampleDeals";
+import { OfferType } from "@/types/offer";
 
 const erc20Abi = ERC20ABI.abi;
 const discountV1ABI = DISCOUNTV1_ABI.abi;
@@ -19,6 +21,8 @@ export default async function buyDeal(
     return new Promise<{status: "success" | "error", message: string, newOfferId: string, realReedem: number}> (async (res, rej) => {
         try{
             const { signer, address } = user;
+            const {date, discount, offerId, token} = dealDetails;
+            const offerData = exampleOffers.find(offer => offer.id === offerId) as OfferType;
             const parsedAmount = parseUnits(amount.toString(), "ether");
 
             const underlyingERC20Contract = new Contract(underlyingToken, erc20Abi, signer);
@@ -28,7 +32,7 @@ export default async function buyDeal(
 
             const tx = await discountContract.buyDiscountedAsset(
                 parsedAmount,
-                "0x080732d65987C5D5F9Aaa72999d7B0e02713aE72",
+                offerData.curvePool,
                 0,
                 1
             );
@@ -36,14 +40,13 @@ export default async function buyDeal(
             const paddedSenderAddress = zeroPadValue(address, 32);
             const logs = receipt.logs.filter((log: any) =>
                 //what the user receivs:
-                log.address.toLowerCase() ===  "0x15d5b6B2ed96a8926872aa742Ef658b15B3C7951".toLowerCase() && //PT
+                log.address.toLowerCase() ===  offerData.ptAddress.toLowerCase() && //PT
                 log.topics[2] === paddedSenderAddress //to owner
             );
             const log = logs[0];
             const decodedAmount = getBigInt(log.data);
             const realReedem = Number(formatEther(decodedAmount));
 
-            const {date, discount, offerId, token} = dealDetails;
             const newId = uuidv4();
             const newDeal: DealType = {
                 id: newId,

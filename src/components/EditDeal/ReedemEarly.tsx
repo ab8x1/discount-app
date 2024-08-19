@@ -4,18 +4,12 @@ import { useState, useRef, useEffect } from "react";
 import OnClickOutside from "@/hooks/useClickOutside";
 import { DealType } from "@/types/deal";
 import fixedNumber from "@/helpers/fixedNumber";
-import { reedemValue, RefreshValue } from "@/helpers/calculateProfits";
-import { reedemEarly } from "./helpers/editDealHelpers";
 import ReedemConfirmation from './ReedemConfirmation';
-import useUser from "@/hooks/useUser";
-import { Contract, formatEther, parseEther, parseUnits } from "ethers";
 import LoadingValue from "../LoadingValue";
-import { discountContractAddress } from "@/consts/globalConsts";
-import {defaultProvider} from "@/hooks/useUser";
 import { exampleOffers } from "@/consts/exampleDeals";
 import DISCOUNTV1_ABI from "@/artifacts/contracts/DiscountV1.sol/DiscountV1.json"
 import { OfferType } from "@/types/offer";
-const discountV1ABI = DISCOUNTV1_ABI.abi;
+import reedemEarlyPreview from "@/helpers/reedemEarlyPreview";
 
 export default function ReedemEarly({
     deal,
@@ -33,14 +27,8 @@ export default function ReedemEarly({
 
     useEffect(() => {
         const getReedemEarlyPreview = async() => {
-            const discountContract = new Contract(discountContractAddress, discountV1ABI, defaultProvider);
-            const previewClaimEarlyAmount = await discountContract.previewClaimPTEarly(
-                offerData.curvePool, //curve pool
-                offerData.PTindexInCurvePool, //i / inputTokenIndex
-                offerData.IBTindexInCurvePool, //j / outputTokenIndex
-                BigInt(deal.amountBigIntStringified)
-            );
-            setEstimatedReedem(Number(formatEther(previewClaimEarlyAmount)))
+            const reedemPreview = await reedemEarlyPreview(offerData, BigInt(deal.amountBigIntStringified));
+            setEstimatedReedem(reedemPreview);
         }
         getReedemEarlyPreview();
     }, [])

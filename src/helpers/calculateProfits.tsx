@@ -2,6 +2,14 @@
 import { useEffect, useState } from "react";
 import { DealType } from "@/types/deal";
 import fixedNumber from "./fixedNumber";
+import reedemEarlyPreview from "./reedemEarlyPreview";
+import { exampleOffers } from "@/consts/exampleDeals";
+
+type offersAmounts = {
+    [offerId: string]: {
+        amount: bigint
+    }
+}
 
 function getDealSpecification(deal: DealType){
     return{
@@ -10,6 +18,34 @@ function getDealSpecification(deal: DealType){
         start: deal.date.purchasedAt,
         end: deal.date.maturity
     }
+}
+
+export async function getTotalBalance(deals: DealType[]){
+    return new Promise<number>(async (res) => {
+        try{
+            const offersAmounts = deals.reduce((acc: offersAmounts, deal) => ({
+                ...acc,
+                [deal.offerId]: {
+                    amount: (acc[deal.offerId]?.amount || BigInt(0)) + BigInt(deal.amountBigIntStringified)
+                }
+            }), {});
+            let amount = 0;
+            const dealsOfferIds = Object.keys(offersAmounts);
+            for (const dealOfferId of dealsOfferIds){
+                const offerData = exampleOffers.find(offer => offer.id === dealOfferId);
+                if(offerData){
+                    const reedemPreview = await reedemEarlyPreview(offerData, offersAmounts[dealOfferId]?.amount);
+                    amount += reedemPreview;
+                }
+            }
+            res(amount)
+        }
+        catch(e){
+            console.log("Error in getTotalBalance helper function");
+            console.log(e);
+            res(0);
+        }
+    })
 }
 
 //actual profit of the deal

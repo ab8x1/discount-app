@@ -145,6 +145,10 @@ export default function DealDetails({
                                 <span>Fixed Profit</span>
                                 <span className="brand">{fixedNumber(earn || 0, false, 2)} {token}</span>
                             </InfoRow>
+                            <InfoRow $borderTop>
+                                <span>Platform Fee (incl.)</span>
+                                <span>{fixedNumber(amount * 0.009, false, 2)} {token}</span>
+                            </InfoRow>
                         </>
                         :
                         <>

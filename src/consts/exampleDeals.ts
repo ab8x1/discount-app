@@ -14,6 +14,7 @@ export const exampleOffers: OfferType[] = [
             start: 1712527200000,
             end: 1728338400000
         },
+        ptAddress: "0x15d5b6B2ed96a8926872aa742Ef658b15B3C7951",
         chainHexId: "0xaa36a7",
         curvePool: "0x080732d65987C5D5F9Aaa72999d7B0e02713aE72",
         IBTindexInCurvePool: 0,

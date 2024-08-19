@@ -16,7 +16,6 @@ export default function ThinDeal({dealInfo} : {
         id,
         token,
         background,
-        progressColor,
         isEnabled,
         date
     } = dealInfo
@@ -62,13 +61,6 @@ export default function ThinDeal({dealInfo} : {
                 <span>Claim Date</span>
                 <span>{clientMaturityDate ? timestampToDate(clientMaturityDate) : null}</span>
             </p>
-            <span className={styles.progressBar} style={{background: progressColor.background}}>
-                <span
-                    className={styles.line}
-                    style={{width: `${(Date.now() - date.start)/(date.end - date.start)*100}%`,
-                    background: progressColor.line}}
-                />
-            </span>
             <div className={`alignY boxButton ${!isEnabled && 'disabledButton'}`}>
                 {
                     isEnabled

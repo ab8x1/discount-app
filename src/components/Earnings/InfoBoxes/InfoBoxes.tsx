@@ -1,8 +1,8 @@
-import { memo } from 'react'
+import { memo, useState, useEffect } from 'react'
 import styles from './infoBoxStyles.module.css'
 import InfoBox from './InfoBox'
 import { DealType } from '@/types/deal'
-import {activeDailyProfit, fixedProfit, actualProfitValue} from '@/helpers/calculateProfits'
+import {activeDailyProfit, fixedProfit, getTotalBalance} from '@/helpers/calculateProfits'
 import fixedNumber from '@/helpers/fixedNumber'
 import { RefreshValue } from '@/helpers/calculateProfits'
 
@@ -11,25 +11,23 @@ export default memo(function InfoBoxes({
 } : {
     deals: DealType[],
 }){
+    const [totalBalnce, setTotalBalance] = useState(0);
+    useEffect(() => {
+        const getBalance = async () => {
+            const balance = await getTotalBalance(deals);
+            setTotalBalance(balance)
+        }
+        getBalance();
+    }, [deals])
     return(
         <div id={styles.grid}>
             <InfoBox
                 icon='coins-hand'
                 iconBg="#1BE080"
-                title='Live Earnings'
+                title='Total Balance'
                 value={
                     deals?.length > 0 ?
-                    <>
-                        $
-                        <RefreshValue
-                            updateFunction={() =>
-                                deals?.reduce(
-                                    (acc, deal) => acc + actualProfitValue(deal)
-                                , 0)
-                            }
-                            roundTo={8}
-                        />
-                    </>
+                    `$${fixedNumber(totalBalnce, false, 2)}`
                     : '$0'
                 }
             />

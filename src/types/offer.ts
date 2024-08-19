@@ -13,6 +13,7 @@ export type OfferType = {
         start: number,
         end: number
     },
+    ptAddress: string,
     chainHexId: string,
     curvePool: string,
     IBTindexInCurvePool: 0 | 1,

@@ -112,12 +112,15 @@ export const InfoContent = styled.div`
     color: #475467;
 `
 
-export const InfoRow = styled.div`
+export const InfoRow = styled.div<{$borderTop?: boolean}>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 25px;
+    padding: 12px 0;
     margin: 0;
+    ${({$borderTop}) => $borderTop && `
+        border-top: 1px solid #EBEBEB;
+    `}
     &:first-of-type{
         padding-top: 0;
     }
