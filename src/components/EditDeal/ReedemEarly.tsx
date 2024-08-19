@@ -22,9 +22,9 @@ export default function ReedemEarly({
 }){
     const offerData = exampleOffers.find(offer => offer.id === deal.offerId) as OfferType;
     const [estimatedReedem, setEstimatedReedem] = useState<number>();
+    const [loading, setLoading] = useState(false);
     const [stage, setStage] = useState<null | "confirmation" | {
         reedem: number,
-        amount: number
     }>(null);
     const ref: any = useRef();
     OnClickOutside(ref, () => setStage(null));
@@ -40,12 +40,15 @@ export default function ReedemEarly({
 
     const reedem = async () => {
         if(user && estimatedReedem){
+            setLoading(true);
             try{
-                const success = await reedemOrClaimEarly(user, offerData, deal, estimatedReedem);
+                const reedem = await reedemOrClaimEarly(user, offerData, deal, estimatedReedem);
+                setStage({reedem})
             }
             catch(e){
                 console.log(e);
             }
+            setLoading(false);
         }
     }
 
@@ -71,8 +74,15 @@ export default function ReedemEarly({
                             </span>
                         </div>
                     </InfoRow>
-                    <DefaultButton $bg="#7F56D9" $bgHover="#8965d8" $fullWidth style={{padding: '18px 0'}} onClick={() => setStage("confirmation")}>
+                    <DefaultButton $bg="#7F56D9" $bgHover="#8965d8" $fullWidth style={{padding: '18px 0'}} onClick={() => setStage("confirmation")} $disabled={loading}>
                         Claim Early
+                        <LoadingValue
+                            isLoading={loading}
+                            value=""
+                            loaderColor="white"
+                            loaderHeight={10}
+                            loaderWidth={20}
+                        />
                     </DefaultButton>
                 </InfoContent>
             </OfferContainer>
@@ -106,14 +116,20 @@ export default function ReedemEarly({
                                 </span>
                             </div>
                         </InfoRow>
-                        <DefaultButton $bg="#7F56D9" $bgHover="#8965d8" $fullWidth style={{marginTop: '20px'}} onClick={reedem}>
+                        <DefaultButton $bg="#7F56D9" $bgHover="#8965d8" $fullWidth style={{marginTop: '20px'}} onClick={reedem} $disabled={loading}>
                         Redeem Early
+                        <LoadingValue
+                            isLoading={loading}
+                            value=""
+                            loaderColor="white"
+                            loaderHeight={10}
+                            loaderWidth={20}
+                        />
                     </DefaultButton>
                     </PopUpContainer>
                 </PopUpBackground>
                 : stage ?
                 <ReedemConfirmation
-                    type="reedemEarly"
                     {...stage}
                     token={deal.token}
                 />

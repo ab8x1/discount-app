@@ -6,11 +6,9 @@ import Image from 'next/image';
 import fixedNumber from '@/helpers/fixedNumber';
 
 export default function ReedemConfirmation({
-    type,
     reedem,
     token,
 } : {
-    type: "reedemFull" | "reedemEarly",
     reedem: number,
     token: string,
 }){

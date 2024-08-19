@@ -9,7 +9,7 @@ const iERC20ABI = ERC20.abi;
 
 
 export default async function reedemOrClaimEarly(user: UserType, offerData: OfferType, deal: DealType, estimatedReedem: number){
-    return new Promise<boolean>(async (res, rej) => {
+    return new Promise<number>(async (res, rej) => {
         try{
             const ptContract = new Contract(
                 offerData.ptAddress,
@@ -39,15 +39,15 @@ export default async function reedemOrClaimEarly(user: UserType, offerData: Offe
                 }
             });
             if(addToDbStatus){
-                res(true);
+                res(estimatedReedem);
             }
             else {
                 rej("Deal reedem completed but information not saved, please contact our support")
             }
         }
         catch(e){
-            console.log("Error in reedemOrClaimEarly helper function");
-            rej(e)
+            console.log(e);
+            rej("Error in reedemOrClaimEarly helper function")
         }
     })
 }

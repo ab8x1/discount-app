@@ -189,7 +189,7 @@ export const ProgressTitle = styled.h3`
     color: #000;
     margin-bottom: 20px;
 `
-export const StageButton = styled.span`
+export const StageButton = styled.span<{$disabled?: boolean}>`
     width: 60px;
     display: flex;
     justify-content: center;
@@ -200,6 +200,13 @@ export const StageButton = styled.span`
     background: #627EEA;
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     margin-right: 12px;
+    ${({$disabled}) => $disabled && `
+        pointer-events: none;
+        opacity: 0.8;
+        user-select: none;
+        background-color: #dedddc;
+        border: none;
+    `}
     &:hover{
         background: #6f88e8;
     }

@@ -26,8 +26,6 @@ export async function POST(request: NextRequest) {
         }
         else if(data?.updateDeal){
             const {id, updateData} = data.updateDeal;
-            console.log(id);
-            console.log(updateData);
             await Deal.findOneAndUpdate({id}, {$set: {[updateData.parameter]: updateData.value}});
             message = "Deal updated in DB";
         }

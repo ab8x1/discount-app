@@ -4,21 +4,22 @@ import InfoBox from './InfoBox'
 import { DealType } from '@/types/deal'
 import {activeDailyProfit, fixedProfit, getTotalBalance} from '@/helpers/calculateProfits'
 import fixedNumber from '@/helpers/fixedNumber'
-import { RefreshValue } from '@/helpers/calculateProfits'
+import LoadingValue from '@/components/LoadingValue'
 
 export default memo(function InfoBoxes({
     deals
 } : {
     deals: DealType[],
 }){
-    const [totalBalnce, setTotalBalance] = useState(0);
+    const [totalBalnce, setTotalBalance] = useState<number>();
     useEffect(() => {
         const getBalance = async () => {
-            const balance = await getTotalBalance(deals);
-            setTotalBalance(balance)
+            const balance = await getTotalBalance(deals.filter(deal => !deal.date?.redeemedAt));
+            setTotalBalance(balance);
         }
         getBalance();
-    }, [deals])
+    }, [deals]);
+
     return(
         <div id={styles.grid}>
             <InfoBox
@@ -27,7 +28,15 @@ export default memo(function InfoBoxes({
                 title='Total Balance'
                 value={
                     deals?.length > 0 ?
-                    `$${fixedNumber(totalBalnce, false, 2)}`
+                    totalBalnce === undefined ?
+                    <LoadingValue
+                        isLoading={true}
+                        value=""
+                        loaderColor="#1BE080"
+                        loaderHeight={20}
+                        loaderWidth={30}
+                    />
+                    : `$${fixedNumber(totalBalnce, false, 2)}`
                     : '$0'
                 }
             />

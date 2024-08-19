@@ -191,7 +191,7 @@ export default function DealDetails({
                     }
                     <div style={{display: 'flex', marginTop: '20px'}}>
                         {   confirmStage &&
-                            <StageButton onClick={() => setStage("buy")}>
+                            <StageButton onClick={() => setStage("buy")} $disabled={loading}>
                                 <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>
                             </StageButton>
                         }
