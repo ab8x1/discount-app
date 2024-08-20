@@ -16,6 +16,7 @@ export default function TokenInput({
     userTokenBalance: number | null
 }){
     const [userQuery, setUserQuery] = useState(defaultValue ? defaultValue.toString() : "");
+    const amountExceeded = userTokenBalance ? Number(userQuery) > userTokenBalance : false;
 
     const updateAmount = (e: React.KeyboardEvent<HTMLInputElement>) => {
         let {value} = e.target as HTMLInputElement;
@@ -49,7 +50,7 @@ export default function TokenInput({
     return(
         <InputContainer>
             <InputLabel>I want to spend</InputLabel>
-            <InputLayout $exceeded={userTokenBalance ? Number(userQuery) > userTokenBalance : false}>
+            <InputLayout $exceeded={amountExceeded}>
                 <Input
                     type="number"
                     step="0.01"
@@ -63,7 +64,7 @@ export default function TokenInput({
                     {token}
                 </InputToken>
             </InputLayout>
-            <TokenBlance onClick={userTokenBalance ? setMaxBalance : undefined} $exceeded={userTokenBalance ? Number(userQuery) > userTokenBalance : false}>MAX: {userTokenBalance}</TokenBlance>
+            <TokenBlance onClick={userTokenBalance ? setMaxBalance : undefined} $exceeded={amountExceeded}>MAX: {userTokenBalance}</TokenBlance>
         </InputContainer>
     )
 }

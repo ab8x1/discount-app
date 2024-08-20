@@ -11,6 +11,6 @@ export default async function erc20TokenBalance(user: UserType, tokenAddress: st
         return Number(formatEther(balance));
     } catch (e) {
         console.log("Error in erc20TokenBalance function:", e);
-        return null; // Or you could return a default value if appropriate
+        return null;
     }
 }
