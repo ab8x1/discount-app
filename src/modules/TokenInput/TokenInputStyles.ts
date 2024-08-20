@@ -9,7 +9,7 @@ export const InputLabel = styled.label`
     margin-bottom: 10px;
 `
 
-export const InputLayout = styled.div<{$exceeded?: boolean}>`
+export const InputLayout = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -20,12 +20,9 @@ export const InputLayout = styled.div<{$exceeded?: boolean}>`
     border: 1px solid #D0D5DD;;
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     overflow: hidden;
-    ${({$exceeded}) => $exceeded && `
-        border-color: red
-    `}
 `
 
-export const Input = styled.input`
+export const Input = styled.input<{$exceeded?: boolean}>`
     width: 100%;
     font-size: 1.25rem;
     font-weight: 600;
@@ -34,6 +31,9 @@ export const Input = styled.input`
     color: #344054;
     background-color: inherit;
     padding-right: 10px;
+    ${({$exceeded}) => $exceeded && `
+        color: red
+    `}
 `
 
 export const InputToken = styled.span`
@@ -54,11 +54,14 @@ export const InputToken = styled.span`
 
 export const TokenBlance = styled.span<{$exceeded?: boolean}>`
     font-size: 0.7rem;
+    line-height: 0;
     color: #757575;
     padding-left: 5px;
-    cursor: pointer;
-    text-decoration: underline;
     ${({$exceeded}) => $exceeded && `
         color: red
     `}
+`
+export const TokenBlanceButton = styled(TokenBlance)<{$exceeded?: boolean}>`
+    cursor: pointer;
+    text-decoration: underline;
 `

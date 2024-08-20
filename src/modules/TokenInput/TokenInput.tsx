@@ -1,15 +1,17 @@
 import { useState } from "react";
-import {Input, InputContainer, InputLabel, InputLayout, InputToken, TokenBlance} from './TokenInputStyles';
+import {Input, InputContainer, InputLabel, InputLayout, InputToken, TokenBlanceButton, TokenBlance} from './TokenInputStyles';
 import Image from "next/image";
 
 export default function TokenInput({
     onChange,
+    amount,
     defaultValue,
     action,
     token,
     userTokenBalance
 } : {
     onChange: (amount: number) => void,
+    amount: number,
     defaultValue: number,
     action: () => void,
     token: string,
@@ -23,7 +25,7 @@ export default function TokenInput({
         if (/^[0-9]*(\.|,)?[0-9]{0,5}$/.test(value)) {
             setUserQuery(value.replace(',', '.'));
             const numVal = Number(value.replace(',', '.'));
-            if(numVal >= 0) {
+            if(numVal >= 0 && numVal !== amount) {
                 onChange(numVal)
             };
         }
@@ -41,7 +43,7 @@ export default function TokenInput({
     }
 
     const setMaxBalance = () => {
-        if(userTokenBalance){
+        if(userTokenBalance && userTokenBalance !== amount){
             setUserQuery(userTokenBalance.toString().replace(',', '.'));
             onChange(userTokenBalance);
         }
@@ -49,8 +51,16 @@ export default function TokenInput({
 
     return(
         <InputContainer>
-            <InputLabel>I want to spend</InputLabel>
-            <InputLayout $exceeded={amountExceeded}>
+            <InputLabel>
+                I want to spend
+            {
+                amountExceeded &&
+                <TokenBlance $exceeded={true}>
+                    (Insufficient balance)
+                </TokenBlance>
+            }
+            </InputLabel>
+            <InputLayout>
                 <Input
                     type="number"
                     step="0.01"
@@ -58,13 +68,14 @@ export default function TokenInput({
                     value={userQuery}
                     onInput={updateAmount}
                     onKeyDown={keyDownListener}
+                    $exceeded={amountExceeded}
                 />
                 <InputToken>
                     <Image src={`/tokens/${token}.svg`} width={24} height={24} alt="token"/>
                     {token}
                 </InputToken>
             </InputLayout>
-            <TokenBlance onClick={userTokenBalance ? setMaxBalance : undefined} $exceeded={amountExceeded}>MAX: {userTokenBalance}</TokenBlance>
+            <TokenBlanceButton onClick={userTokenBalance ? setMaxBalance : undefined}>MAX: {userTokenBalance}</TokenBlanceButton>
         </InputContainer>
     )
 }

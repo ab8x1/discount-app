@@ -43,6 +43,7 @@ export default function DealDetails({
     const [loading, setLoading] = useState(false);
     const [userTokenBalance, setUserTokenBalance] = useState<number | null>(null);
     const confirmStage = stage === 'confirm';
+    const disableButton = loading || confirmStage && !!wallet && connectedChain?.id === chainHexId && (!amount || !userTokenBalance || userTokenBalance < amount)
 
     useEffect(() => {
         const getUserBalance = async () => {
@@ -51,6 +52,9 @@ export default function DealDetails({
                 if (balance !== null) {
                     setUserTokenBalance(showNumOfDecimals(balance, 2));
                 }
+            }
+            else{
+                setUserTokenBalance(null)
             }
         }
         getUserBalance();
@@ -123,6 +127,7 @@ export default function DealDetails({
                         !confirmStage &&
                         <TokenInput
                             defaultValue={amount}
+                            amount={amount}
                             onChange={setAmount}
                             action={action}
                             token={token}
@@ -214,11 +219,15 @@ export default function DealDetails({
                                 <Image src="/arrow-circle-right.svg" width={24} height={24} alt="coin"/>
                             </StageButton>
                         }
-                        <DefaultButton $disabled={!amount || loading} $fullWidth onClick={action} style={{padding: '18px'}}>
-                            {confirmStage
+                        <DefaultButton $disabled={disableButton} $fullWidth onClick={action} style={{padding: '18px'}}>
+                            {   confirmStage
                                 ? wallet
                                 ? connectedChain?.id === chainHexId
+                                ? userTokenBalance !== null
+                                ? amount <= userTokenBalance
                                 ? `Pay ${amount} ${token}`
+                                : "Insufficient balance"
+                                : "Loading wallet balance"
                                 : "Change Network to Sepolia"
                                 : "Connect Wallet"
                                 : "Continue"
