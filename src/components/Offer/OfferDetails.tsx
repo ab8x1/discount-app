@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import timestampToDate from "@/helpers/timestampToDate";
-import fixedNumber from "@/helpers/fixedNumber";
+import fixedNumber, { showNumOfDecimals } from "@/helpers/fixedNumber";
 import TokenInput from "@/modules/TokenInput"
 import { DealDetailsType, Stage } from "./DetailsTypes"
 import ActionConfirmation from "./ActionConfirmation";
@@ -41,7 +41,7 @@ export default function DealDetails({
     const [{ wallet }, connect] = useConnectWallet();
     const [confirmationData, setConfirmationData] = useState<ConfirmationData | null>(null);
     const [loading, setLoading] = useState(false);
-    const [userTokenBalance, setUserTokenBalance] = useState(0);
+    const [userTokenBalance, setUserTokenBalance] = useState<number | null>(null);
     const confirmStage = stage === 'confirm';
 
     useEffect(() => {
@@ -49,7 +49,7 @@ export default function DealDetails({
             if (user) {
                 const balance = await erc20TokenBalance(user, offerData.underlyingTokenAddress);
                 if (balance !== null) {
-                    setUserTokenBalance(balance);
+                    setUserTokenBalance(showNumOfDecimals(balance, 2));
                 }
             }
         }

@@ -9,7 +9,7 @@ export const InputLabel = styled.label`
     margin-bottom: 10px;
 `
 
-export const InputLayout = styled.div`
+export const InputLayout = styled.div<{$exceeded?: boolean}>`
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -20,6 +20,9 @@ export const InputLayout = styled.div`
     border: 1px solid #D0D5DD;;
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     overflow: hidden;
+    ${({$exceeded}) => $exceeded && `
+        border-color: red
+    `}
 `
 
 export const Input = styled.input`
@@ -49,10 +52,13 @@ export const InputToken = styled.span`
     }
 `
 
-export const TokenBlance = styled.span`
+export const TokenBlance = styled.span<{$exceeded?: boolean}>`
     font-size: 0.7rem;
     color: #757575;
     padding-left: 5px;
     cursor: pointer;
     text-decoration: underline;
+    ${({$exceeded}) => $exceeded && `
+        color: red
+    `}
 `

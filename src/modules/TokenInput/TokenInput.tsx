@@ -13,14 +13,14 @@ export default function TokenInput({
     defaultValue: number,
     action: () => void,
     token: string,
-    userTokenBalance: number
+    userTokenBalance: number | null
 }){
     const [userQuery, setUserQuery] = useState(defaultValue ? defaultValue.toString() : "");
 
     const updateAmount = (e: React.KeyboardEvent<HTMLInputElement>) => {
         let {value} = e.target as HTMLInputElement;
         if (/^[0-9]*(\.|,)?[0-9]{0,5}$/.test(value)) {
-            setUserQuery(value);
+            setUserQuery(value.replace(',', '.'));
             const numVal = Number(value.replace(',', '.'));
             if(numVal >= 0) {
                 onChange(numVal)
@@ -40,17 +40,20 @@ export default function TokenInput({
     }
 
     const setMaxBalance = () => {
-        setUserQuery(userTokenBalance.toString().replace(',', '.'));
-        onChange(userTokenBalance);
+        if(userTokenBalance){
+            setUserQuery(userTokenBalance.toString().replace(',', '.'));
+            onChange(userTokenBalance);
+        }
     }
 
     return(
         <InputContainer>
             <InputLabel>I want to spend</InputLabel>
-            <InputLayout>
+            <InputLayout $exceeded={userTokenBalance ? Number(userQuery) > userTokenBalance : false}>
                 <Input
                     type="number"
-                    step={0.1}
+                    step="0.01"
+                    lang="en"
                     value={userQuery}
                     onInput={updateAmount}
                     onKeyDown={keyDownListener}
@@ -60,7 +63,7 @@ export default function TokenInput({
                     {token}
                 </InputToken>
             </InputLayout>
-            <TokenBlance onClick={setMaxBalance}>MAX: {userTokenBalance}</TokenBlance>
+            <TokenBlance onClick={userTokenBalance ? setMaxBalance : undefined} $exceeded={userTokenBalance ? Number(userQuery) > userTokenBalance : false}>MAX: {userTokenBalance}</TokenBlance>
         </InputContainer>
     )
 }

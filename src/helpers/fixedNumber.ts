@@ -8,3 +8,7 @@ export default function(num: number | string, showAll = false, decimals = 5, ret
         return "0";
     }
 }
+
+export function showNumOfDecimals(number: number | string, numOfDecimals: number){
+    return Math.floor((Number(number) * (10 ** numOfDecimals))) / (10 ** numOfDecimals)
+}
