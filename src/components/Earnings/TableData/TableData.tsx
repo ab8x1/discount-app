@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import styles from './tableData.module.css'
 import TableFooter from './TableFooter'
 import Image from 'next/image'
@@ -9,19 +9,17 @@ import { DefaultButtonLink } from '@/components/Navbar/NavbarStyles'
 import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from '@/helpers/fixedNumber'
 import {  fixedProfit } from '@/helpers/calculateProfits'
-import { WalletState } from '@web3-onboard/core'
+import ConnectWallet from '@/components/Navbar/ConnectWallet'
 import useUser from '@/hooks/useUser'
 
 export default function TableData({
     currentPage,
     deals,
     address,
-    wallet
 } : {
     currentPage?: number,
     deals: DealType[],
     address?: string,
-    wallet: WalletState | null
 }){
     const user = useUser();
     const page = currentPage || 1;
@@ -109,20 +107,23 @@ export default function TableData({
                                     }
                                 </tr>
                             )
-
-                        }
-                            )
-                            :
-                            <tr>
-                                <td colSpan={10} style={{width: '100%', height:'100px', textAlign: 'center'}}>
-                                    {
-                                        <div className={styles.emptyTable}>
-                                            <b style={{fontSize: '1.2rem'}}>No active deals</b>
-                                            <DefaultButtonLink href={'/'}>Explore Deals</DefaultButtonLink>
-                                        </div>
-                                    }
-                                </td>
-                            </tr>
+                        }) :
+                        <tr>
+                            <td colSpan={10} style={{width: '100%', height:'100px', textAlign: 'center'}}>
+                                {
+                                    <div className={styles.emptyTable}>
+                                        {
+                                            address ?
+                                            <>
+                                                <b style={{fontSize: '1.2rem'}}>No active deals</b>
+                                                <DefaultButtonLink href={'/'}>Explore Deals</DefaultButtonLink>
+                                            </> :
+                                            <ConnectWallet/>
+                                        }
+                                    </div>
+                                }
+                            </td>
+                        </tr>
                     }
                 </tbody>
                 <TableFooter

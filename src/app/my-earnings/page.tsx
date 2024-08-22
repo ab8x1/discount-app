@@ -1,6 +1,7 @@
 'use client'
 import styles from '@/components/Earnings/TableData/tableData.module.css';
 import InfoBoxes from "@/components/Earnings/InfoBoxes";
+import useUser from '@/hooks/useUser';
 import { DealType } from "@/types/deal";
 import { useConnectWallet } from "@web3-onboard/react";
 import { useState, useEffect } from "react";
@@ -15,36 +16,10 @@ export default function RootLayout({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const { page } = searchParams;
-  const [deals, setDeals] = useState<DealType[]>([]);
+  const user = useUser();
+  const deals = user?.deals || [];
+  const address = user?.address;
   const [{ wallet }, connect] = useConnectWallet();
-  const {address} = wallet?.accounts[0] ?? {};
-
-  useEffect(() => {
-    const getUserDeals = async () => {
-      if(address){
-        const queryString = new URLSearchParams({user: address}).toString();
-        const userDealsRes = await fetch(`${process.env.NEXT_PUBLIC_ORIGIN}/api/getUserDeals?${queryString}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        const userDeals: DealType[] = await userDealsRes.json();
-        if(userDeals){
-          setDeals(userDeals);
-        }
-        else{
-          setDeals([]);
-        }
-      }
-      else{
-        setDeals([]);
-      }
-
-    }
-    getUserDeals();
-
-  }, [address]);
 
   return(
     <main className='container' style={{paddingBottom: '40px'}}>
@@ -59,7 +34,6 @@ export default function RootLayout({
           currentPage={Number(page)}
           deals={deals}
           address={address}
-          wallet={wallet}
         />
     </main>
 )

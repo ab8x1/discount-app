@@ -49,9 +49,7 @@ export default function DealDetails({
         const getUserBalance = async () => {
             if (user) {
                 const balance = await erc20TokenBalance(user, offerData.underlyingTokenAddress);
-                if (balance !== null) {
-                    setUserTokenBalance(showNumOfDecimals(balance, 2));
-                }
+                setUserTokenBalance(balance ? showNumOfDecimals(balance, 2) : null);
             }
             else{
                 setUserTokenBalance(null)

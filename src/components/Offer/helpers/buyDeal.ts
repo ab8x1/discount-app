@@ -19,7 +19,7 @@ export default async function buyDeal(
 ){
     return new Promise<{status: "success" | "error", message: string, newOfferId: string, realReedem: number}> (async (res, rej) => {
         try{
-            const { signer, address, discountContract } = user;
+            const { signer, address, discountContract, updateUserDeals } = user;
             const {date, discount, offerId, token, reedem} = dealDetails;
             const offerData = exampleOffers.find(offer => offer.id === offerId) as OfferType;
             const parsedAmount = parseUnits(amount.toString(), "ether");
@@ -65,6 +65,7 @@ export default async function buyDeal(
                 newDeal
             });
             if(addToDbStatus){
+                updateUserDeals(newDeal);
                 res({
                     status: "success",
                     message: "Deal purchase completed",

@@ -1,16 +1,19 @@
 'use client'
-import { createContext, useContext, FC, ReactNode, useEffect, useState } from 'react';
+import { createContext, useContext, FC, ReactNode, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { useConnectWallet, useSetChain } from "@web3-onboard/react"
 import { BrowserProvider, JsonRpcSigner, JsonRpcProvider, Contract } from 'ethers';
 import { discountContractAddress } from '@/consts/globalConsts';
 import DISCOUNTV1_ABI from "@/artifacts/contracts/DiscountV1.sol/DiscountV1.json"
+import { DealType } from '@/types/deal';
 const discountV1ABI = DISCOUNTV1_ABI.abi;
 
 export type UserType = {
   address: string,
   provider: BrowserProvider,
   signer: JsonRpcSigner,
-  discountContract: Contract
+  discountContract: Contract,
+  deals: DealType[],
+  updateUserDeals: (deal: DealType, updateId?: string) => void,
 }
 
 export const defaultProvider = new JsonRpcProvider(process.env.NEXT_PUBLIC_SEPOLIA_RPC);
@@ -24,6 +27,25 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
   const [{chains, connectedChain}] = useSetChain();
   const [user, setUser] = useState<UserType | null>(null);
 
+  const updateUserDeals = (deal: DealType, updateId?: string) => {
+    setUser(
+      (prevUser: UserType | null) => {
+        if(prevUser){
+          if(updateId){
+            const dealsToUpdate = [...prevUser.deals];
+            const updatedDealIndex = dealsToUpdate.findIndex(deal => deal.offerId === updateId);
+            dealsToUpdate[updatedDealIndex] = deal;
+            return {...prevUser, deals: dealsToUpdate}
+          }
+          else
+            return {...prevUser, deals: [...prevUser.deals, deal]}
+        }
+        else
+          return null
+      }
+    )
+  }
+
   useEffect(() => {
       const getUserData = async() => {
         if(wallet){
@@ -34,14 +56,41 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
             address: wallet.accounts[0].address,
             provider: ethersProvider,
             signer,
-            discountContract
+            discountContract,
+            deals: [],
+            updateUserDeals: updateUserDeals,
           })
         }
         else
           setUser(null)
     }
     getUserData();
-  }, [wallet])
+  }, [wallet]);
+
+  useEffect(() => {
+    const getUserDeals = async () => {
+      const address = user?.address;
+      if(address){
+        try{
+          const queryString = new URLSearchParams({user: address}).toString();
+          const userDealsRes = await fetch(`${process.env.NEXT_PUBLIC_ORIGIN}/api/getUserDeals?${queryString}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          const userDeals: DealType[] = await userDealsRes.json();
+          if(userDeals){
+            setUser((prevSt: UserType | null) => prevSt ? {...prevSt, deals: userDeals} : null);
+          }
+        }
+        catch(e){
+          console.log("Error in getUserDeals:", e);
+        }
+      }
+    }
+    getUserDeals();
+  }, [user]);
 
   return (
     <UserContext.Provider value={user}>
