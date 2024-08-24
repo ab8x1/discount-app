@@ -60,31 +60,32 @@ export default function DealDetails({
 
     const action = async () => {
         if(confirmStage){
-            try{
-                if(user){
-                    if(connectedChain?.id === chainHexId){
-                        setLoading(true);
-                        const {newOfferId, realReedem} = await buyDeal(amount, user, dealDetails);
-                        setLoading(false);
+            if(user){
+                if(connectedChain?.id === chainHexId){
+                    setLoading(true);
+                    const boughtDeal = await buyDeal(amount, user, dealDetails);
+                    if(boughtDeal !== null){
+                        const {newOfferId, realReedem, message} = boughtDeal;
+                        if(message) window.alert(message);
                         setConfirmationData({
                             id: newOfferId,
                             realReedem
                         });
                     }
                     else{
-                        setLoading(true);
-                        await setChain({chainId: chainHexId});
-                        setLoading(false)
+                        window.alert("Sorry, something went wrong, try again soon.")
                     }
+                    setLoading(false);
                 }
                 else{
                     setLoading(true);
-                    await connect();
-                    setLoading(false);
+                    await setChain({chainId: chainHexId});
+                    setLoading(false)
                 }
             }
-            catch(e){
-                console.log(e);
+            else{
+                setLoading(true);
+                await connect();
                 setLoading(false);
             }
         }

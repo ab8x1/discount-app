@@ -5,6 +5,7 @@ export type DealType = {
     token: string,
     amountBigIntStringified: string,
     amount: number,
+    amountAfterReedem?: number,
     purchasePrice: number,
     discount: number,
     date: {

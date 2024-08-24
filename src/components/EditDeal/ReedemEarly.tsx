@@ -41,7 +41,7 @@ export default function ReedemEarly({
     const reedem = async () => {
         if(user && estimatedReedem){
             setLoading(true);
-            const reedem = await reedemOrClaimEarly(user, offerData, deal, estimatedReedem);
+            const reedem = await reedemOrClaimEarly("claimEarly", user, offerData, deal, estimatedReedem);
             if(reedem !== null){
                 const {value, message} = reedem;
                 if(message) window.alert(message);

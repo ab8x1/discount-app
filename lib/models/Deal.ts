@@ -7,8 +7,10 @@ export interface Deals extends Document {
     token: string,
     amountBigIntStringified: string,
     amount: number,
+    amountAfterReedem?: number,
     purchasePrice: number,
     discount: number,
+
     date: {
         purchasedAt: number,
         maturity: number,
@@ -23,6 +25,7 @@ const DealSchema = new Schema<Deals>({
     token: { type: String, required: true },
     amountBigIntStringified: { type: String, required: true },
     amount: { type: Number, required: true },
+    amountAfterReedem: { type: Number },
     purchasePrice: { type: Number, required: true },
     discount: { type: Number, required: true },
     date: {

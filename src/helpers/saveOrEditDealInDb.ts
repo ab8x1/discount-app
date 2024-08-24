@@ -1,4 +1,4 @@
-export default async function saveOrEdotDealInDB(data: any): Promise<boolean> {
+export default async function saveOrEditDealInDB(data: any): Promise<boolean> {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_ORIGIN}/api/saveOrUpdateDeal`, {
           method: 'POST',

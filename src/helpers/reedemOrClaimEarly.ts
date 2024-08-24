@@ -4,7 +4,7 @@ import ERC20 from "@/artifacts/@openzeppelin/contracts/token/ERC20/IERC20.sol/IE
 import { Contract, parseEther } from "ethers";
 import { discountContractAddress } from "@/consts/globalConsts";
 import { DealType } from "@/types/deal";
-import saveOrEdotDealInDB from "./saveOrEditDealInDb";
+import saveOrEditDealInDB from "./saveOrEditDealInDb";
 const iERC20ABI = ERC20.abi;
 
 type RedeemType = {
@@ -12,29 +12,42 @@ type RedeemType = {
     message?: string
 } | null
 
-export default async function reedemOrClaimEarly(user: UserType, offerData: OfferType, deal: DealType, estimatedReedem: number): Promise<RedeemType>{
+export default async function reedemOrClaimEarly(type: "reedem" | "claimEarly", user: UserType, offerData: OfferType, deal: DealType, estimatedReedem: number): Promise<RedeemType>{
     try{
         const {discountContract, updateUserDeals} = user;
+        const {amountBigIntStringified} = deal;
+        const {ptAddress, curvePool, PTindexInCurvePool, IBTindexInCurvePool} = offerData;
         const ptContract = new Contract(
-            offerData.ptAddress,
+            ptAddress,
             iERC20ABI,
             user.signer
         );
         const txApprove = await ptContract.approve(
             discountContractAddress,
-            BigInt(deal.amountBigIntStringified)
+            BigInt(amountBigIntStringified)
         );
         await txApprove.wait();
-        const txClaimEarly = await user.discountContract.claimPTEarly(
-            offerData.curvePool, //curve pool
-            offerData.PTindexInCurvePool, //i / inputTokenIndex
-            offerData.IBTindexInCurvePool, //j / outputTokenIndex
-            BigInt(deal.amountBigIntStringified),
-            parseEther(estimatedReedem.toString()) //minAmountOut, result of previewRedeeemOrClaimEarly, might be necessary to multiply by 0.99 in prod
-        );
-        await txClaimEarly.wait();
+
+        if(type === "claimEarly"){
+            const txClaimEarly = await discountContract.claimPTEarly(
+                curvePool, //curve pool
+                PTindexInCurvePool, //i / inputTokenIndex
+                IBTindexInCurvePool, //j / outputTokenIndex
+                BigInt(amountBigIntStringified),
+                parseEther(estimatedReedem.toString()) //minAmountOut, result of previewRedeeemOrClaimEarly, might be necessary to multiply by 0.99 in prod
+            );
+            await txClaimEarly.wait();
+        }
+        else {
+            const txRedeem = await discountContract.redeemDiscountedAsset(
+                ptAddress,
+                BigInt(amountBigIntStringified),
+            );
+            await txRedeem.wait();
+        }
+
         const redeemedAt = Date.now();
-        const addToDbStatus = await saveOrEdotDealInDB({
+        const addToDbStatus = await saveOrEditDealInDB({
             updateDeal: {
                 id: deal.id,
                 updateData: {
@@ -45,6 +58,7 @@ export default async function reedemOrClaimEarly(user: UserType, offerData: Offe
         });
         updateUserDeals({
             ...deal,
+            // amountAfterReedem: ,
             date: {
                 ...deal.date,
                 redeemedAt
