@@ -15,7 +15,7 @@ export default async function reedemEarlyPreview(offerData: OfferType, amount: B
             IBTindexInCurvePool, //j / outputTokenIndex
             amount
         );
-        const claimEarlyAmount = Number(formatEther(previewClaimEarlyAmount)) * 0.95;
+        const claimEarlyAmount = Number(formatEther(previewClaimEarlyAmount)) * 0.975;
         return claimEarlyAmount;
     }
     catch(e){

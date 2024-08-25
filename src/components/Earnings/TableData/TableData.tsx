@@ -10,7 +10,6 @@ import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from '@/helpers/fixedNumber'
 import {  fixedProfit } from '@/helpers/calculateProfits'
 import ConnectWallet from '@/components/Navbar/ConnectWallet'
-import useUser from '@/hooks/useUser'
 
 export default function TableData({
     currentPage,
@@ -20,8 +19,7 @@ export default function TableData({
     currentPage?: number,
     deals: DealType[],
     address?: string,
-}){
-    const user = useUser();
+}){ 
     const page = currentPage || 1;
     const router = useRouter();
     const orderedDeals = [...deals.filter(({date}) => !date?.redeemedAt) || []].reverse();

@@ -2,9 +2,6 @@
 import styles from '@/components/Earnings/TableData/tableData.module.css';
 import InfoBoxes from "@/components/Earnings/InfoBoxes";
 import useUser from '@/hooks/useUser';
-import { DealType } from "@/types/deal";
-import { useConnectWallet } from "@web3-onboard/react";
-import { useState, useEffect } from "react";
 import TableData from '@/components/Earnings/TableData/TableData';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -19,7 +16,6 @@ export default function RootLayout({
   const user = useUser();
   const deals = user?.deals || [];
   const address = user?.address;
-  const [{ wallet }, connect] = useConnectWallet();
 
   return(
     <main className='container' style={{paddingBottom: '40px'}}>

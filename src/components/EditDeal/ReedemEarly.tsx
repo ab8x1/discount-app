@@ -15,28 +15,22 @@ import reedemOrClaimEarly from "@/helpers/reedemOrClaimEarly";
 
 export default function ReedemEarly({
     deal,
-    user
+    user,
+    estimatedReedem,
+    offerData
 } : {
     deal: DealType,
-    user: UserType
-}){
-    const offerData = exampleOffers.find(offer => offer.id === deal.offerId) as OfferType;
-    const [estimatedReedem, setEstimatedReedem] = useState<number>();
+    user: UserType,
+    estimatedReedem: number,
+    offerData: OfferType
+}){ 
+
     const [loading, setLoading] = useState(false);
     const [stage, setStage] = useState<null | "confirmation" | {
         reedem: number,
     }>(null);
     const ref: any = useRef();
     OnClickOutside(ref, () => setStage(null));
-
-    useEffect(() => {
-        const getReedemEarlyPreview = async() => {
-            const reedemPreview = await reedemEarlyPreview(offerData, BigInt(deal.amountBigIntStringified));
-            setEstimatedReedem(reedemPreview);
-        }
-        getReedemEarlyPreview();
-    }, [])
-
 
     const reedem = async () => {
         if(user && estimatedReedem){

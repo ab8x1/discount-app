@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { exampleOffers } from "@/consts/exampleDeals";
 import { OfferType } from "@/types/offer";
 import saveOrEditDealInDB from "@/helpers/saveOrEditDealInDb";
+import readReceipt from "@/helpers/readReceipt";
 
 const erc20Abi = ERC20ABI.abi;
 
@@ -31,14 +32,7 @@ export default async function buyDeal(amount: number, user: UserType, dealDetail
             parseEther(reedem?.toString() || "0")
         );
         const receipt = await tx.wait();
-        const paddedSenderAddress = zeroPadValue(address, 32);
-        const logs = receipt.logs.filter((log: any) =>
-            //what the user receivs:
-            log.address.toLowerCase() ===  offerData.ptAddress.toLowerCase() && //PT
-            log.topics[2] === paddedSenderAddress //to owner
-        );
-        const log = logs[0];
-        const decodedAmount = getBigInt(log.data);
+        const decodedAmount = readReceipt(receipt, address, offerData.ptAddress.toLocaleLowerCase()) || BigInt(reedem as number); //decode the amount that user got from tx recepit, if decoding fails get the estimated value
         const realReedem = Number(formatEther(decodedAmount));
 
         const newId = uuidv4();

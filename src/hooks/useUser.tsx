@@ -27,6 +27,25 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
   const [{chains, connectedChain}] = useSetChain();
   const [user, setUser] = useState<UserType | null>(null);
 
+  const getUserDeals = async (address: string) => {
+    try{
+      const queryString = new URLSearchParams({user: address}).toString();
+      const userDealsRes = await fetch(`${process.env.NEXT_PUBLIC_ORIGIN}/api/getUserDeals?${queryString}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const userDeals: DealType[] = await userDealsRes.json();
+      if(userDeals){
+        setUser((prevSt: UserType | null) => prevSt ? {...prevSt, deals: userDeals} : null);
+      }
+    }
+    catch(e){
+      console.log("Error in getUserDeals:", e);
+    }
+  }
+
   const updateUserDeals = (deal: DealType, updateId?: string) => {
     setUser(
       (prevUser: UserType | null) => {
@@ -48,49 +67,27 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
 
   useEffect(() => {
       const getUserData = async() => {
+        console.log("getUserData from wallet");
         if(wallet){
           const ethersProvider = new BrowserProvider(wallet.provider, 'any');
           const signer = await ethersProvider.getSigner();
           const discountContract = new Contract(discountContractAddress, discountV1ABI, signer);
+          const address = wallet.accounts[0].address;
           setUser({
-            address: wallet.accounts[0].address,
+            address,
             provider: ethersProvider,
             signer,
             discountContract,
             deals: [],
             updateUserDeals: updateUserDeals,
-          })
+          });
+          getUserDeals(address); //load user deals from db after signing in with wallet
         }
         else
           setUser(null)
     }
     getUserData();
   }, [wallet]);
-
-  useEffect(() => {
-    const getUserDeals = async () => {
-      const address = user?.address;
-      if(address){
-        try{
-          const queryString = new URLSearchParams({user: address}).toString();
-          const userDealsRes = await fetch(`${process.env.NEXT_PUBLIC_ORIGIN}/api/getUserDeals?${queryString}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-          const userDeals: DealType[] = await userDealsRes.json();
-          if(userDeals){
-            setUser((prevSt: UserType | null) => prevSt ? {...prevSt, deals: userDeals} : null);
-          }
-        }
-        catch(e){
-          console.log("Error in getUserDeals:", e);
-        }
-      }
-    }
-    getUserDeals();
-  }, [user]);
 
   return (
     <UserContext.Provider value={user}>

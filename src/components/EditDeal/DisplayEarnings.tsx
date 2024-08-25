@@ -6,14 +6,14 @@ import { DealType } from "@/types/deal";
 
 export default function DisplayEarnings({
     deal,
-    timestamp
+    timestamp,
+    estimatedReedem
 } : {
     deal: DealType,
-    timestamp?: number
+    timestamp?: number,
+    estimatedReedem: number
 }){
-    const updateFunction = () => actualProfitValue(deal);
-    const reedem = reedemValue(deal);
-    const fee = fixedNumber(0.001 * deal.purchasePrice, false, 2, true) as number;
+    const totalProfits = Number(fixedNumber(estimatedReedem - deal.purchasePrice, true, 2));
 
     return(
         <OfferContainer style={{marginBottom: '20px', marginTop: timestamp ? '30px' : 0}}>
@@ -26,16 +26,9 @@ export default function DisplayEarnings({
                 <InfoRow>
                     <span>Total Profits {!timestamp && 'So Far'}:</span>
                     <div>
-                        <span className="brand">
+                        <span className={totalProfits > 0 ? "brand" : ""}>
                             <span style={{marginRight: '3px'}}>
-                                {
-                                    timestamp ? fixedNumber(reedem - deal.purchasePrice - fee)
-                                    :
-                                    <RefreshValue
-                                        updateFunction={updateFunction}
-                                        roundTo={8}
-                                    />
-                                }
+                                {totalProfits}
                             </span>
                             USDC
                         </span>

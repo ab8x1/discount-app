@@ -19,7 +19,7 @@ export default async function EditDealPage({
     params
 } : {
     params: { slug: string}
-}){
+}){ 
     const dealData = await getDeal(params.slug);
     return(
         <main className="container" style={{maxWidth: '950px'}}>
