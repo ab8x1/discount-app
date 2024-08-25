@@ -25,6 +25,7 @@
     "react-confetti": "^6.1.0",
     "react-dom": "18.2.0",
     "react-loading": "^2.0.3",
+    "react-toastify": "^10.0.5",
     "styled-components": "^6.0.2",
     "typescript": "5.1.6",
     "uuid": "^9.0.0"

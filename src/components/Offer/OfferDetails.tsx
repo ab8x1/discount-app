@@ -14,6 +14,7 @@ import useUser from "@/hooks/useUser";
 import LoadingValue from "../LoadingValue";
 import erc20TokenBalance from "@/helpers/erc20TokenBalance";
 import { OfferType } from "@/types/offer";
+import { toast } from "react-toastify"
 
 type ConfirmationData = {
     id: string,
@@ -66,14 +67,14 @@ export default function DealDetails({
                     const boughtDeal = await buyDeal(amount, user, dealDetails);
                     if(boughtDeal !== null){
                         const {newOfferId, realReedem, message} = boughtDeal;
-                        if(message) window.alert(message);
+                        if(message) toast(message, { type: "warning", autoClose: false});
                         setConfirmationData({
                             id: newOfferId,
                             realReedem
                         });
                     }
                     else{
-                        window.alert("Sorry, something went wrong, try again soon.")
+                        toast("Sorry, something went wrong, try again soon.", { type: "error" });
                     }
                     setLoading(false);
                 }

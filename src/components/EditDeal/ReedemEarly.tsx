@@ -11,6 +11,7 @@ import { OfferType } from "@/types/offer";
 import reedemEarlyPreview from "@/helpers/reedemEarlyPreview";
 import { UserType } from "@/hooks/useUser";
 import reedemOrClaimEarly from "@/helpers/reedemOrClaimEarly";
+import { toast } from "react-toastify";
 
 
 export default function ReedemEarly({
@@ -38,12 +39,11 @@ export default function ReedemEarly({
             const reedem = await reedemOrClaimEarly("claimEarly", user, offerData, deal, estimatedReedem);
             if(reedem !== null){
                 const {value, message} = reedem;
-                if(message) window.alert(message);
+                if(message) toast(message, { type: "warning", autoClose: false});
                 setStage({reedem: value})
             }
             else {
-                window.alert("Sorry, something went wrong, try again soon");
-                console.log("error");
+                toast("Sorry, something went wrong, try again soon.", { type: "error" });
             }
             setLoading(false);
         }

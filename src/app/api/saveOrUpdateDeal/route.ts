@@ -9,8 +9,7 @@ type routeJsonData = {
     updateDeal?: {
         id: string,
         updateData: {
-            parameter: string,
-            value: any
+            [parameter: string]: any,
         }
     }
 } | undefined;
@@ -26,7 +25,7 @@ export async function POST(request: NextRequest) {
         }
         else if(data?.updateDeal){
             const {id, updateData} = data.updateDeal;
-            await Deal.findOneAndUpdate({id}, {$set: {[updateData.parameter]: updateData.value}});
+            await Deal.findOneAndUpdate({id}, {$set: updateData});
             message = "Deal updated in DB";
         }
         else{

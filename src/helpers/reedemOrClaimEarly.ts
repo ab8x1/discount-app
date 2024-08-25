@@ -30,6 +30,7 @@ export default async function reedemOrClaimEarly(type: "reedem" | "claimEarly", 
         );
         await txApprove.wait();
 
+        let receipt:any;
         if(type === "claimEarly"){
             const txClaimEarly = await discountContract.claimPTEarly(
                 curvePool, //curve pool
@@ -38,25 +39,24 @@ export default async function reedemOrClaimEarly(type: "reedem" | "claimEarly", 
                 BigInt(amountBigIntStringified),
                 parseEther(estimatedReedem.toString()) //minAmountOut, result of previewRedeeemOrClaimEarly, might be necessary to multiply by 0.99 in prod
             );
-            const claimReceipt = await txClaimEarly.wait();
-            const realReedem = readReceipt(claimReceipt, address, underlyingTokenAddress) || BigInt(estimatedReedem);
-            amountAfterReedem = Number(formatEther(realReedem));
+            receipt = await txClaimEarly.wait();
         }
         else {
             const txRedeem = await discountContract.redeemDiscountedAsset(
                 ptAddress,
                 BigInt(amountBigIntStringified),
             );
-            await txRedeem.wait();
+            receipt = await txRedeem.wait();
         }
-
+        const realReedem = readReceipt(receipt, address, underlyingTokenAddress) || BigInt(estimatedReedem);
+        amountAfterReedem = Number(formatEther(realReedem));
         const redeemedAt = Date.now();
         const addToDbStatus = await saveOrEditDealInDB({
             updateDeal: {
                 id: deal.id,
                 updateData: {
-                    parameter: "date.redeemedAt",
-                    value: redeemedAt
+                    ["date.redeemedAt"]: redeemedAt,
+                    amountAfterReedem
                 }
             }
         });
