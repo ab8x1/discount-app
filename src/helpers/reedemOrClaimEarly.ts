@@ -67,7 +67,7 @@ export default async function reedemOrClaimEarly(type: "reedem" | "claimEarly", 
                 ...deal.date,
                 redeemedAt
             }
-        }, deal.offerId)
+        }, deal.id)
         return {
             value: amountAfterReedem,
             message: !addToDbStatus ? "Deal reedem completed but information not saved, please contact our support" : undefined

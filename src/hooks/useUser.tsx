@@ -49,12 +49,13 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
   }
 
   const updateUserDeals = (deal: DealType, updateId?: string) => {
+    console.log("updateUserDeals");
     setUser(
       (prevUser: UserType | null) => {
         if(prevUser){
           if(updateId){
             const dealsToUpdate = [...prevUser.deals];
-            const updatedDealIndex = dealsToUpdate.findIndex(deal => deal.offerId === updateId);
+            const updatedDealIndex = dealsToUpdate.findIndex(deal => deal.id === updateId);
             dealsToUpdate[updatedDealIndex] = deal;
             return {...prevUser, deals: dealsToUpdate}
           }

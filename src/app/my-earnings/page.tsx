@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Chart from "@/components/Earnings/Chart/ProfitsChart"
 
-export default function RootLayout({
+export default function MyEarnings({
   searchParams
 } : {
   searchParams: { [key: string]: string | string[] | undefined }
