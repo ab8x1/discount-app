@@ -1,10 +1,11 @@
 import { UserType } from "@/hooks/useUser";
 import { OfferType } from "@/types/offer";
 import ERC20 from "@/artifacts/@openzeppelin/contracts/token/ERC20/IERC20.sol/IERC20.json";
-import { Contract, parseEther } from "ethers";
+import { Contract, formatEther, parseEther } from "ethers";
 import { discountContractAddress } from "@/consts/globalConsts";
 import { DealType } from "@/types/deal";
 import saveOrEditDealInDB from "./saveOrEditDealInDb";
+import readReceipt from "./readReceipt";
 const iERC20ABI = ERC20.abi;
 
 type RedeemType = {
@@ -14,9 +15,10 @@ type RedeemType = {
 
 export default async function reedemOrClaimEarly(type: "reedem" | "claimEarly", user: UserType, offerData: OfferType, deal: DealType, estimatedReedem: number): Promise<RedeemType>{
     try{
-        const {discountContract, updateUserDeals} = user;
+        const {discountContract, updateUserDeals, address} = user;
         const {amountBigIntStringified} = deal;
-        const {ptAddress, curvePool, PTindexInCurvePool, IBTindexInCurvePool} = offerData;
+        const {ptAddress, curvePool, PTindexInCurvePool, IBTindexInCurvePool, underlyingTokenAddress} = offerData;
+        let amountAfterReedem = estimatedReedem;
         const ptContract = new Contract(
             ptAddress,
             iERC20ABI,
@@ -36,7 +38,9 @@ export default async function reedemOrClaimEarly(type: "reedem" | "claimEarly", 
                 BigInt(amountBigIntStringified),
                 parseEther(estimatedReedem.toString()) //minAmountOut, result of previewRedeeemOrClaimEarly, might be necessary to multiply by 0.99 in prod
             );
-            await txClaimEarly.wait();
+            const claimReceipt = await txClaimEarly.wait();
+            const realReedem = readReceipt(claimReceipt, address, underlyingTokenAddress) || BigInt(estimatedReedem);
+            amountAfterReedem = Number(formatEther(realReedem));
         }
         else {
             const txRedeem = await discountContract.redeemDiscountedAsset(
@@ -58,14 +62,14 @@ export default async function reedemOrClaimEarly(type: "reedem" | "claimEarly", 
         });
         updateUserDeals({
             ...deal,
-            // amountAfterReedem: ,
+            amountAfterReedem,
             date: {
                 ...deal.date,
                 redeemedAt
             }
         }, deal.offerId)
         return {
-            value: estimatedReedem,
+            value: amountAfterReedem,
             message: !addToDbStatus ? "Deal reedem completed but information not saved, please contact our support" : undefined
         };
     }

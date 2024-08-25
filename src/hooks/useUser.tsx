@@ -26,6 +26,8 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
   const [{ wallet }] = useConnectWallet();
   const [{chains, connectedChain}] = useSetChain();
   const [user, setUser] = useState<UserType | null>(null);
+  const userAddress = wallet?.accounts[0].address;
+  const currentChain = connectedChain?.id;
 
   const getUserDeals = async (address: string) => {
     try{
@@ -68,26 +70,25 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
   useEffect(() => {
       const getUserData = async() => {
         console.log("getUserData from wallet");
-        if(wallet){
+        if(wallet && userAddress){
           const ethersProvider = new BrowserProvider(wallet.provider, 'any');
           const signer = await ethersProvider.getSigner();
           const discountContract = new Contract(discountContractAddress, discountV1ABI, signer);
-          const address = wallet.accounts[0].address;
           setUser({
-            address,
+            address: userAddress,
             provider: ethersProvider,
             signer,
             discountContract,
             deals: [],
             updateUserDeals: updateUserDeals,
           });
-          getUserDeals(address); //load user deals from db after signing in with wallet
+          getUserDeals(userAddress); //load user deals from db after signing in with wallet
         }
         else
           setUser(null)
     }
     getUserData();
-  }, [wallet]);
+  }, [userAddress, currentChain]);
 
   return (
     <UserContext.Provider value={user}>
