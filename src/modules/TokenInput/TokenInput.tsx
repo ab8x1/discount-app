@@ -8,6 +8,7 @@ export default function TokenInput({
     defaultValue,
     action,
     token,
+    tokenImgUrl,
     userTokenBalance
 } : {
     onChange: (amount: number) => void,
@@ -15,6 +16,7 @@ export default function TokenInput({
     defaultValue: number,
     action: () => void,
     token: string,
+    tokenImgUrl: string,
     userTokenBalance: number | null
 }){
     const [userQuery, setUserQuery] = useState(defaultValue ? defaultValue.toString() : "");
@@ -71,7 +73,7 @@ export default function TokenInput({
                     $exceeded={amountExceeded}
                 />
                 <InputToken>
-                    <Image src={`/tokens/${token}.svg`} width={24} height={24} alt="token"/>
+                    <Image src={tokenImgUrl} width={24} height={24} alt="token"/>
                     {token}
                 </InputToken>
             </InputLayout>

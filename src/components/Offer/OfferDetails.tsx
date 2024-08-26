@@ -135,6 +135,7 @@ export default function DealDetails({
                             onChange={setAmount}
                             action={action}
                             token={token}
+                            tokenImgUrl={offerData.tokenImgUrl}
                             userTokenBalance={userTokenBalance}
                         />
                     }
