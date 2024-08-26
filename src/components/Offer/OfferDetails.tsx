@@ -15,7 +15,6 @@ import LoadingValue from "../LoadingValue";
 import erc20TokenBalance from "@/helpers/erc20TokenBalance";
 import { OfferType } from "@/types/offer";
 import { toast } from "react-toastify"
-import { exampleOffers } from "@/consts/exampleDeals";
 
 type ConfirmationData = {
     id: string,
@@ -105,7 +104,7 @@ export default function DealDetails({
                 <OfferHeader>
                     <Token className="alignY">
                         <TokenContainer>
-                            <TokenImg src={`/tokens/${token}.svg`} width={56} height={56} alt="coin"/>
+                            <TokenImg src={`/tokens/${token}-Coin.svg`} width={56} height={56} alt="coin"/>
                             <span>
                                 <Image src="/discounted.svg" width={18} height={18} alt="discounted"/>
                             </span>

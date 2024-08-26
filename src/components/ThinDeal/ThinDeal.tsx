@@ -43,7 +43,7 @@ export default function ThinDeal({dealInfo} : {
                 $1
             </div>
             <div className={`${styles.dealInfo} alignY`}>
-                <Image src={`/tokens/${token}.svg`} width={86} height={86} alt={`${token} coin`} priority/>
+                <Image src={`/tokens/${token}-Coin.svg`} width={86} height={86} alt={`${token} coin`} priority/>
                 <div className='alignY' style={{gap: '10px'}}>
                     <Image src="/discount.svg" width={40} height={40} alt='discount' priority/>
                     <div>
