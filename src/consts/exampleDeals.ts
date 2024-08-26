@@ -4,6 +4,7 @@ export const exampleOffers: OfferType[] = [
     {
         id: '1', //arb
         token: 'fDAi', //arb
+        tokenImgUrl: '/tokens/DAI.svg',
         background: 'linear-gradient(180deg, #FFC566 0%, #E08E0B 100%)',
         progressColor: {
             background: '#B9DAFF',

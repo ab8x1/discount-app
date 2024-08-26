@@ -1,6 +1,7 @@
 export type OfferType = {
     id: string,
     token: string,
+    tokenImgUrl: string,
     background: string,
     progressColor: {
         background: string,

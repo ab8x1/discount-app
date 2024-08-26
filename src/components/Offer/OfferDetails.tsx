@@ -104,7 +104,7 @@ export default function DealDetails({
                 <OfferHeader>
                     <Token className="alignY">
                         <TokenContainer>
-                            <TokenImg src={`/tokens/token-${token}.svg`} width={56} height={56} alt="coin"/>
+                            <TokenImg src={offerData.tokenImgUrl} width={56} height={56} alt="coin"/>
                             <span>
                                 <Image src="/discounted.svg" width={18} height={18} alt="discounted"/>
                             </span>

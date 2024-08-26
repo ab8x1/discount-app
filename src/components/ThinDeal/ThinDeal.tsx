@@ -17,7 +17,8 @@ export default function ThinDeal({dealInfo} : {
         token,
         background,
         isEnabled,
-        date
+        date,
+        tokenImgUrl
     } = dealInfo
     const [discountedAsset, setDiscountedAsset] = useState<number | null>(null);
     const [clientMaturityDate, setClientMaturityDate] = useState<number | null>(null);
@@ -43,7 +44,7 @@ export default function ThinDeal({dealInfo} : {
                 $1
             </div>
             <div className={`${styles.dealInfo} alignY`}>
-                <Image src={`/tokens/token-${token}.svg`} width={86} height={86} alt={`${token} coin`} priority/>
+                <Image src={tokenImgUrl} width={86} height={86} alt={`${token} coin`} priority/>
                 <div className='alignY' style={{gap: '10px'}}>
                     <Image src="/discount.svg" width={40} height={40} alt='discount' priority/>
                     <div>
