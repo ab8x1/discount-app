@@ -15,6 +15,7 @@ import LoadingValue from "../LoadingValue";
 import erc20TokenBalance from "@/helpers/erc20TokenBalance";
 import { OfferType } from "@/types/offer";
 import { toast } from "react-toastify"
+import { exampleOffers } from "@/consts/exampleDeals";
 
 type ConfirmationData = {
     id: string,
@@ -38,19 +39,23 @@ export default function DealDetails({
 }){
     const user = useUser();
     const [{ connectedChain }, setChain] = useSetChain();
-    const {date, discount, earn, reedem, token, chainHexId} = dealDetails;
+    const {date, discount, earn, reedem, token, chainHexId, offerId} = dealDetails;
     const [{ wallet }, connect] = useConnectWallet();
     const [confirmationData, setConfirmationData] = useState<ConfirmationData | null>(null);
     const [loading, setLoading] = useState(false);
     const [userTokenBalance, setUserTokenBalance] = useState<number | null>(null);
     const confirmStage = stage === 'confirm';
-    const disableButton = loading || confirmStage && !!wallet && connectedChain?.id === chainHexId && (!amount || !userTokenBalance || userTokenBalance < amount)
+    const disableButton = loading || confirmStage && !!wallet && connectedChain?.id === chainHexId && (!amount || !userTokenBalance || userTokenBalance < amount);
 
     useEffect(() => {
         const getUserBalance = async () => {
             if (user) {
+                console.log("start loading blance");
                 const balance = await erc20TokenBalance(user, offerData.underlyingTokenAddress);
-                setUserTokenBalance(balance ? showNumOfDecimals(balance, 2) : null);
+                if(balance !== null){
+                    setUserTokenBalance(showNumOfDecimals(balance, 2));
+                }
+                else setUserTokenBalance(null);
             }
             else{
                 setUserTokenBalance(null)
@@ -64,7 +69,7 @@ export default function DealDetails({
             if(user){
                 if(connectedChain?.id === chainHexId){
                     setLoading(true);
-                    const boughtDeal = await buyDeal(amount, user, dealDetails);
+                    const boughtDeal = await buyDeal(amount, user, dealDetails, offerData);
                     if(boughtDeal !== null){
                         const {newOfferId, realReedem, message} = boughtDeal;
                         if(message) toast(message, { type: "warning", autoClose: false});
@@ -228,7 +233,7 @@ export default function DealDetails({
                                 ? `Pay ${amount} ${token}`
                                 : "Insufficient balance"
                                 : "Loading wallet balance"
-                                : "Change Network to Sepolia"
+                                : `Change Network to ${offerData.chainName}`
                                 : "Connect Wallet"
                                 : "Continue"
                             }

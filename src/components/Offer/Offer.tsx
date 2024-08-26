@@ -42,10 +42,9 @@ export default function Offer({
         const calculateDiscount = async () => {
             if(amount > 0){
                 const currentAmount = amount;
-                const { userWillGet } = await previewDiscountedAsset(offerData, currentAmount);
-
-                if (isLatest) {
-                    setDiscountedAsset(userWillGet);
+                const previewAsset = await previewDiscountedAsset(offerData, currentAmount);
+                if (previewAsset !== null && isLatest) {
+                    setDiscountedAsset(previewAsset.userWillGet);
                 }
             }
         };

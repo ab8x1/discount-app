@@ -1,8 +1,8 @@
-import ThinDeal from "@/components/ThinDeal";
+import ThinDeals from "@/components/ThinDeal";
 import styles from '@/components/ThinDeal/thinDealStyles.module.css'
 import { exampleOffers } from "@/consts/exampleDeals";
 
-async function getThinDeals() {
+async function getOffers() {
   const res = exampleOffers;
 
   if (!res) {
@@ -13,15 +13,11 @@ async function getThinDeals() {
 }
 
 export default async function Home() { console.log('Index Page');
-  const thinDeals = await getThinDeals();
+  const thinDeals = await getOffers();
   return (
     <main className="container">
       <div id={styles.dealsGrid}>
-        {
-          thinDeals.map(thinDeal =>
-            <ThinDeal key={thinDeal.id} dealInfo={thinDeal}/>
-          )
-        }
+        <ThinDeals thinDeals={thinDeals}/>
       </div>
     </main>
   )

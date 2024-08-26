@@ -5,18 +5,16 @@ import { discountContractAddress } from "@/consts/globalConsts";
 import { DealType } from "@/types/deal";
 import { DealDetailsType } from "../DetailsTypes";
 import { v4 as uuidv4 } from 'uuid';
-import { exampleOffers } from "@/consts/exampleDeals";
 import { OfferType } from "@/types/offer";
 import saveOrEditDealInDB from "@/helpers/saveOrEditDealInDb";
 import readReceipt from "@/helpers/readReceipt";
 
 const erc20Abi = ERC20ABI.abi;
 
-export default async function buyDeal(amount: number, user: UserType, dealDetails: DealDetailsType): Promise<{newOfferId: string, realReedem: number, message?: string} | null>{
+export default async function buyDeal(amount: number, user: UserType, dealDetails: DealDetailsType, offerData: OfferType): Promise<{newOfferId: string, realReedem: number, message?: string} | null>{
     try{
         const { signer, address, discountContract, updateUserDeals } = user;
         const {date, discount, offerId, token, reedem} = dealDetails;
-        const offerData = exampleOffers.find(offer => offer.id === offerId) as OfferType;
         const { underlyingTokenAddress, curvePool, IBTindexInCurvePool, PTindexInCurvePool } = offerData;
         const parsedAmount = parseUnits(amount.toString(), "ether");
 

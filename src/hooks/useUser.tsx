@@ -1,7 +1,7 @@
 'use client'
 import { createContext, useContext, FC, ReactNode, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { useConnectWallet, useSetChain } from "@web3-onboard/react"
-import { BrowserProvider, JsonRpcSigner, JsonRpcProvider, Contract } from 'ethers';
+import { BrowserProvider, JsonRpcSigner, Contract } from 'ethers';
 import { discountContractAddress } from '@/consts/globalConsts';
 import DISCOUNTV1_ABI from "@/artifacts/contracts/DiscountV1.sol/DiscountV1.json"
 import { DealType } from '@/types/deal';
@@ -15,8 +15,6 @@ export type UserType = {
   deals: DealType[],
   updateUserDeals: (deal: DealType, updateId?: string) => void,
 }
-
-export const defaultProvider = new JsonRpcProvider(process.env.NEXT_PUBLIC_SEPOLIA_RPC);
 
 const UserContext = createContext<UserType | null>(null);
 

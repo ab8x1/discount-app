@@ -1,1 +1,1 @@
-export {default} from './ThinDeal';
+export {default} from './ThinDeals';

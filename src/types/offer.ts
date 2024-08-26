@@ -1,8 +1,6 @@
-export type tokens = "USDT" | "ETH" | "GHO";
-
 export type OfferType = {
     id: string,
-    token: tokens,
+    token: string,
     background: string,
     progressColor: {
         background: string,
@@ -15,7 +13,9 @@ export type OfferType = {
     },
     ptAddress: string,
     underlyingTokenAddress: string,
+    chainName: string,
     chainHexId: string,
+    chainRpcUrl: string,
     curvePool: string,
     IBTindexInCurvePool: 0 | 1,
     PTindexInCurvePool: 0 | 1

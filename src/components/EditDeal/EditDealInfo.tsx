@@ -10,7 +10,7 @@ export default function EditDealInfo({
 } : {
     deal: DealType
 }){
-    const {amount, token, purchasePrice, date, owner} = deal;
+    const {amount, token, purchasePrice, date} = deal;
     const [dealDate, setDealDate] = useState<DealType["date"]>();
     useEffect(() => {
         setDealDate(date);

@@ -25,8 +25,12 @@ export default function ThinDeal({dealInfo} : {
     useEffect(() => {
         setClientMaturityDate(date.end)
         const calculateDiscount = async () => {
-            const {userWillGet} = await previewDiscountedAsset(dealInfo, 1);
-            setDiscountedAsset(userWillGet);
+            const previewAssets = await previewDiscountedAsset(dealInfo, 1);
+            if(previewAssets !== null){
+                const {userWillGet} = previewAssets;
+                setDiscountedAsset(userWillGet);
+            }
+
         }
         calculateDiscount();
     }, [])
