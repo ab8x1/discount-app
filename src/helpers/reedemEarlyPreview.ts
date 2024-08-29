@@ -7,12 +7,10 @@ const discountV1ABI = DISCOUNTV1_ABI.abi;
 export default async function reedemEarlyPreview(offerData: OfferType, amount: BigInt): Promise<number>{
     try{
         const defaultProvider = new JsonRpcProvider(offerData.chainRpcUrl);
-        const {curvePool, PTindexInCurvePool, IBTindexInCurvePool} = offerData;
+        const {curvePool} = offerData;
         const discountContract = new Contract(discountContractAddress, discountV1ABI, defaultProvider);
         const previewClaimEarlyAmount = await discountContract.previewClaimPTEarly(
             curvePool, //curve pool
-            PTindexInCurvePool, //i / inputTokenIndex
-            IBTindexInCurvePool, //j / outputTokenIndex
             amount
         );
         const claimEarlyAmount = Number(formatEther(previewClaimEarlyAmount)) * 0.975;

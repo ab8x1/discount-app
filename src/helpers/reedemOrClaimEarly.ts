@@ -17,7 +17,7 @@ export default async function reedemOrClaimEarly(type: "reedem" | "claimEarly", 
     try{
         const {discountContract, updateUserDeals, address} = user;
         const {amountBigIntStringified} = deal;
-        const {ptAddress, curvePool, PTindexInCurvePool, IBTindexInCurvePool, underlyingTokenAddress} = offerData;
+        const {ptAddress, curvePool, underlyingTokenAddress} = offerData;
         let amountAfterReedem = estimatedReedem;
         const ptContract = new Contract(
             ptAddress,
@@ -34,8 +34,6 @@ export default async function reedemOrClaimEarly(type: "reedem" | "claimEarly", 
         if(type === "claimEarly"){
             const txClaimEarly = await discountContract.claimPTEarly(
                 curvePool, //curve pool
-                PTindexInCurvePool, //i / inputTokenIndex
-                IBTindexInCurvePool, //j / outputTokenIndex
                 BigInt(amountBigIntStringified),
                 parseEther(estimatedReedem.toString()) //minAmountOut, result of previewRedeeemOrClaimEarly, might be necessary to multiply by 0.99 in prod
             );

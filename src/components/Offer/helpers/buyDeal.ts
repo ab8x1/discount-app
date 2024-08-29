@@ -15,7 +15,7 @@ export default async function buyDeal(amount: number, user: UserType, dealDetail
     try{
         const { signer, address, discountContract, updateUserDeals } = user;
         const {date, discount, offerId, token, reedem} = dealDetails;
-        const { underlyingTokenAddress, curvePool, IBTindexInCurvePool, PTindexInCurvePool } = offerData;
+        const { underlyingTokenAddress, curvePool } = offerData;
         const parsedAmount = parseUnits(amount.toString(), "ether");
 
         const underlyingERC20Contract = new Contract(underlyingTokenAddress, erc20Abi, signer);
@@ -25,8 +25,6 @@ export default async function buyDeal(amount: number, user: UserType, dealDetail
         const tx = await discountContract.buyDiscountedAsset(
             parsedAmount,
             curvePool,
-            IBTindexInCurvePool,
-            PTindexInCurvePool,
             parseEther(reedem?.toString() || "0")
         );
         const receipt = await tx.wait();

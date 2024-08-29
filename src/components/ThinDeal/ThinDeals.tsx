@@ -8,7 +8,7 @@ export default function ThinDeals({ thinDeals }: {
     return(
         <>
             {
-                thinDeals.map(thinDeal =>
+                thinDeals.filter(thinDeal => thinDeal.isEnabled).map(thinDeal =>
                     <ThinDeal key={thinDeal.id} dealInfo={thinDeal}/>
                 )
             }

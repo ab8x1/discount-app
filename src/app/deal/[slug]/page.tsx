@@ -11,7 +11,7 @@ async function getDeal(id: string): Promise<DealType | null>{
       cache: "no-store"
     });
     const userDeals: DealType[] = await userDealRes.json();
-    const [userDeal] = userDeals
+    const [userDeal] = userDeals;
     return userDeal || null;
 }
 
@@ -19,7 +19,7 @@ export default async function EditDealPage({
     params
 } : {
     params: { slug: string}
-}){ 
+}){
     const dealData = await getDeal(params.slug);
     return(
         <main className="container" style={{maxWidth: '950px'}}>

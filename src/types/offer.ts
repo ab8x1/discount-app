@@ -18,6 +18,4 @@ export type OfferType = {
     chainHexId: string,
     chainRpcUrl: string,
     curvePool: string,
-    IBTindexInCurvePool: 0 | 1,
-    PTindexInCurvePool: 0 | 1
 }

@@ -12,14 +12,12 @@ export default async function previewDiscountedAsset(offerInfo: OfferType, amoun
 } | null>{
     try{
         const defaultProvider = new JsonRpcProvider(offerInfo.chainRpcUrl);
-        const {curvePool, IBTindexInCurvePool, PTindexInCurvePool} = offerInfo;
+        const {curvePool} = offerInfo;
         const discountContract = new Contract(discountContractAddress, discountV1ABI, defaultProvider);
         const etherAmount = parseUnits(amount.toString(), "ether");
         const previewResult = await discountContract.previewBuyDiscountedAsset(
             etherAmount,
             curvePool,
-            IBTindexInCurvePool,
-            PTindexInCurvePool
         );
         const userWillGet = Number(formatUnits(previewResult, "ether")) * 0.999;
 
