@@ -31,7 +31,7 @@ export const exampleOffers: OfferType[] = [
             background: '#B9DAFF',
             line: '#58A8FF'
         },
-        isEnabled: true,
+        isEnabled: false,
         date: {
             start: 0,
             end: 1727906400000
@@ -45,23 +45,23 @@ export const exampleOffers: OfferType[] = [
     },
     {
         id: '2',
-        token: 'USDC',
-        tokenImgUrl: '/tokens/USDC.svg',
+        token: 'USDA',
+        tokenImgUrl: '/tokens/USDA.svg',
         background: 'linear-gradient(180deg, #75B7FF 0%, #2775CA 100%)',
         progressColor: {
             background: '#B9DAFF',
             line: '#58A8FF'
         },
-        isEnabled: false,
+        isEnabled: true,
         date: {
             start: 0,
-            end: 1727188151000
+            end: 1748217638000
         },
-        ptAddress: "0x054DB0e66eD52D554bC549Df83ABb632555d4D9B",
-        underlyingTokenAddress: "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
-        chainName: "Arbitrum",
-        chainHexId: "0xa4b1",
-        chainRpcUrl: process.env.NEXT_PUBLIC_ARBITRUM_RPC as string,
-        curvePool: "0xDc2B69Aa3C13cab8010B8cc3c4E838B2b005089f",
+        ptAddress: "0x3d1FD4382bB3B1fE9dAc005e77DeB7a9BFB3AA14",
+        underlyingTokenAddress: "0x0000206329b97DB379d5E1Bf586BbDB969C63274",
+        chainName: "Ethereum",
+        chainHexId: "0x1",
+        chainRpcUrl: process.env.NEXT_PUBLIC_MAINNET_URL as string,
+        curvePool: "0xC6e949F57D365Fb73015d21A2D1a9DA93e938d52",
     }
 ]

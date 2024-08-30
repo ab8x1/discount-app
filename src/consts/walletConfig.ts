@@ -13,6 +13,12 @@ export const walletConfig = {
   wallets: [injected],
   chains: [
     {
+      id: '0x1',
+      token: 'ETH',
+      label: 'Ethereum',
+      rpcUrl: process.env.NEXT_PUBLIC_MAINNET_URL
+    },
+    {
       id: '0xaa36a7',
       token: 'ETH',
       label: 'Sepolia',
