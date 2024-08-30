@@ -68,7 +68,6 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
 
   useEffect(() => {
       const getUserData = async() => {
-        console.log("getUserData from wallet");
         if(wallet && userAddress){
           const ethersProvider = new BrowserProvider(wallet.provider, 'any');
           const signer = await ethersProvider.getSigner();

@@ -77,7 +77,7 @@ export default function TokenInput({
                     {token}
                 </InputToken>
             </InputLayout>
-            <TokenBlanceButton onClick={userTokenBalance ? setMaxBalance : undefined}>MAX: {userTokenBalance}</TokenBlanceButton>
+            <TokenBlanceButton onClick={userTokenBalance ? setMaxBalance : undefined}>My Balance: {userTokenBalance}</TokenBlanceButton>
         </InputContainer>
     )
 }

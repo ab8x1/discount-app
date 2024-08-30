@@ -13,7 +13,7 @@ export default async function reedemEarlyPreview(offerData: OfferType, amount: B
             curvePool, //curve pool
             amount
         );
-        const claimEarlyAmount = Number(formatEther(previewClaimEarlyAmount)) * 0.975;
+        const claimEarlyAmount = Number(formatEther(previewClaimEarlyAmount)) * 0.999;
         return claimEarlyAmount;
     }
     catch(e){
