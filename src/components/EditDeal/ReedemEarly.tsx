@@ -24,7 +24,7 @@ export default function ReedemEarly({
     user: UserType,
     estimatedReedem: number,
     offerData: OfferType
-}){ 
+}){
 
     const [loading, setLoading] = useState(false);
     const [stage, setStage] = useState<null | "confirmation" | {
@@ -101,8 +101,8 @@ export default function ReedemEarly({
                             </span>
                         </InfoRow>
                         <InfoRow>
-                            <span>Platform Fee</span>
-                            <span>0.0%</span>
+                            <span>Platform Fee (incl.)</span>
+                            <span>0.5%</span>
                         </InfoRow>
                         <InfoRow>
                             <span>Minimum Received</span>
