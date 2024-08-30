@@ -1,14 +1,12 @@
 import { OfferContainer, InfoContent, InfoRow, PopUpBackground, PopUpContainer } from "../Offer/DetailsStyles";
 import { DefaultButton } from "../Navbar/NavbarStyles";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import OnClickOutside from "@/hooks/useClickOutside";
 import { DealType } from "@/types/deal";
 import fixedNumber from "@/helpers/fixedNumber";
 import ReedemConfirmation from './ReedemConfirmation';
 import LoadingValue from "../LoadingValue";
-import { exampleOffers } from "@/consts/exampleDeals";
 import { OfferType } from "@/types/offer";
-import reedemEarlyPreview from "@/helpers/reedemEarlyPreview";
 import { UserType } from "@/hooks/useUser";
 import reedemOrClaimEarly from "@/helpers/reedemOrClaimEarly";
 import { toast } from "react-toastify";
@@ -114,7 +112,7 @@ export default function ReedemEarly({
                             </div>
                         </InfoRow>
                         <DefaultButton $bg="#7F56D9" $bgHover="#8965d8" $fullWidth style={{marginTop: '20px'}} onClick={reedem} $disabled={loading}>
-                        Redeem Early
+                        Claim Early
                         <LoadingValue
                             isLoading={loading}
                             value=""
