@@ -21,7 +21,12 @@ export const chains: Chain[] = [
         name: "Arbitrum",
         icon: "/chains/Arbitrum.svg",
         id: "0xa4b1"
-    }
+    },
+    // {
+    //     name: "Sepolia",
+    //     icon: "/chains/",
+    //     id: "0xaa36a7"
+    // }
 ]
 
 export default function ChainSelector(){

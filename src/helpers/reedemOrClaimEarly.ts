@@ -2,7 +2,7 @@ import { UserType } from "@/hooks/useUser";
 import { OfferType } from "@/types/offer";
 import ERC20 from "@/artifacts/@openzeppelin/contracts/token/ERC20/IERC20.sol/IERC20.json";
 import { Contract, formatEther, parseEther } from "ethers";
-import { discountContractAddress } from "@/consts/globalConsts";
+import { getDisocuntContractAddress } from "@/consts/globalConsts";
 import { DealType } from "@/types/deal";
 import saveOrEditDealInDB from "./saveOrEditDealInDb";
 import readReceipt from "./readReceipt";
@@ -17,7 +17,7 @@ export default async function reedemOrClaimEarly(type: "reedem" | "claimEarly", 
     try{
         const {discountContract, updateUserDeals, address} = user;
         const {amountBigIntStringified} = deal;
-        const {ptAddress, curvePool, underlyingTokenAddress} = offerData;
+        const {ptAddress, curvePool, underlyingTokenAddress, chainHexId} = offerData;
         let amountAfterReedem = estimatedReedem;
         const ptContract = new Contract(
             ptAddress,
@@ -25,7 +25,7 @@ export default async function reedemOrClaimEarly(type: "reedem" | "claimEarly", 
             user.signer
         );
         const txApprove = await ptContract.approve(
-            discountContractAddress,
+            getDisocuntContractAddress(chainHexId),
             BigInt(amountBigIntStringified)
         );
         await txApprove.wait();

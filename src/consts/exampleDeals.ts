@@ -24,9 +24,9 @@ export const exampleOffers: OfferType[] = [
     },
     {
         id: '1',
-        token: 'DAI',
-        tokenImgUrl: '/tokens/DAI.svg',
-        background: 'linear-gradient(180deg, #FFC566 0%, #E08E0B 100%)',
+        token: 'GHO',
+        tokenImgUrl: '/tokens/GHO.svg',
+        background: 'linear-gradient(90deg, rgba(120, 117, 221, 1) 0%, rgba(127, 124, 212, 1) 100%)',
         progressColor: {
             background: '#B9DAFF',
             line: '#58A8FF'
@@ -34,14 +34,14 @@ export const exampleOffers: OfferType[] = [
         isEnabled: true,
         date: {
             start: 0,
-            end: 1727906400000
+            end: 1735948806000
         },
-        ptAddress: "0x458e662aa15a3E338A9b1f9668e2CCb302Fd4340",
-        underlyingTokenAddress: "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
+        ptAddress: "0x95590e979a72b6b04d829806e8f29aa909ed3a86",
+        underlyingTokenAddress: "0x08bdd4F0046123AdC2466495775fF02255694a16",
         chainName: "Arbitrum",
         chainHexId: "0xa4b1",
         chainRpcUrl: process.env.NEXT_PUBLIC_ARBITRUM_RPC as string,
-        curvePool: "0xf5650B7dd5216fCc6cfa5C009FFd147eD8254f37",
+        curvePool: "0x39E6Af30ea89034D1BdD2d1CfbA88cAF8464Fa65",
     },
     {
         id: '2',
@@ -63,5 +63,26 @@ export const exampleOffers: OfferType[] = [
         chainHexId: "0x1",
         chainRpcUrl: process.env.NEXT_PUBLIC_MAINNET_URL as string,
         curvePool: "0xC6e949F57D365Fb73015d21A2D1a9DA93e938d52",
+    },
+    {
+        id: '3',
+        token: 'GHO',
+        tokenImgUrl: '/tokens/GHO.svg',
+        background: 'linear-gradient(90deg, rgba(120, 117, 221, 1) 0%, rgba(127, 124, 212, 1) 100%)',
+        progressColor: {
+            background: '#B9DAFF',
+            line: '#58A8FF'
+        },
+        isEnabled: true,
+        date: {
+            start: 0,
+            end: 1732492824000
+        },
+        ptAddress: "0xc7d669e7cc521a6676b20e209b3a49a1e64856f1",
+        underlyingTokenAddress: "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
+        chainName: "Ethereum",
+        chainHexId: "0x1",
+        chainRpcUrl: process.env.NEXT_PUBLIC_MAINNET_URL as string,
+        curvePool: "0xe7ad3016d46E538C9Ca87e5071C561A73eD1c98c",
     }
 ]

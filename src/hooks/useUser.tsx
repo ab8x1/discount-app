@@ -2,9 +2,9 @@
 import { createContext, useContext, FC, ReactNode, useEffect, useState } from 'react';
 import { useConnectWallet, useSetChain } from "@web3-onboard/react"
 import { BrowserProvider, JsonRpcSigner, Contract } from 'ethers';
-import { discountContractAddress } from '@/consts/globalConsts';
 import DISCOUNTV1_ABI from "@/artifacts/contracts/DiscountV1.sol/DiscountV1.json"
 import { DealType } from '@/types/deal';
+import { getDisocuntContractAddress } from '@/consts/globalConsts';
 const discountV1ABI = DISCOUNTV1_ABI.abi;
 
 export type UserType = {
@@ -72,7 +72,7 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
         if(wallet && userAddress){
           const ethersProvider = new BrowserProvider(wallet.provider, 'any');
           const signer = await ethersProvider.getSigner();
-          const discountContract = new Contract(discountContractAddress, discountV1ABI, signer);
+          const discountContract = new Contract(getDisocuntContractAddress(currentChain), discountV1ABI, signer);
           setUser({
             address: userAddress,
             provider: ethersProvider,
