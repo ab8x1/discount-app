@@ -7,6 +7,7 @@ import useClickOutside from '../../hooks/useClickOutside';
 import { useConnectWallet } from '@web3-onboard/react';
 import ConnectWallet from "./ConnectWallet";
 import Image from "next/image";
+import ChainSelector from "../ChainSelector";
 import BetaWarning from "./BetaWarning";
 
 export default function Navbar(){
@@ -42,6 +43,7 @@ export default function Navbar(){
                         </Logo>
                     </div>
                     <div className="alignY" style={{gap: '0 15px'}}>
+                        <ChainSelector/>
                         { !wallet &&
                             <div className="hide-mobile">
                                 <ConnectWallet/>

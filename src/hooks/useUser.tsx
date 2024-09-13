@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext, FC, ReactNode, useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { createContext, useContext, FC, ReactNode, useEffect, useState } from 'react';
 import { useConnectWallet, useSetChain } from "@web3-onboard/react"
 import { BrowserProvider, JsonRpcSigner, Contract } from 'ethers';
 import { discountContractAddress } from '@/consts/globalConsts';
@@ -11,6 +11,7 @@ export type UserType = {
   address: string,
   provider: BrowserProvider,
   signer: JsonRpcSigner,
+  currentChain?: string,
   discountContract: Contract,
   deals: DealType[],
   updateUserDeals: (deal: DealType, updateId?: string) => void,
@@ -76,6 +77,7 @@ export const UserProvider: FC<{children: ReactNode}> = ({ children }) => {
             address: userAddress,
             provider: ethersProvider,
             signer,
+            currentChain,
             discountContract,
             deals: [],
             updateUserDeals: updateUserDeals,

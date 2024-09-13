@@ -49,7 +49,6 @@ export default function DealDetails({
     useEffect(() => {
         const getUserBalance = async () => {
             if (user) {
-                console.log("start loading blance");
                 const balance = await erc20TokenBalance(user, offerData.underlyingTokenAddress);
                 if(balance !== null){
                     setUserTokenBalance(showNumOfDecimals(balance, 2));

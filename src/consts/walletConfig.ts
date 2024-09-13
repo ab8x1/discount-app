@@ -2,8 +2,7 @@ import { init } from '@web3-onboard/react';
 import injectedModule from '@web3-onboard/injected-wallets';
 import { CommonPositions } from '@web3-onboard/core/dist/types';
 
-const desktopPosition: CommonPositions = 'topRight';
-const mobilePosition: CommonPositions = 'bottomRight';
+const position: CommonPositions = 'bottomRight';
 
 const injected = injectedModule();
 
@@ -43,12 +42,12 @@ export const walletConfig = {
     desktop: {
       enabled: true,
       minimal: true,
-      position: desktopPosition
+      position: position
     },
     mobile: {
       minimal: true,
       enabled: true,
-      position: mobilePosition,
+      position: position,
     }
   }
 }

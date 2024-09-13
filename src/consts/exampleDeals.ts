@@ -31,7 +31,7 @@ export const exampleOffers: OfferType[] = [
             background: '#B9DAFF',
             line: '#58A8FF'
         },
-        isEnabled: false,
+        isEnabled: true,
         date: {
             start: 0,
             end: 1727906400000
