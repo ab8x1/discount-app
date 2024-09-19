@@ -31,7 +31,7 @@ export default function ReedemEarly({
     const ref: any = useRef();
     OnClickOutside(ref, () => setStage(null));
 
-    const reedem = async () => {
+    const claimEarly = async () => {
         if(user && estimatedReedem){
             setLoading(true);
             const reedem = await reedemOrClaimEarly("claimEarly", user, offerData, deal, estimatedReedem);
@@ -111,7 +111,7 @@ export default function ReedemEarly({
                                 </span>
                             </div>
                         </InfoRow>
-                        <DefaultButton $bg="#7F56D9" $bgHover="#8965d8" $fullWidth style={{marginTop: '20px'}} onClick={reedem} $disabled={loading}>
+                        <DefaultButton $bg="#7F56D9" $bgHover="#8965d8" $fullWidth style={{marginTop: '20px'}} onClick={claimEarly} $disabled={loading}>
                         Claim Early
                         <LoadingValue
                             isLoading={loading}

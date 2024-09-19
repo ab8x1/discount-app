@@ -39,7 +39,7 @@ export default function EditDeal({
                 <DisplayEarnings deal={deal} timestamp={deal.date?.redeemedAt} estimatedReedem={estimatedReedem}/>
                 :
                 <OfferDetailsGrid $summary>
-                    <EditDealInfo deal={deal}/>
+                    <EditDealInfo deal={deal} user={user} estimatedReedem={estimatedReedem} offerData={offerData}/>
                     <ReversedMobileOrder>
                         <DisplayEarnings deal={deal} estimatedReedem={estimatedReedem}/>
                         <DealDetailsProgress

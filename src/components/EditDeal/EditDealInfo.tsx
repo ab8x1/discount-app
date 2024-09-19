@@ -4,17 +4,48 @@ import { OfferContainer, OfferHeader, Token, TokenImg, InfoRow, OfferContent } f
 import { DefaultButton } from "../Navbar/NavbarStyles";
 import timestampToDate from "@/helpers/timestampToDate";
 import fixedNumber from "@/helpers/fixedNumber";
+import { UserType } from "@/hooks/useUser";
+import { OfferType } from "@/types/offer";
+import reedemOrClaimEarly from "@/helpers/reedemOrClaimEarly";
+import { toast } from "react-toastify";
+import ReedemConfirmation from "./ReedemConfirmation";
 
 export default function EditDealInfo({
-    deal
+    deal,
+    user,
+    estimatedReedem,
+    offerData
 } : {
-    deal: DealType
+    deal: DealType,
+    user: UserType,
+    estimatedReedem: number,
+    offerData: OfferType
 }){
     const {amount, token, purchasePrice, date} = deal;
+    const [loading, setLoading] = useState(false);
     const [dealDate, setDealDate] = useState<DealType["date"]>();
+    const [reedemedValue, setRedeemValue] = useState<null | number>(null);
+
     useEffect(() => {
         setDealDate(date);
     }, [])
+
+    const reedem = async () => {
+        if(user && estimatedReedem){
+            setLoading(true);
+            const reedem = await reedemOrClaimEarly("reedem", user, offerData, deal, estimatedReedem);
+            if(reedem !== null){
+                const {value, message} = reedem;
+                if(message) toast(message, { type: "warning", autoClose: false});
+                setRedeemValue(value)
+            }
+            else {
+                toast("Sorry, something went wrong, try again soon.", { type: "error" });
+            }
+            setLoading(false);
+        }
+    }
+
     return(
             <OfferContainer>
                 <OfferHeader>
@@ -48,10 +79,17 @@ export default function EditDealInfo({
                         <span>Fixed Profit</span>
                         <span className="brand">{fixedNumber(amount - purchasePrice, false, 2)} {token}</span>
                     </InfoRow>
-                    <DefaultButton $fullWidth $disabled={Date.now() < date.maturity} style={{padding: '18px', marginTop: '25px'}}>
+                    <DefaultButton $fullWidth $disabled={Date.now() < date.maturity || loading} style={{padding: '18px', marginTop: '25px'}} onClick={reedem}>
                         Claim {fixedNumber(amount, false, 4)} {token}
                     </DefaultButton>
                 </OfferContent>
+                {
+                    reedemedValue &&
+                    <ReedemConfirmation
+                        reedem={reedemedValue}
+                        token={deal.token}
+                    />
+                }
             </OfferContainer>
     )
 }
