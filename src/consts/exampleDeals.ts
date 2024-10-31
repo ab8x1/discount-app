@@ -37,7 +37,7 @@ export const exampleOffers: OfferType[] = [
             end: 1735948806000
         },
         ptAddress: "0x95590e979a72b6b04d829806e8f29aa909ed3a86",
-        underlyingTokenAddress: "0x08bdd4F0046123AdC2466495775fF02255694a16",
+        underlyingTokenAddress: "0x7dfF72693f6A4149b17e7C6314655f6A9F7c8B33",
         chainName: "Arbitrum",
         chainHexId: "0xa4b1",
         chainRpcUrl: process.env.NEXT_PUBLIC_ARBITRUM_RPC as string,
