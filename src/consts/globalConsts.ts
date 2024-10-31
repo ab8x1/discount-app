@@ -9,7 +9,7 @@ type ContractAddress = {
   }
 
 export function getDisocuntContractAddress(id?: string){
-    let address = contracts["0x1"];
+    let address = contracts["0xa4b1"];
     if(id && contracts[id])
       address = contracts[id];
     return address;

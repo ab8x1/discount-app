@@ -12,11 +12,11 @@ type Chain = {
 }
 
 export const chains: Chain[] = [
-    {
-        name: "Mainnet",
-        icon: "/chains/Mainnet.svg",
-        id: "0x1"
-    },
+    // {
+    //     name: "Mainnet",
+    //     icon: "/chains/Mainnet.svg",
+    //     id: "0x1"
+    // },
     {
         name: "Arbitrum",
         icon: "/chains/Arbitrum.svg",
@@ -73,7 +73,7 @@ export default function ChainSelector(){
                     <SelectedChain onClick={toogleList}>
                         <Image src={selectedChain.icon} alt={selectedChain.name} width={20} height={20}/>
                         <span>{selectedChain.name}</span>
-                        <Chevron src="/chevron-left.svg" alt="chevron" width={20} height={20} $isOpen={isOpen}/>
+                        {/* <Chevron src="/chevron-left.svg" alt="chevron" width={20} height={20} $isOpen={isOpen}/> */}
                     </SelectedChain>
                     <ChainSelectorList $isOpen={isOpen}>
                         {chains.filter(chain => chain.id !== selectedChain.id).map((chain) => (

@@ -11,12 +11,12 @@ export const walletConfig = {
   apiKey: process.env.NEXT_PUBLIC_BLOCKNATIVE_KEY,
   wallets: [injected],
   chains: [
-    {
-      id: '0x1',
-      token: 'ETH',
-      label: 'Ethereum',
-      rpcUrl: process.env.NEXT_PUBLIC_MAINNET_URL
-    },
+    // {
+    //   id: '0x1',
+    //   token: 'ETH',
+    //   label: 'Ethereum',
+    //   rpcUrl: process.env.NEXT_PUBLIC_MAINNET_URL
+    // },
     {
       id: '0xaa36a7',
       token: 'ETH',
